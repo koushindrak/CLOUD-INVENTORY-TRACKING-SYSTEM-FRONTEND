@@ -12,7 +12,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import Header from "../../components/Header";
+import Header from "../../containers/Header";
 import { tokens } from "../../theme";
 
 const Calendar = () => {

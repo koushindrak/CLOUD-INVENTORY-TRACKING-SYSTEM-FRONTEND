@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
-import Header from "../../components/Header";
-import LineChart from "../../components/LineChart";
+import Header from "../../containers/Header";
+import LineChart from "../../containers/LineChart";
 
 const Line = () => {
   return (
