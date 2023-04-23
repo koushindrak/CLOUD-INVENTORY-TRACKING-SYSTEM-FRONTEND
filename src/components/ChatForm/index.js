@@ -2,7 +2,7 @@ import { AudioOutlined, PaperClipOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMessage } from "../../actions/chatActions";
+import { fetchMessage } from "./chatActions";
 import styles from "./style";
 
 const ChatForm = () => {

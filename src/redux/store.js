@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
-import { chatSlice } from "./chat";
-import saga from "../saga";
+import { chatSlice } from "../components/ChatForm/chatStore";
+import saga from "./saga";
 
 let sagaMiddleware = createSagaMiddleware();
 const middleware = (getDefaultMiddleware) => [
