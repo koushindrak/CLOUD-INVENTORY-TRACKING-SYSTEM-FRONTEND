@@ -1,6 +1,6 @@
 import { ConfigProvider } from "antd";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "../pages/Home";
+import ChatGPT from "../pages/ChatGPT";
 import Page404 from "../pages/Page404";
 import COLORS from "../utils/colors";
 
@@ -56,6 +56,7 @@ function App() {
               <Routes>
                 {/*<Route index element={<Home />} />*/}
                 {/*<Route path="/" element={<Dashboard />} />*/}
+                <Route path="/chat" element={<ChatGPT />} />
                 <Route path="/" element={<Team />} />
                 <Route path="/contacts" element={<Contacts />} />
                 <Route path="/invoices" element={<Invoices />} />
