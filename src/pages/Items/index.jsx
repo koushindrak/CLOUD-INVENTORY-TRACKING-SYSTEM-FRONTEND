@@ -1,43 +1,76 @@
-import { Table } from "antd";
+import { Table, Button } from "antd";
 import styles from "./style";
+import { v4 } from "uuid";
 
-const dataSource = [
+const uuid = v4();
+
+const mockData = [
   {
     key: "1",
-    name: "Mike",
-    age: 32,
-    address: "10 Downing Street",
+    name: "Item 1",
+    serial_no: uuid,
+    category: "Category Alpha",
+    referance: "referance_key/Referance X",
   },
   {
     key: "2",
-    name: "John",
-    age: 42,
-    address: "10 Downing Street",
+    name: "Item 2",
+    serial_no: uuid,
+    category: "Category Beta",
+    referance: "referance_key/Referance X",
   },
 ];
 
+// Columns are defined here instead of html
+// Default antd way
 const columns = [
   {
-    title: "Name",
+    title: "Item Name",
     dataIndex: "name",
     key: "name",
   },
   {
-    title: "Age",
-    dataIndex: "age",
-    key: "age",
+    title: "Serial Number",
+    dataIndex: "serial_no",
+    key: "serial_no",
   },
   {
-    title: "Address",
-    dataIndex: "address",
-    key: "address",
+    title: "Category",
+    dataIndex: "category",
+    key: "category",
+  },
+  {
+    title: "Referance",
+    dataIndex: "referance",
+    key: "referance",
+  },
+  {
+    title: "Edit",
+    dataIndex: "edit",
+    key: "edit",
+    render: () => (
+      <Button type="primary" block>
+        Edit
+      </Button>
+    ),
+  },
+  {
+    title: "Delete",
+    dataIndex: "delete",
+    key: "delete",
+    render: () => (
+      <Button type="primary" danger block>
+        Delete
+      </Button>
+    ),
   },
 ];
 
 export default function Items(params) {
   return (
     <div style={styles.container}>
-      <Table dataSource={dataSource} columns={columns} />
+      <h2 style={{ color: "#343434", fontFamily: "sans-serif", marginBottom: 40 }}>ITEMS VIEW</h2>
+      <Table dataSource={mockData} columns={columns} />
     </div>
   );
 }
