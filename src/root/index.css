@@ -1,3 +1,9 @@
 body {
   margin: 0;
 }
+
+/* Ant Overrides */
+
+.ant-form-item .ant-form-item-label {
+  text-align: left;
+}
