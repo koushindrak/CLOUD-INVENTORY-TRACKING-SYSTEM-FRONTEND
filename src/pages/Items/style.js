@@ -5,7 +5,11 @@ export default {
     minHeight: "100vh",
     background: "#efefef",
   },
-  title: { color: "#343434", fontFamily: "sans-serif", marginBottom: 20 },
+  title: {
+    color: "#343434",
+    marginBottom: 20,
+    fontFamily: "sans-serif",
+  },
   pre: {
     backgroundColor: "#defede",
     width: "max-content",
