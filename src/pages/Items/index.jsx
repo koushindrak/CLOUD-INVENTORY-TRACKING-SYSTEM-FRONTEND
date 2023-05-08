@@ -3,8 +3,7 @@ import React from "react";
 import { Table, Button } from "antd";
 import styles from "./style";
 import { v4 } from "uuid";
-import { useNavigate } from "react-router-dom";
-import Link from "antd/es/typography/Link";
+import { useNavigate, Link, BrowserRouter } from "react-router-dom";
 
 const uuid = v4();
 
@@ -61,9 +60,9 @@ export default function Items() {
       title: "View",
       key: "view",
       render: (_, record) => (
-        <Link to="/view" state={record}>
+        <Button type="dashed" block onClick={() => navigate("/items/view", { state: record })}>
           View
-        </Link>
+        </Button>
       ),
     },
     {
