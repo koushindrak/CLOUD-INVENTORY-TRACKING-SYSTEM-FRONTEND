@@ -1,6 +1,9 @@
+import React from "react";
+
 import { Table, Button } from "antd";
 import styles from "./style";
 import { v4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 
 const uuid = v4();
 
@@ -21,55 +24,70 @@ const mockData = [
   },
 ];
 
-// Columns are defined here instead of html
-// Default antd way
-const columns = [
-  {
-    title: "Item Name",
-    dataIndex: "name",
-    key: "name",
-  },
-  {
-    title: "Serial Number",
-    dataIndex: "serial_no",
-    key: "serial_no",
-  },
-  {
-    title: "Category",
-    dataIndex: "category",
-    key: "category",
-  },
-  {
-    title: "Referance",
-    dataIndex: "referance",
-    key: "referance",
-  },
-  {
-    title: "Edit",
-    dataIndex: "edit",
-    key: "edit",
-    render: () => (
-      <Button type="primary" block>
-        Edit
-      </Button>
-    ),
-  },
-  {
-    title: "Delete",
-    dataIndex: "delete",
-    key: "delete",
-    render: () => (
-      <Button type="primary" danger block>
-        Delete
-      </Button>
-    ),
-  },
-];
+export default function Items() {
+  const navigate = useNavigate();
 
-export default function Items(params) {
+  function deleteItem(record) {
+    const { serial_no, name } = record;
+    window.alert(`Delete ${name}?`);
+    // Delete Item logic goes here
+    return 0;
+  }
+
+  // Default antd way
+  const columns = [
+    {
+      title: "Item Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Serial Number",
+      dataIndex: "serial_no",
+      key: "serial_no",
+    },
+    {
+      title: "Category",
+      dataIndex: "category",
+      key: "category",
+    },
+    {
+      title: "Referance",
+      dataIndex: "referance",
+      key: "referance",
+    },
+    {
+      title: "View",
+      key: "view",
+      render: () => (
+        <Button type="ghost" block onClick={() => navigate("/items/view")}>
+          View
+        </Button>
+      ),
+    },
+    {
+      title: "Edit",
+      key: "edit",
+      render: () => (
+        <Button type="primary" block onClick={() => navigate("/items/edit")}>
+          Edit
+        </Button>
+      ),
+    },
+    {
+      title: "Delete",
+      key: "delete",
+      render: (_, record) => (
+        <Button type="primary" danger block onClick={() => deleteItem(record)}>
+          Delete
+        </Button>
+      ),
+    },
+  ];
+
   return (
     <div style={styles.container}>
-      <h2 style={{ color: "#343434", fontFamily: "sans-serif", marginBottom: 40 }}>ITEMS VIEW</h2>
+      <h2 style={styles.title}>ITEMS VIEW</h2>
       <Table dataSource={mockData} columns={columns} />
     </div>
   );
