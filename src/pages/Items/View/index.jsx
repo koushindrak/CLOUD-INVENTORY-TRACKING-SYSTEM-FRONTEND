@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import style from "../style";
 import { useNavigate, useLocation } from "react-router-dom";
+import { Card } from "antd";
 
 export default function View() {
   const location = useLocation();
@@ -27,7 +28,22 @@ export default function View() {
 
   return (
     <div style={style.container}>
-      <h2 style={style.title}>View Item: {state?.serial_no}</h2>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+        <Card title={"Name: " + state?.name}>
+          <p>Serial Number: {state?.serial_no}</p>
+          <p>Category: {state?.category}</p>
+          <p>Referance: {state?.referance}</p>
+        </Card>
+        <Card title="Suplied By">
+          <p>Some other data here</p>
+        </Card>
+        <Card title="Requires">
+          <p>Even more data here</p>
+        </Card>
+        <Card title="Referenced By">
+          <p>Some additional data here</p>
+        </Card>
+      </div>
     </div>
   );
 }
