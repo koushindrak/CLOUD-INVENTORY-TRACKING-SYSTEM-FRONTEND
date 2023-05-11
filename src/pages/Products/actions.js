@@ -39,3 +39,7 @@ export function deleteProduct(id) {
     id
   }
 }
+
+export const resetUpdateSuccess = () => ({
+  type: CONSTANTS.RESET_PRODUCTS_STATE
+});

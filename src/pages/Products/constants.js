@@ -13,6 +13,7 @@ export const GET_PRODUCT_BY_ID_FAILURE = 'app/ManageProducts/GET_PRODUCT_BY_ID_F
 export const UPDATE_PRODUCT = 'app/ManageProducts/UPDATE_PRODUCT';
 export const UPDATE_PRODUCT_SUCCESS = 'app/ManageProducts/UPDATE_PRODUCT_SUCCESS';
 export const UPDATE_PRODUCT_FAILURE = 'app/ManageProducts/UPDATE_PRODUCT_FAILURE';
+export const RESET_PRODUCTS_STATE = 'RESET_UPDATE_SUCCESS';
 
 export const DELETE_PRODUCT = 'app/ManageProducts/DELETE_PRODUCT';
 export const DELETE_PRODUCT_SUCCESS = 'app/ManageProducts/DELETE_PRODUCT_SUCCESS';

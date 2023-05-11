@@ -4,7 +4,7 @@ import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getProductById, updateProduct } from './actions';
+import {getProductById, resetUpdateSuccess, updateProduct} from './actions';
 import {getProductByIdSuccess, updateProductSuccess} from './selectors';
 import Header from "../../containers/Header";
 import {useEffect, useState} from "react";
@@ -33,8 +33,9 @@ const EditProduct = () => {
         if(updateSuccess){
             console.log("update Success*******",updateSuccess)
              navigate('/products');
+            dispatch(resetUpdateSuccess());
         }
-    },[updateSuccess])
+    })
 
     const handleFormSubmit = (values) => {
         console.log("updating product---")

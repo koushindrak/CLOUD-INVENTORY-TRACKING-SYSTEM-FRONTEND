@@ -26,7 +26,7 @@ export const apis= {
 export function* apiCallHandler(action, responseConst, errorConst, apiUrlConstant,type,isBaseUrl=true, isLoading = true) {
   console.log("apicall-------------------")
   try {
-    console.log("inside apiCallHandler calling api----",apiUrlConstant)
+    // console.log("inside apiCallHandler calling api----",apiUrlConstant)
     yield (apiTryBlockHandler(action, responseConst, apiUrlConstant,type,isBaseUrl, isLoading));
   } catch (error) {
     console.log("error---"+error)
