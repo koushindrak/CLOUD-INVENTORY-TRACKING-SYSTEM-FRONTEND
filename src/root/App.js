@@ -22,7 +22,7 @@ import StaticDateTimePickerLandscape from "../scenes/DateTimePicker";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "../theme";
 import Calendar from "../scenes/calendar/calendar";
-import Products from "../pages/Products";
+import Products from "../pages/Products/index";
 
 function App() {
   const [theme, colorMode] = useMode();
