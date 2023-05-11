@@ -20,6 +20,7 @@ export function getProducts() {
   }
 }
 export function getProductById(id) {
+  console.log("Action---getProductById",id)
   return {
     type: CONSTANTS.GET_PRODUCT_BY_ID,
     id

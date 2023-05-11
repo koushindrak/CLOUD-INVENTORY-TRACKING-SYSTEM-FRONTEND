@@ -1,66 +1,143 @@
-import React, { useState, useEffect } from 'react';
+import { Box, Button, TextField } from "@mui/material";
+import { Formik } from "formik";
+import * as yup from "yup";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getProductById, updateProduct } from './actions';
 import { getProductByIdSuccess } from './selectors';
-import { TextField, Button, Box } from "@mui/material";
+import Header from "../../containers/Header";
+import {useEffect, useState} from "react";
 
 const EditProduct = () => {
+    const isNonMobile = useMediaQuery("(min-width:600px)");
     const { id } = useParams();
     const dispatch = useDispatch();
-    const product = useSelector(getProductByIdSuccess);
-
-    const [productData, setProductData] = useState({ id: '', name: '', description: '', serialNumber: '', category: '' });
-
-    useEffect(() => {
-        dispatch(getProductById(id));
-    }, [dispatch, id]);
+    const productFromStore = useSelector(getProductByIdSuccess);
+    const [product, setProduct] = useState(null);
 
     useEffect(() => {
-        console.log("Edit---",product)
-        if (product) {
-            setProductData(product.data);
+        console.log("productFromStore----",productFromStore)
+        if (!productFromStore) {
+            dispatch(getProductById(id));
+        } else {
+            setProduct(productFromStore.data);
         }
-    }, [product]);
+    }, [dispatch, id, productFromStore]);
 
-    const handleChange = (e) => {
-        setProductData({ ...productData, [e.target.name]: e.target.value });
+
+    const handleFormSubmit = (values) => {
+        dispatch(updateProduct(values));
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        dispatch(updateProduct(productData));
-    };
+
+
+
+    const productSchema = yup.object().shape({
+        id: yup.string().required("required"),
+        name: yup.string().required("required"),
+        description: yup.string().required("required"),
+        serialNumber: yup.string().required("required"),
+        productCategoryName: yup.string().required("required"),
+    });
 
     return (
-        <Box component="form" onSubmit={handleSubmit}>
-            <TextField
-                name="name"
-                label="Name"
-                value={productData.name}
-                onChange={handleChange}
-            />
-            <TextField
-                name="description"
-                label="Description"
-                value={productData.description}
-                onChange={handleChange}
-            />
-            <TextField
-                name="serialNumber"
-                label="Serial Number"
-                value={productData.serialNumber}
-                onChange={handleChange}
-            />
-            <TextField
-                name="category"
-                label="Category"
-                value={productData.category}
-                onChange={handleChange}
-            />
-            <Button type="submit">Update</Button>
+        <Box m="20px">
+            <Header title="Edit Product" subtitle="Edit an Existing Product" />
+            {product && (  // Conditional rendering
+                <Formik
+                    onSubmit={handleFormSubmit}
+                    initialValues={{
+                        id: product.id,
+                        name: product.name,
+                        description: product.description,
+                        serialNumber: product.serialNumber,
+                        productCategoryName: product.productCategoryName
+                    }}
+                    validationSchema={productSchema}
+                >
+                {({
+                      values,
+                      errors,
+                      touched,
+                      handleBlur,
+                      handleChange,
+                      handleSubmit,
+                  }) => (
+                    <form onSubmit={handleSubmit}>
+                        <Box
+                            display="grid"
+                            gap="30px"
+                            gridTemplateColumns="repeat(2, minmax(0, 1fr))"
+                            sx={{
+                                "& > div": { gridColumn: isNonMobile ? undefined : "span 2" },
+                            }}
+                        >
+                            <TextField
+                                fullWidth
+                                variant="filled"
+                                type="text"
+                                label="Name"
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                value={values.name}
+                                name="name"
+                                error={!!touched.name && !!errors.name}
+                                helperText={touched.name && errors.name}
+                                sx={{ gridColumn: "span 2" }}
+                            />
+                            <TextField
+                                fullWidth
+                                variant="filled"
+                                type="text"
+                                label="Description"
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                value={values.description}
+                                name="description"
+                                error={!!touched.description && !!errors.description}
+                                helperText={touched.description && errors.description}
+                                sx={{ gridColumn: "span 2" }}
+                            />
+                            <TextField
+                                fullWidth
+                                variant="filled"
+                                type="text"
+                                label="Serial Number"
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                value={values.serialNumber}
+                                name="serialNumber"
+                                error={!!touched.serialNumber && !!errors.serialNumber}
+                                helperText={touched.serialNumber && errors.serialNumber}
+                                sx={{ gridColumn: "span 2" }}
+                            />
+                            <TextField
+                                fullWidth
+                                variant="filled"
+                                type="text"
+                                label="Category"
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                value={values.productCategoryName}
+                                name="category"
+                                error={!!touched.productCategoryName && !!errors.productCategoryName}
+                                helperText={touched.productCategoryName && errors.productCategoryName}
+                                sx={{ gridColumn: "span 2" }}
+                            />
+                        </Box>
+                        <Box display="flex" justifyContent="end" mt="20px">
+                            <Button type="submit" color="secondary" variant="contained">
+                                Update Product
+                            </Button>
+                        </Box>
+                    </form>
+                )}
+            </Formik>
+                )}
         </Box>
     );
 };
 
 export default EditProduct;
+

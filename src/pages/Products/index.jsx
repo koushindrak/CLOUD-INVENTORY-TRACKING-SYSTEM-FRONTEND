@@ -107,7 +107,7 @@ const Products = () => {
             align: "center",
         },
         {
-            field: "category",
+            field: "productCategoryName",
             headerName: "Category",
             flex: 1,
             headerAlign: "center",
