@@ -15,7 +15,8 @@ export const getProductStyles = (theme) => {
             color: colors.greenAccent[300],
         },
         "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: "lightseagreen",
+            color: "white",
             borderBottom: "none",
         },
         "& .MuiDataGrid-virtualScroller": {
@@ -23,7 +24,7 @@ export const getProductStyles = (theme) => {
         },
         "& .MuiDataGrid-footerContainer": {
             borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: "lightseagreen",
         },
         "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,
