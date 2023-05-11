@@ -32,6 +32,7 @@ export function updateProduct(payload) {
   }
 }
 export function deleteProduct(id) {
+  console.log("Action--deleteProduct")
   return {
     type: CONSTANTS.DELETE_PRODUCT,
     id

@@ -1,4 +1,4 @@
-import { take, takeEvery,call, put, select } from 'redux-saga/effects';
+import { take, takeEvery,call, put, select,all } from 'redux-saga/effects';
 import {apiCallHandler, apis, apiTypes} from "../../common-files/apiCallHandler";
 import * as CONSTANTS from "./constants";
 
@@ -39,12 +39,12 @@ export function* handleDeleteProductRequest(action) {
 export function* watchDeleteProductRequest() {
   yield takeEvery(CONSTANTS.DELETE_PRODUCT,handleDeleteProductRequest)
 }
-export default function* defaultSaga() {
-  yield [
-    // watchCreateProductRequest(),
+export default function* productSaga() {
+  yield all([
+    watchCreateProductRequest(),
     watchGetProductRequest(),
     watchGetProductByIdRequest(),
     watchUpdateProductRequest(),
     watchDeleteProductRequest(),
-  ]
+  ])
 }
