@@ -24,6 +24,7 @@ import { ColorModeContext, useMode } from "../theme";
 import Calendar from "../scenes/calendar/calendar";
 import Products from "../pages/Products/index";
 import EditProduct from "../pages/Products/EditProduct";
+import AddProduct from "../pages/Products/AddProduct";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -60,6 +61,7 @@ function App() {
                 {/*<Route path="/" element={<Dashboard />} />*/}
                 <Route path="/chat" element={<ChatGPT />} />
 
+                <Route path="/products/add" element={<AddProduct />} />
                 <Route path="/products/edit/:id" element={<EditProduct />} />
                 <Route path="/products" element={<Products />} />
 

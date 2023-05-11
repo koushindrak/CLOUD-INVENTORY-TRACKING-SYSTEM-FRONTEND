@@ -15,6 +15,7 @@ import {getProductStyles} from "./ProductStyles";
 import IconButton from '@mui/material/IconButton';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import AddIcon from '@mui/icons-material/Add';
 
 
 const Products = () => {
@@ -75,6 +76,10 @@ const Products = () => {
          dispatch(deleteProduct(selectedProduct.id));
         setOpen(false);
     };
+
+    const handleAdd = () => {
+        navigate('/products/add'); // Change this to the correct route
+    };
     /* Button click actions ends here */
 
     const columns = [
@@ -132,15 +137,44 @@ const Products = () => {
             },
         },
     ];
+    function Header({ title, subtitle, subtitleStyle }) {
+        return (
+            <header>
+                <h1>{title}</h1>
+                <h2 style={subtitleStyle}>{subtitle}</h2>
+            </header>
+        );
+    }
+
 
     return (
         <Box m="20px">
-            <Header  subtitle="Managing the Products" />
+
+            <Box position="relative">
+                <Button
+                    onClick={handleAdd}
+                    variant="outlined"
+                    sx={{
+                        position: 'absolute',
+                        top: 0,
+                        right: 10,
+                        zIndex: 1000,
+                        color: 'blue'
+
+                    }}
+                    startIcon={<AddIcon />}>
+                    Add Product
+                </Button>
+
+
+                <Header subtitleStyle={{ color: 'black' }} subtitle="Managing the Products" />
+
             <Box
                 m="40px 0 0 0"
                 height="75vh"
                 sx={productStyles}            >
                 <DataGrid   rows={productResponse ? productResponse.data : []} columns={columns} />
+            </Box>
             </Box>
             <Dialog
                 open={open}
