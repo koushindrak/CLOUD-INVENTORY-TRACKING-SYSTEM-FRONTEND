@@ -5,9 +5,10 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getProductById, updateProduct } from './actions';
-import { getProductByIdSuccess } from './selectors';
+import {getProductByIdSuccess, updateProductSuccess} from './selectors';
 import Header from "../../containers/Header";
 import {useEffect, useState} from "react";
+import { useNavigate } from 'react-router-dom';
 
 const EditProduct = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -15,6 +16,9 @@ const EditProduct = () => {
     const dispatch = useDispatch();
     const productFromStore = useSelector(getProductByIdSuccess);
     const [product, setProduct] = useState(null);
+    const updateSuccess = useSelector(updateProductSuccess)
+
+    const navigate = useNavigate();  // new
 
     useEffect(() => {
         console.log("productFromStore----",productFromStore)
@@ -25,12 +29,17 @@ const EditProduct = () => {
         }
     }, [dispatch, id, productFromStore]);
 
+    useEffect(() => {
+        if(updateSuccess){
+            console.log("update Success*******",updateSuccess)
+             navigate('/products');
+        }
+    },[updateSuccess])
 
     const handleFormSubmit = (values) => {
+        console.log("updating product---")
         dispatch(updateProduct(values));
     };
-
-
 
 
     const productSchema = yup.object().shape({
@@ -120,7 +129,7 @@ const EditProduct = () => {
                                 onBlur={handleBlur}
                                 onChange={handleChange}
                                 value={values.productCategoryName}
-                                name="category"
+                                name="productCategoryName"
                                 error={!!touched.productCategoryName && !!errors.productCategoryName}
                                 helperText={touched.productCategoryName && errors.productCategoryName}
                                 sx={{ gridColumn: "span 2" }}
