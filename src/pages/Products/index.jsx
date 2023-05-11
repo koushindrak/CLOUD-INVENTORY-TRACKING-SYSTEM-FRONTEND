@@ -10,7 +10,9 @@ import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../containers/Header";
 import {getProductStyles} from "./ProductStyles";
-
+import IconButton from '@mui/material/IconButton';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 const Products = () => {
     const dispatch = useDispatch();
     const productResponse = useSelector(getProductSuccess);
@@ -25,6 +27,16 @@ const Products = () => {
     useEffect(() => {
         console.log("productResponse---",productResponse)
     }, [productResponse]);
+
+    const handleEdit = (row) => {
+        // Dispatch the edit action with the row data as payload
+        // dispatch(editProduct(row));
+    };
+
+    const handleDelete = (id) => {
+        // Dispatch the delete action with the id as payload
+        // dispatch(deleteProduct(id));
+    };
 
     const columns = [
         {
@@ -63,35 +75,20 @@ const Products = () => {
             align: "center",
         },
         {
-            field: "accessLevel",
-            headerName: "Access Level",
+            headerName: "Actions",
             headerAlign: "center",
             align: "center",
             flex: 1,
-            renderCell: ({ row: { access } }) => {
+            renderCell: (params) => {
                 return (
-                    <Box
-                        width="60%"
-                        m="0 auto"
-                        p="5px"
-                        display="flex"
-                        justifyContent="center"
-                        backgroundColor={
-                            access === "admin"
-                                ? colors.greenAccent[600]
-                                : access === "manager"
-                                    ? colors.greenAccent[700]
-                                    : colors.greenAccent[700]
-                        }
-                        borderRadius="4px"
-                    >
-                        {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
-                        {access === "manager" && <SecurityOutlinedIcon />}
-                        {access === "user" && <LockOpenOutlinedIcon />}
-                        <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
-                            {access}
-                        </Typography>
-                    </Box>
+                    <div>
+                        <IconButton color="secondary" onClick={() => handleEdit(params.row)}>
+                            <EditOutlinedIcon />
+                        </IconButton>
+                        <IconButton color="secondary" onClick={() => handleDelete(params.row.id)}>
+                            <DeleteOutlinedIcon />
+                        </IconButton>
+                    </div>
                 );
             },
         },
@@ -105,7 +102,7 @@ const Products = () => {
                 m="40px 0 0 0"
                 height="75vh"
                 sx={productStyles}            >
-                <DataGrid  rows={productResponse.data || []} columns={columns} />
+                <DataGrid   rows={productResponse ? productResponse.data : []} columns={columns} />
             </Box>
         </Box>
     );
