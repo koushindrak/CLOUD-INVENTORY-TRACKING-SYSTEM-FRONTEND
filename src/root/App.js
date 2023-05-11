@@ -23,6 +23,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "../theme";
 import Calendar from "../scenes/calendar/calendar";
 import Products from "../pages/Products/index";
+import EditProduct from "../pages/Products/EditProduct";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -58,7 +59,10 @@ function App() {
                 {/*<Route index element={<Home />} />*/}
                 {/*<Route path="/" element={<Dashboard />} />*/}
                 <Route path="/chat" element={<ChatGPT />} />
+
+                <Route path="/products/edit/:id" element={<EditProduct />} />
                 <Route path="/products" element={<Products />} />
+
                 <Route path="/" element={<Team />} />
                 <Route path="/contacts" element={<Contacts />} />
                 <Route path="/invoices" element={<Invoices />} />

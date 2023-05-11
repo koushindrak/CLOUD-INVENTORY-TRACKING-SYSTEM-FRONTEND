@@ -1,4 +1,6 @@
 import { useState,useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { Box, Typography, useTheme, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
@@ -28,6 +30,9 @@ const Products = () => {
     const [selectedId, setSelectedId] = useState(null);
     const [selectedProduct, setSelectedProduct] = useState(null);
 
+    const navigate = useNavigate();  // new
+
+    /* Effects Start */
     useEffect(() => {
         dispatch(getProducts());
     }, [dispatch]);
@@ -38,16 +43,17 @@ const Products = () => {
             dispatch(getProducts());
         }
     }, [deleteSuccess, dispatch]);
+
     useEffect(() => {
         console.log("productResponse---",productResponse)
     }, [productResponse]);
 
+    /*Effects Section Ends here */
 
-
-
+    /* Button click actions start here */
     const handleEdit = (row) => {
         // Dispatch the edit action with the row data as payload
-        // dispatch(editProduct(row));
+        navigate(`/products/edit/${row.id}`);
     };
 
 
@@ -69,6 +75,7 @@ const Products = () => {
          dispatch(deleteProduct(selectedProduct.id));
         setOpen(false);
     };
+    /* Button click actions ends here */
 
     const columns = [
         {
