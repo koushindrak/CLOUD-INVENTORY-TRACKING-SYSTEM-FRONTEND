@@ -1,3 +1,7 @@
+## Documentation
+[Page 1 - Setup a new route](https://koushindra.atlassian.net/wiki/spaces/~63e9ee3a2661cde223368740/pages/65702/Set+up+a+new+Route)
+
+[Page 2 - Add new Page](https://koushindra.atlassian.net/wiki/spaces/~63e9ee3a2661cde223368740/pages/1835009/Add+New+Page+for+Editing+Purpose)
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
