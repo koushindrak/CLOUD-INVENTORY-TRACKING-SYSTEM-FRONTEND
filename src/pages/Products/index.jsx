@@ -159,7 +159,8 @@ const Products = () => {
                         top: 0,
                         right: 10,
                         zIndex: 1000,
-                        color: 'blue'
+                        color: 'white',
+                        backgroundColor: 'lightseagreen'
 
                     }}
                     startIcon={<AddIcon />}>
