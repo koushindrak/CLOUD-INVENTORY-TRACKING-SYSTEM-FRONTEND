@@ -1,10 +1,11 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import { callAPI } from "../../redux/saga";
 import { actions } from "../../redux/actions";
-import { fetchMessage, fetchMessageFailed, fetchMessageSuccess } from "./chatStore";
+import { fetchMessage, fetchMessageFailed, fetchMessageSuccess } from "./chatReducers";
 import { API_HOST } from "../../utils/constants";
 
 export function* fetchMessageSaga(action) {
+  console.log("chat Saga called----")
   try {
     yield put(fetchMessage(action.payload));
     let result = yield call(() =>
