@@ -25,6 +25,7 @@ import Calendar from "../scenes/calendar/calendar";
 import Products from "../pages/Products/index";
 import EditProduct from "../pages/Products/EditProduct";
 import AddProduct from "../pages/Products/AddProduct";
+import CollapsibleTable from "../pages/Components";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -64,7 +65,7 @@ function App() {
                 <Route path="/products/add" element={<AddProduct />} />
                 <Route path="/products/edit/:id" element={<EditProduct />} />
                 <Route path="/products" element={<Products />} />
-
+                <Route path="/components" element={<CollapsibleTable />} />
                 <Route path="/" element={<Team />} />
                 <Route path="/contacts" element={<Contacts />} />
                 <Route path="/invoices" element={<Invoices />} />
