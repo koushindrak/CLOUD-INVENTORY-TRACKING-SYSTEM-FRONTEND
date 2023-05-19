@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
@@ -13,33 +13,49 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 
-function createData(name, calories, fat, carbs, protein, price) {
+function createData(id, name, pcbCategoryId, pcbCategoryName, productIds, description) {
   return {
+    id,
     name,
-    calories,
-    fat,
-    carbs,
-    protein,
-    price,
-    history: [
+    pcbCategoryId,
+    pcbCategoryName,
+    productIds,
+    description,
+    comps: [
       {
-        date: '2020-01-05',
-        customerId: '11091700',
-        amount: 3,
+        Component: 'Component 1',
+        Compid: '1',
+        SerialNumber: '1234',
+        Descript: 'Description 1'
       },
+      
       {
-        date: '2020-01-02',
-        customerId: 'Anonymous',
-        amount: 1,
-      },
-    ],
+        Component: 'Component 2',
+        Compid: '2',
+        SerialNumber: '6789',
+        Descript: 'Description 2'
+      }
+    ]
   };
 }
 
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
+
+  const handleEdit = () => {
+    // Handle edit functionality here
+  };
+
+  const handleDelete = () => {
+    // Handle delete functionality here
+  };
 
   return (
     <React.Fragment>
@@ -54,40 +70,45 @@ function Row(props) {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          {row.name}
+          {row.id}
         </TableCell>
-        <TableCell align="right">{row.calories}</TableCell>
-        <TableCell align="right">{row.fat}</TableCell>
-        <TableCell align="right">{row.carbs}</TableCell>
-        <TableCell align="right">{row.protein}</TableCell>
+        <TableCell align="center">{row.name}</TableCell>
+        <TableCell align="center">{row.pcbCategoryId}</TableCell>
+        <TableCell align="center">{row.pcbCategoryName}</TableCell>
+        <TableCell align="center">{row.productIds.length}</TableCell>
+        <TableCell align="center">{row.description}</TableCell>
+        <TableCell align="center">
+          <IconButton aria-label="edit" size="small" onClick={handleEdit}>
+            <EditIcon />
+          </IconButton>
+          <IconButton aria-label="delete" size="small" onClick={handleDelete}>
+            <DeleteIcon />
+          </IconButton>
+        </TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
-                History
+                <b>Components</b>
               </Typography>
-              <Table size="small" aria-label="purchases">
+              <Table size="small">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
+                    <TableCell style={{ fontWeight: 'bold' }}>ID</TableCell>
+                    <TableCell style={{ fontWeight: 'bold' }}>Component Name</TableCell>
+                    <TableCell style={{ fontWeight: 'bold' }}>Serial Number</TableCell>
+                    <TableCell style={{ fontWeight: 'bold' }}>Description</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.date}>
-                      <TableCell component="th" scope="row">
-                        {historyRow.date}
-                      </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
-                      <TableCell align="right">
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
-                      </TableCell>
+                  {row.comps.map((item, index) => (
+                    <TableRow key={index}>
+                      <TableCell>{item.Compid}</TableCell>
+                      <TableCell>{item.Component}</TableCell>
+                      <TableCell>{item.SerialNumber}</TableCell>
+                      <TableCell>{item.Descript}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -102,51 +123,157 @@ function Row(props) {
 
 Row.propTypes = {
   row: PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbs: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    history: PropTypes.arrayOf(
-      PropTypes.shape({
-        amount: PropTypes.number.isRequired,
-        customerId: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-      }),
-    ).isRequired,
+    description: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    protein: PropTypes.number.isRequired,
-  }).isRequired,
+    pcbCategoryId: PropTypes.number.isRequired,
+    pcbCategoryName: PropTypes.string.isRequired,
+    productIds: PropTypes.array.isRequired
+  }).isRequired
 };
 
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-  createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
-  createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-  createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
-];
+const data = {
+  data: [
+    {
+      description: 'This is PCB 1',
+      id: 1,
+      name: 'PCB 1',
+      pcbCategoryId: 1234,
+      pcbCategoryName: 'Category Name 1',
+      productIds: [45454545]
+    },
+    {
+      description: 'This is PCB 2',
+      id: 2,
+      name: 'PCB 2',
+      pcbCategoryId: 6789,
+      pcbCategoryName: 'Category Name 5',
+      productIds: [987654]
+    }
+  ],
+  displayMessage: 'string'
+};
+
+const rows = data.data.map((item) =>
+  createData(item.id, item.name, item.pcbCategoryId, item.pcbCategoryName, item.productIds, item.description)
+);
 
 export default function CollapsibleTable() {
+  const handleAddPCB = () => {
+    // Handle add PCB functionality here
+    const columns = [
+      {
+        field: "id",
+        headerName: "ID",
+        headerAlign: "center",
+        align: "center",
+      },
+      {
+        field: "name",
+        headerName: "Name",
+        flex: 1,
+        cellClassName: "name-column--cell",
+        headerAlign: "center",
+        align: "center",
+      },
+      {
+        field: "description",
+        headerName: "Description",
+        headerAlign: "center",
+        align: "center",
+        flex: 1,
+      },
+      {
+        field: "serialNumber",
+        headerName: "Serial Number",
+        flex: 1,
+        headerAlign: "center",
+        align: "center",
+      },
+      {
+        field: "productCategoryName",
+        headerName: "Category",
+        flex: 1,
+        headerAlign: "center",
+        align: "center",
+      },
+      {
+        headerName: "Actions",
+        headerAlign: "center",
+        align: "center",
+        flex: 1,
+        renderCell: (params) => {
+          return (
+            <div>
+              <IconButton color="secondary" onClick={() => handleEdit(params.row)}>
+                <EditOutlinedIcon />
+              </IconButton>
+              <IconButton color="secondary" onClick={() => handleDelete(params.row)}>
+                <DeleteOutlinedIcon />
+              </IconButton>
+            </div>
+          );
+        },
+      },
+    ];
+  };
+
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow>
-            <TableCell />
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <Row key={row.name} row={row} />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <Box>
+      <Box m="20px" display="flex" justifyContent="flex-end">
+        <IconButton
+          onClick={handleAddPCB}
+          variant="outlined"
+          sx={{
+            top: 0,
+            right: 10,
+            zIndex: 1000,
+            color: 'white',
+            backgroundColor: 'lightseagreen',
+            borderRadius: 0, 
+            padding: '8px', 
+            fontSize: '18px' 
+          }}
+          startIcon={<AddIcon />}
+        >
+          + Add PCBs
+        </IconButton>
+      </Box>
+      <Box display="flex" justifyContent="center">
+        <TableContainer component={Paper}>
+          <Table aria-label="collapsibletable">
+            <TableHead>
+              <TableRow>
+                <TableCell />
+                <TableCell style={{ fontWeight: 'bold' }}>ID</TableCell>
+                <TableCell align="center" style={{ fontWeight: 'bold' }}>
+                  Name
+                </TableCell>
+                <TableCell align="center" style={{ fontWeight: 'bold' }}>
+                  PCB Category ID
+                </TableCell>
+                <TableCell align="center" style={{ fontWeight: 'bold' }}>
+                  PCB Category Name
+                </TableCell>
+                <TableCell align="center" style={{ fontWeight: 'bold' }}>
+                  Product IDs
+                </TableCell>
+                <TableCell align="center" style={{ fontWeight: 'bold' }}>
+                  Description
+                </TableCell>
+                <TableCell align="center" style={{ fontWeight: 'bold' }}>
+                  Actions
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row) => (
+                <Row key={row.id} row={row} />
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
+    </Box>
   );
 }
-
