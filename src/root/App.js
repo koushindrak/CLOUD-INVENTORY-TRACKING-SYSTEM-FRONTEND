@@ -1,6 +1,5 @@
 import { ConfigProvider } from "antd";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ChatGPT from "../pages/ChatGPT";
 import Page404 from "../pages/Page404";
 import COLORS from "../utils/colors";
 
@@ -58,15 +57,10 @@ function App() {
             <Topbar setIsSidebar={setIsSidebar} />
             {/*<BrowserRouter>*/}
               <Routes>
-                {/*<Route index element={<Home />} />*/}
-                {/*<Route path="/" element={<Dashboard />} />*/}
-                <Route path="/chat" element={<ChatGPT />} />
-
                 <Route path="/products/add" element={<AddProduct />} />
                 <Route path="/products/edit/:id" element={<EditProduct />} />
-                <Route path="/products" element={<Products />} />
+                <Route path="/" element={<Products />} />
                 <Route path="/components" element={<CollapsibleTable />} />
-                <Route path="/" element={<Team />} />
                 <Route path="/contacts" element={<Contacts />} />
                 <Route path="/invoices" element={<Invoices />} />
                 <Route path="/form" element={<Form />} />

@@ -15,12 +15,14 @@ import IconButton from '@mui/material/IconButton';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import AddIcon from '@mui/icons-material/Add';
+import {getCategories, getCategorySuccess} from "./GetProductCategories";
 
 
 const Products = () => {
     const dispatch = useDispatch();
     const productResponse = useSelector(getProductSuccess);
     const deleteSuccess = useSelector(deleteProductSuccess);
+    const productCategoryList = useSelector(getCategorySuccess);
 
     const theme = useTheme();
     const productStyles = getProductStyles(theme);
@@ -35,6 +37,7 @@ const Products = () => {
     /* Effects Start */
     useEffect(() => {
         dispatch(getProducts());
+        dispatch(getCategories())
     }, [dispatch]);
 
     useEffect(() => {

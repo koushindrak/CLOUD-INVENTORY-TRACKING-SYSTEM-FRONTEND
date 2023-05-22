@@ -7,6 +7,7 @@ import { API_HOST } from "../utils/constants";
 export const apiTypes={
   GET_ALL:"GET_ALL",
   GET_BY_ID:"GET_BY_ID",
+  GET_BY_PARAM:"GET_BY_PARAM",
   UPDATE_BY_ID:"UPDATE_BY_ID",
   DELETE_BY_ID:"DELETE_BY_ID",
   CREATE:"CREATE",

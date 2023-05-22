@@ -125,78 +125,79 @@ const Sidebar = () => {
             {/*  setSelected={setSelected}*/}
             {/*/>*/}
 
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Data
-            </Typography>
+            {/*<Typography*/}
+            {/*  variant="h6"*/}
+            {/*  color={colors.grey[300]}*/}
+            {/*  sx={{ m: "15px 0 5px 20px" }}*/}
+            {/*>*/}
+            {/*  Data*/}
+            {/*</Typography>*/}
               <Item
                   title="Products"
-                  to="/products"
+                  to="/"
                   icon={<PeopleOutlinedIcon />}
                   selected={selected}
                   setSelected={setSelected}
               />
-            <Item
-              title="Chat"
-              to="/chat"
-              icon={<PeopleOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+
             <Item
               title="PCB's"
-              to="/"
+              to="/pcb"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
 
-            <Item
-              title="Contacts Information"
-              to="/contacts"
-              icon={<ContactsOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Invoices Balances"
-              to="/invoices"
-              icon={<ReceiptOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+              <Item
+                  title="Components"
+                  to="/components"
+                  icon={<PeopleOutlinedIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+              />
+            {/*<Item*/}
+            {/*  title="Contacts Information"*/}
+            {/*  to="/contacts"*/}
+            {/*  icon={<ContactsOutlinedIcon />}*/}
+            {/*  selected={selected}*/}
+            {/*  setSelected={setSelected}*/}
+            {/*/>*/}
+            {/*<Item*/}
+            {/*  title="Invoices Balances"*/}
+            {/*  to="/invoices"*/}
+            {/*  icon={<ReceiptOutlinedIcon />}*/}
+            {/*  selected={selected}*/}
+            {/*  setSelected={setSelected}*/}
+            {/*/>*/}
 
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Pages
-            </Typography>
-            <Item
-              title="Profile Form"
-              to="/form"
-              icon={<PersonOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Calendar"
-              to="/calendar"
-              icon={<CalendarTodayOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="FAQ Page"
-              to="/faq"
-              icon={<HelpOutlineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+            {/*<Typography*/}
+            {/*  variant="h6"*/}
+            {/*  color={colors.grey[300]}*/}
+            {/*  sx={{ m: "15px 0 5px 20px" }}*/}
+            {/*>*/}
+            {/*  Pages*/}
+            {/*</Typography>*/}
+            {/*<Item*/}
+            {/*  title="Profile Form"*/}
+            {/*  to="/form"*/}
+            {/*  icon={<PersonOutlinedIcon />}*/}
+            {/*  selected={selected}*/}
+            {/*  setSelected={setSelected}*/}
+            {/*/>*/}
+            {/*<Item*/}
+            {/*  title="Calendar"*/}
+            {/*  to="/calendar"*/}
+            {/*  icon={<CalendarTodayOutlinedIcon />}*/}
+            {/*  selected={selected}*/}
+            {/*  setSelected={setSelected}*/}
+            {/*/>*/}
+            {/*<Item*/}
+            {/*  title="FAQ Page"*/}
+            {/*  to="/faq"*/}
+            {/*  icon={<HelpOutlineOutlinedIcon />}*/}
+            {/*  selected={selected}*/}
+            {/*  setSelected={setSelected}*/}
+            {/*/>*/}
 
             {/*<Typography*/}
             {/*  variant="h6"*/}
@@ -233,13 +234,13 @@ const Sidebar = () => {
             {/*  selected={selected}*/}
             {/*  setSelected={setSelected}*/}
             {/*/>*/}
-            <Item
-                title="Date And time Picker"
-                to="/datetimepicker"
-                icon={<MapOutlinedIcon />}
-                selected={selected}
-                setSelected={setSelected}
-            />
+            {/*<Item*/}
+            {/*    title="Date And time Picker"*/}
+            {/*    to="/datetimepicker"*/}
+            {/*    icon={<MapOutlinedIcon />}*/}
+            {/*    selected={selected}*/}
+            {/*    setSelected={setSelected}*/}
+            {/*/>*/}
           </Box>
         </Menu>
       </ProSidebar>
