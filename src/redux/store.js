@@ -8,6 +8,7 @@ import {GetPcbReducer} from "../pages/Pcb/GetAllPcb";
 import {CreatePcbReducer} from "../pages/Pcb/CreatePcb";
 import {CreateComponentReducer} from "../pages/Components/CreateComponent";
 import {GetComponentReducer} from "../pages/Components/GetAllComponent";
+import {GetSupplierReducer} from "../pages/Suppliers/GetAllSupplier";
 
 let sagaMiddleware = createSagaMiddleware();
 const middleware = (getDefaultMiddleware) => [
@@ -27,6 +28,8 @@ const store = configureStore({
     createPcb: CreatePcbReducer,
     createComponent: CreateComponentReducer,
     component: GetComponentReducer,
+
+    supplier: GetSupplierReducer,
 
   },
   middleware,

@@ -30,6 +30,7 @@ import { ToastContainer } from 'react-toastify';
 import Pcb from "../pages/Pcb";
 import AddPcb from "../pages/Pcb/AddPcbPage";
 import AddComponent from "../pages/Components/AddComponentPage";
+import Supplier from "../pages/Suppliers";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -74,6 +75,8 @@ function App() {
                 <Route path="/components/edit/:id" element={<EditProduct />} />
                 <Route path="/components/add" element={<AddComponent />} />
                 <Route path="/components" element={<Component />} />
+
+                <Route path="/suppliers" element={<Supplier />} />
 
                 <Route path="/contacts" element={<Contacts />} />
                 <Route path="/invoices" element={<Invoices />} />

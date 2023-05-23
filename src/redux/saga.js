@@ -7,6 +7,7 @@ import {watchGetPcbRequest} from "../pages/Pcb/GetAllPcb";
 import {watchCreatePcbRequest} from "../pages/Pcb/CreatePcb";
 import {watchCreateComponentRequest} from "../pages/Components/CreateComponent";
 import {watchGetComponentRequest} from "../pages/Components/GetAllComponent";
+import {watchGetSupplierRequest} from "../pages/Suppliers/GetAllSupplier";
 
 export let callAPI = async ({ url, method, data }) => {
   return await Axios({url, method, data});
@@ -21,6 +22,8 @@ export default function* rootSaga() {
       watchCreatePcbRequest(),
 
       watchCreateComponentRequest(),
-      watchGetComponentRequest()
+      watchGetComponentRequest(),
+
+      watchGetSupplierRequest()
   ]);
 }
