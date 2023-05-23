@@ -46,7 +46,7 @@ const Products = () => {
 
     useEffect( () => {
        if (getCategoryFailureResponse){
-            errorToast(getCategoryFailureResponse)
+            errorToast(getCategoryFailureResponse.error)
         }
     },[getCategoryFailureResponse])
 

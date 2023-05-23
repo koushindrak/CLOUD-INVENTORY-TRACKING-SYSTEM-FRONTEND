@@ -3,12 +3,12 @@ import { toast } from 'react-toastify';
 
 const toastOptions = {
     success: {
-        autoClose: 500,
+        autoClose: 100,
         position: toast.POSITION.TOP_RIGHT,
         type: toast.TYPE.SUCCESS,
     },
     error: {
-        autoClose: 5000,
+        autoClose: 100,
         position: toast.POSITION.TOP_RIGHT,
         type: toast.TYPE.ERROR,
     },
