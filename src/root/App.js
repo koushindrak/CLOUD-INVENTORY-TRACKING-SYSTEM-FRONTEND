@@ -5,7 +5,7 @@ import COLORS from "../utils/colors";
 
 //NEW
 import { useState } from "react";
-import Topbar from "../scenes/global/Topbar";
+// import Topbar from "../scenes/global/Topbar";
 import Sidebar from "../scenes/global/Sidebar";
 import Dashboard from "../scenes/dashboard";
 import Team from "../scenes/team";
@@ -25,6 +25,8 @@ import Products from "../pages/Products/index";
 import EditProduct from "../pages/Products/EditProduct";
 import AddProduct from "../pages/Products/AddProduct";
 import CollapsibleTable from "../pages/Components";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -51,10 +53,11 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <ToastContainer />  {/* Add this line */}
         <div className="app">
           <Sidebar isSidebar={isSidebar} />
           <main className="content">
-            <Topbar setIsSidebar={setIsSidebar} />
+            {/*<Topbar setIsSidebar={setIsSidebar} />*/}
             {/*<BrowserRouter>*/}
               <Routes>
                 <Route path="/products/add" element={<AddProduct />} />

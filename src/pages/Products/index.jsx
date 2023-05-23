@@ -15,28 +15,46 @@ import IconButton from '@mui/material/IconButton';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import AddIcon from '@mui/icons-material/Add';
-import {getCategories, getCategorySuccess} from "./GetProductCategories";
+import {getCategories, getCategoryFailure, getCategorySuccess} from "./GetProductCategories";
+import { successToast, errorToast } from '../../containers/react-toast-alert';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Products = () => {
     const dispatch = useDispatch();
+    //selectors constants
     const productResponse = useSelector(getProductSuccess);
     const deleteSuccess = useSelector(deleteProductSuccess);
-    const productCategoryList = useSelector(getCategorySuccess);
+    const getCategorySuccessResponse = useSelector(getCategorySuccess);
+    const getCategoryFailureResponse = useSelector(getCategoryFailure);
 
+    //style constants
     const theme = useTheme();
     const productStyles = getProductStyles(theme);
     const colors = tokens(theme.palette.mode);
 
+    //state constants
     const [open, setOpen] = useState(false);
     const [selectedId, setSelectedId] = useState(null);
     const [selectedProduct, setSelectedProduct] = useState(null);
+    const [productCategoryList,setProductCategoryList] = useState(null);
 
+    //routing constants
     const navigate = useNavigate();  // new
 
     /* Effects Start */
+
+    useEffect( () => {
+       if (getCategoryFailureResponse){
+            errorToast(getCategoryFailureResponse)
+        }
+    },[getCategoryFailureResponse])
+
     useEffect(() => {
         dispatch(getProducts());
+    }, [dispatch]);
+
+    useEffect(() => {
         dispatch(getCategories())
     }, [dispatch]);
 
@@ -47,9 +65,6 @@ const Products = () => {
         }
     }, [deleteSuccess, dispatch]);
 
-    useEffect(() => {
-        console.log("productResponse---",productResponse)
-    }, [productResponse]);
 
     /*Effects Section Ends here */
 

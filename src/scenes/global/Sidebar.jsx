@@ -16,6 +16,11 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+import StorefrontIcon from '@mui/icons-material/Storefront';
+import DeveloperBoardIcon from '@mui/icons-material/DeveloperBoard';
+import MemoryIcon from '@mui/icons-material/Memory';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -135,23 +140,31 @@ const Sidebar = () => {
               <Item
                   title="Products"
                   to="/"
-                  icon={<PeopleOutlinedIcon />}
+                  icon={<StorefrontIcon />}
                   selected={selected}
                   setSelected={setSelected}
               />
 
-            <Item
-              title="PCB's"
-              to="/pcb"
-              icon={<PeopleOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+              <Item
+                  title="PCB's"
+                  to="/pcb"
+                  icon={<DeveloperBoardIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+              />
 
               <Item
                   title="Components"
                   to="/components"
-                  icon={<PeopleOutlinedIcon />}
+                  icon={<MemoryIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+              />
+
+              <Item
+                  title="Suppliers"
+                  to="/suppliers"
+                  icon={<LocalShippingIcon />}
                   selected={selected}
                   setSelected={setSelected}
               />
