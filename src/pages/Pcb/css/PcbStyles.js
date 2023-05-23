@@ -15,7 +15,7 @@ export const getPcbStyles = (theme) => {
             color: colors.greenAccent[300],
         },
         "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: "lightseagreen",
+            backgroundColor: "#4b2eae",
             color: "white",
             borderBottom: "none",
         },
@@ -24,7 +24,7 @@ export const getPcbStyles = (theme) => {
         },
         "& .MuiDataGrid-footerContainer": {
             borderTop: "none",
-            backgroundColor: "lightseagreen",
+            backgroundColor: "#4b2eae",
         },
         "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,
