@@ -48,8 +48,14 @@ const Products = () => {
        if (getCategoryFailureResponse){
             errorToast(getCategoryFailureResponse.error)
         }
-    },[getCategoryFailureResponse])
+    },[getCategoryFailureResponse,dispatch])
 
+    useEffect( () => {
+        if (getCategorySuccessResponse){
+            setProductCategoryList(getCategorySuccessResponse.data)
+            console.log("categorydate---",getCategorySuccessResponse.data)
+        }
+    },[getCategorySuccessResponse,dispatch])
     useEffect(() => {
         dispatch(getProducts());
     }, [dispatch]);
