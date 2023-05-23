@@ -18,6 +18,9 @@ export const apis= {
    USER_APIS_BASE_URL: "/api/v1/users/kk",
    ROLE_APIS_BASE_URL: "/api/v1/role",
    PRODUCT_APIS_BASE_URL: "/api/v1/products",
+   PCB_APIS_BASE_URL: "/api/v1/pcb",
+   COMPONENT_APIS_BASE_URL: "/api/v1/component",
+   SUPPLIER_APIS_BASE_URL: "/api/v1/supplier",
 
   /*OTHER APIS*/
    LOGIN: '/api/v1/auth/signin',

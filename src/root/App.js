@@ -27,6 +27,7 @@ import AddProduct from "../pages/Products/AddProduct";
 import CollapsibleTable from "../pages/Components";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import Pcb from "../pages/Pcb";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -63,6 +64,11 @@ function App() {
                 <Route path="/products/add" element={<AddProduct />} />
                 <Route path="/products/edit/:id" element={<EditProduct />} />
                 <Route path="/" element={<Products />} />
+
+                <Route path="/pcb/add" element={<AddProduct />} />
+                <Route path="/pcb/edit/:id" element={<EditProduct />} />
+                <Route path="/pcb" element={<Pcb />} />
+
                 <Route path="/components" element={<CollapsibleTable />} />
                 <Route path="/contacts" element={<Contacts />} />
                 <Route path="/invoices" element={<Invoices />} />
