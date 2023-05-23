@@ -23,7 +23,7 @@ const AddPcb = () => {
     useEffect(() => {
         if(createSuccess){
             console.log("createSuccess Success*******",createSuccess)
-             navigate('/pcb');
+             navigate('/pcbs');
             dispatch(resetPcbSates());
         }
     },[createSuccess])

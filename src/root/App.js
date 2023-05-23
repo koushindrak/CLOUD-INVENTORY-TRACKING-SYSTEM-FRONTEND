@@ -24,11 +24,12 @@ import Calendar from "../scenes/calendar/calendar";
 import Products from "../pages/Products/index";
 import EditProduct from "../pages/Products/EditProduct";
 import AddProduct from "../pages/Products/AddProduct";
-import CollapsibleTable from "../pages/Components";
+import Component from "../pages/Components";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Pcb from "../pages/Pcb";
 import AddPcb from "../pages/Pcb/AddPcbPage";
+import AddComponent from "../pages/Components/AddComponentPage";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -66,11 +67,14 @@ function App() {
                 <Route path="/products/edit/:id" element={<EditProduct />} />
                 <Route path="/" element={<Products />} />
 
-                <Route path="/pcb/add" element={<AddPcb />} />
-                <Route path="/pcb/edit/:id" element={<EditProduct />} />
-                <Route path="/pcb" element={<Pcb />} />
+                <Route path="/pcbs/add" element={<AddPcb />} />
+                <Route path="/pcbs/edit/:id" element={<EditProduct />} />
+                <Route path="/pcbs" element={<Pcb />} />
 
-                <Route path="/components" element={<CollapsibleTable />} />
+                <Route path="/components/edit/:id" element={<EditProduct />} />
+                <Route path="/components/add" element={<AddComponent />} />
+                <Route path="/components" element={<Component />} />
+
                 <Route path="/contacts" element={<Contacts />} />
                 <Route path="/invoices" element={<Invoices />} />
                 <Route path="/form" element={<Form />} />

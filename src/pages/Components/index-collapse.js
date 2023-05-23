@@ -18,7 +18,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import AddComponents from './AddComponent';
+import AddComponents from './AddComponent-collapse';
 
 function createData(id, name, pcbCategoryId, pcbCategoryName, productIds, description) {
   return {

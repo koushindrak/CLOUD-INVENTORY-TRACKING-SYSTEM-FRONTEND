@@ -147,7 +147,7 @@ const Sidebar = () => {
 
               <Item
                   title="PCB's"
-                  to="/pcb"
+                  to="/pcbs"
                   icon={<DeveloperBoardIcon />}
                   selected={selected}
                   setSelected={setSelected}

@@ -11,23 +11,23 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import AddIcon from '@mui/icons-material/Add';
 import { successToast, errorToast } from '../../containers/react-toast-alert';
 import 'react-toastify/dist/ReactToastify.css';
-import {getPcb, getPcbSuccess} from "./GetAllPcb";
-import {getPcbStyles} from "./css/PcbStyles";
+import {getComponent, getComponentSuccess} from "./GetAllComponent";
+import {getComponentStyles} from "./css/ComponentStyles";
 
 
-const Pcb = () => {
+const Component = () => {
     const dispatch = useDispatch();
-    const getPcbSuccessResponse = useSelector(getPcbSuccess);
+    const getComponentSuccessResponse = useSelector(getComponentSuccess);
 
     //style constants
     const theme = useTheme();
-    const pcbStyles = getPcbStyles(theme);
+    const componentStyles = getComponentStyles(theme);
     const colors = tokens(theme.palette.mode);
 
     //state constants
     const [open, setOpen] = useState(false);
     const [selectedId, setSelectedId] = useState(null);
-    const [selectedPcb, setSelectedPcb] = useState(null);
+    const [selectedComponent, setSelectedComponent] = useState(null);
 
     //routing constants
     const navigate = useNavigate();  // new
@@ -36,7 +36,7 @@ const Pcb = () => {
 
 
     useEffect(() => {
-        dispatch(getPcb());
+        dispatch(getComponent());
     }, [dispatch]);
 
 
@@ -48,7 +48,7 @@ const Pcb = () => {
     /* Button click actions start here */
     const handleEdit = (row) => {
         // Dispatch the edit action with the row data as payload
-        navigate(`/pcbs/edit/${row.id}`);
+        navigate(`/components/edit/${row.id}`);
     };
 
 
@@ -56,8 +56,8 @@ const Pcb = () => {
         handleClickOpen(row);
     };
 
-    const handleClickOpen = (pcb) => {
-        setSelectedPcb(pcb);
+    const handleClickOpen = (component) => {
+        setSelectedComponent(component);
         setOpen(true);
     };
 
@@ -67,12 +67,12 @@ const Pcb = () => {
     };
 
     const handleConfirmDelete = () => {
-         // dispatch(deletePcb(selectedPcb.id));
+         // dispatch(deleteComponent(selectedComponent.id));
         setOpen(false);
     };
 
     const handleAdd = () => {
-        navigate('/pcbs/add'); // Change this to the correct route
+        navigate('/components/add'); // Change this to the correct route
     };
     /* Button click actions ends here */
 
@@ -82,14 +82,14 @@ const Pcb = () => {
             headerName: "ID",
             headerAlign: "center",
             align: "center",
+            cellClassName: "id-column--cell",  // Add the className here
         },
         {
-            field: "name",
-            headerName: "Name",
-            flex: 1,
-            cellClassName: "name-column--cell",
+            field: "mfrptn",
+            headerName: "MFRPTN",
             headerAlign: "center",
             align: "center",
+            flex: 1,
         },
         {
             field: "description",
@@ -99,8 +99,43 @@ const Pcb = () => {
             flex: 1,
         },
         {
-            field: "pcbCategoryName",
+            field: "componentCategoryName",
             headerName: "Category",
+            flex: 1,
+            headerAlign: "center",
+            align: "center",
+        },
+        {
+            field: "footprint",
+            headerName: "FOOTPRINT",
+            flex: 1,
+            headerAlign: "center",
+            align: "center",
+        },
+        {
+            field: "value",
+            headerName: "VALUE",
+            flex: 1,
+            headerAlign: "center",
+            align: "center",
+        },
+        {
+            field: "isObselete",
+            headerName: "Obselete",
+            flex: 1,
+            headerAlign: "center",
+            align: "center",
+        },
+        {
+            field: "threshold",
+            headerName: "Threshold",
+            flex: 1,
+            headerAlign: "center",
+            align: "center",
+        },
+        {
+            field: "stock",
+            headerName: "Stock",
             flex: 1,
             headerAlign: "center",
             align: "center",
@@ -147,21 +182,21 @@ const Pcb = () => {
                         right: 10,
                         zIndex: 1000,
                         color: 'white',
-                        backgroundColor: '#4b2eae'
+                        backgroundColor: '#847343'
 
                     }}
                     startIcon={<AddIcon />}>
-                    Add Pcb
+                    Add Component
                 </Button>
 
 
-                <Header subtitleStyle={{ color: 'black' }} subtitle="Managing the Pcbs" />
+                <Header subtitleStyle={{ color: 'black' }} subtitle="Managing the Components" />
 
             <Box
                 m="40px 0 0 0"
                 height="75vh"
-                sx={pcbStyles}            >
-                <DataGrid   rows={getPcbSuccessResponse ? getPcbSuccessResponse.data : []} columns={columns} />
+                sx={componentStyles}            >
+                <DataGrid   rows={getComponentSuccessResponse ? getComponentSuccessResponse.data : []} columns={columns} />
             </Box>
             </Box>
             <Dialog
@@ -170,10 +205,10 @@ const Pcb = () => {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <DialogTitle id="alert-dialog-title">{"Delete Pcb"}</DialogTitle>
+                <DialogTitle id="alert-dialog-title">{"Delete Component"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Are you sure you want to delete the pcb - {selectedPcb?.name}?
+                        Are you sure you want to delete the component - {selectedComponent?.name}?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -189,4 +224,4 @@ const Pcb = () => {
     );
 };
 
-export default Pcb;
+export default Component;

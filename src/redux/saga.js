@@ -5,6 +5,8 @@ import productSaga  from '../pages/Products/saga';
 import {watchGetCategoryRequest} from "../pages/Products/GetProductCategories";
 import {watchGetPcbRequest} from "../pages/Pcb/GetAllPcb";
 import {watchCreatePcbRequest} from "../pages/Pcb/CreatePcb";
+import {watchCreateComponentRequest} from "../pages/Components/CreateComponent";
+import {watchGetComponentRequest} from "../pages/Components/GetAllComponent";
 
 export let callAPI = async ({ url, method, data }) => {
   return await Axios({url, method, data});
@@ -16,6 +18,9 @@ export default function* rootSaga() {
       productSaga(),
       watchGetCategoryRequest(),
       watchGetPcbRequest(),
-      watchCreatePcbRequest()
+      watchCreatePcbRequest(),
+
+      watchCreateComponentRequest(),
+      watchGetComponentRequest()
   ]);
 }
