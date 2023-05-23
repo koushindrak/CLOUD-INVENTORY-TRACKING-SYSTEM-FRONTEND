@@ -23,7 +23,7 @@ const AddProduct = () => {
     useEffect(() => {
         if(createSuccess){
             console.log("createSuccess Success*******",createSuccess)
-             navigate('/products');
+             navigate('/');
             dispatch(resetUpdateSuccess());
         }
     },[createSuccess])

@@ -32,7 +32,7 @@ const EditProduct = () => {
     useEffect(() => {
         if(updateSuccess){
             console.log("update Success*******",updateSuccess)
-             navigate('/products');
+             navigate('/');
             dispatch(resetUpdateSuccess());
         }
     })
