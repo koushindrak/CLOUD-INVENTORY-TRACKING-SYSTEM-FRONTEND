@@ -13,6 +13,7 @@ import { successToast, errorToast } from '../../containers/react-toast-alert';
 import 'react-toastify/dist/ReactToastify.css';
 import {getPcb, getPcbSuccess} from "./GetAllPcb";
 import {getPcbStyles} from "./css/PcbStyles";
+import EditPcb from './EditPcb';
 
 
 const Pcb = () => {
