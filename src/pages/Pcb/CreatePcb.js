@@ -13,7 +13,6 @@ export const RESET_PCB_STATE = 'RESET_PCB_STATE';
 
 //2. action
 export function createPcb(payload) {
-    console.log("Action---createPcb")
     return {
         type: CREATE_PCB_REQUEST,
         payload
@@ -25,7 +24,6 @@ export const resetPcbSates= () => ({
 });
 //3. saga
 function* handleCreatePcbRequest(action){
-    console.log("---saga--- handleCreatePcbRequest---")
     yield (apiCallHandler(action, CREATE_PCB_SUCCESS, CREATE_PCB_FAILURE, apis.PCB_APIS_BASE_URL,apiTypes.CREATE));
 }
 export function* watchCreatePcbRequest() {
@@ -37,7 +35,6 @@ export const initialState = fromJS({});
 export function CreatePcbReducer(state = initialState, action) {
     switch (action.type) {
         case CREATE_PCB_SUCCESS:
-            console.log("CREATE_PCB_SUCCESS---",action.response)
             return Object.assign({}, state, {createPcbResponse: action.response})
 
         case CREATE_PCB_FAILURE:

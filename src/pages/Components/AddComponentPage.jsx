@@ -22,14 +22,12 @@ const AddComponent = () => {
 
     useEffect(() => {
         if(createSuccess){
-            console.log("createSuccess Success*******",createSuccess)
             navigate('/components');
             dispatch(resetComponentSates());
         }
     },[createSuccess])
 
     const handleFormSubmit = (values) => {
-        console.log("updating component---",values)
         dispatch(createComponent(values));
     };
 

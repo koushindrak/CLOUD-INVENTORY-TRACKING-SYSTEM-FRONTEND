@@ -22,14 +22,12 @@ const AddProduct = () => {
 
     useEffect(() => {
         if(createSuccess){
-            console.log("createSuccess Success*******",createSuccess)
              navigate('/');
             dispatch(resetUpdateSuccess());
         }
     },[createSuccess])
 
     const handleFormSubmit = (values) => {
-        console.log("updating product---")
         dispatch(createProduct(values));
     };
 

@@ -9,6 +9,7 @@ import {useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
 import {createPcb, createPcbSuccess, resetPcbSates} from "./CreatePcb";
 import {resetUpdateSuccess} from "../Products/actions";
+import {getProductByIdSuccess} from "../Products/selectors";
 
 const AddPcb = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -16,22 +17,26 @@ const AddPcb = () => {
     const dispatch = useDispatch();
     const [pcb, setPcb] = useState(null);
     const createSuccess = useSelector(createPcbSuccess)
+    const getProductByIdSuccessResponse = useSelector(getProductByIdSuccess)
 
     const navigate = useNavigate();  // new
-
+    let { productId }  = useParams();
 
     useEffect(() => {
         if(createSuccess){
-            console.log("createSuccess Success*******",createSuccess)
-             navigate('/pcbs');
+             if(productId){
+                 navigate('/product/'+productId+'/pcb/');
+             }else {
+                 navigate('/pcbs');
+             }
             dispatch(resetPcbSates());
         }
     },[createSuccess])
 
     const handleFormSubmit = (values) => {
-        console.log("updating pcb---")
         dispatch(createPcb(values));
     };
+
 
 
     const pcbSchema = yup.object().shape({
@@ -39,16 +44,18 @@ const AddPcb = () => {
         pcbCategoryName: yup.string().required("required"),
     });
 
+
     return (
         <Box m="20px">
-            <Header title="Add New Pcb"  />
+            <Header title={productId ? `Add new PCB to Product - ${getProductByIdSuccessResponse ? getProductByIdSuccessResponse.data.name : getProductByIdSuccessResponse }` : "Add new PCB"} />
                 <Formik
                     onSubmit={handleFormSubmit}
                     initialValues={{
                         id: '',
                         name: '',
                         description: '',
-                        pcbCategoryName: ''
+                        pcbCategoryName: '',
+                        productId:productId && !isNaN(productId) ? parseInt(productId) : productId
                     }}
                     validationSchema={pcbSchema}
                 >

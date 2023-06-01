@@ -18,6 +18,7 @@ import AddIcon from '@mui/icons-material/Add';
 import {getCategories, getCategoryFailure, getCategorySuccess} from "./GetProductCategories";
 import { successToast, errorToast } from '../../containers/react-toast-alert';
 import 'react-toastify/dist/ReactToastify.css';
+import DeveloperBoardIcon from "@mui/icons-material/DeveloperBoard";
 
 
 const Products = () => {
@@ -53,7 +54,6 @@ const Products = () => {
     useEffect( () => {
         if (getCategorySuccessResponse){
             setProductCategoryList(getCategorySuccessResponse.data)
-            console.log("categorydate---",getCategorySuccessResponse.data)
         }
     },[getCategorySuccessResponse,dispatch])
     useEffect(() => {
@@ -90,6 +90,9 @@ const Products = () => {
         setOpen(true);
     };
 
+    const handleManagePCB = (row) => {
+        navigate(`product/${row.id}/pcb/`)
+    };
 
     const handleClose = () => {
         setOpen(false);
@@ -154,6 +157,9 @@ const Products = () => {
                         </IconButton>
                         <IconButton color="secondary" onClick={() => handleDelete(params.row)}>
                             <DeleteOutlinedIcon />
+                        </IconButton>
+                        <IconButton color="secondary" onClick={() => handleManagePCB(params.row)}>
+                            <DeveloperBoardIcon />
                         </IconButton>
                     </div>
                 );

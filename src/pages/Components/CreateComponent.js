@@ -13,7 +13,6 @@ export const RESET_COMPONENT_STATE = 'RESET_COMPONENT_STATE';
 
 //2. action
 export function createComponent(payload) {
-    console.log("Action---createComponent")
     return {
         type: CREATE_COMPONENT_REQUEST,
         payload
@@ -25,7 +24,6 @@ export const resetComponentSates= () => ({
 });
 //3. saga
 function* handleCreateComponentRequest(action){
-    console.log("---saga--- handleCreateComponentRequest---")
     yield (apiCallHandler(action, CREATE_COMPONENT_SUCCESS, CREATE_COMPONENT_FAILURE, apis.COMPONENT_APIS_BASE_URL,apiTypes.CREATE));
 }
 export function* watchCreateComponentRequest() {
@@ -37,7 +35,6 @@ export const initialState = fromJS({});
 export function CreateComponentReducer(state = initialState, action) {
     switch (action.type) {
         case CREATE_COMPONENT_SUCCESS:
-            console.log("CREATE_COMPONENT_SUCCESS---",action.response)
             return Object.assign({}, state, {createComponentResponse: action.response})
 
         case CREATE_COMPONENT_FAILURE:

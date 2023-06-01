@@ -9,7 +9,6 @@ export default function AddComponents(props) {
 
   const handleSave = (values) => {
     // Handle save functionality here
-    console.log('Saving component:', values);
 
     // Close the AddComponents dialog
     handleClose();

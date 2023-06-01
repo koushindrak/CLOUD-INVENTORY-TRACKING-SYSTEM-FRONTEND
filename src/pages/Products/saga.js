@@ -10,11 +10,9 @@ export function* watchCreateProductRequest() {
 }
 
 export function* handleGetProductRequest(action) {
-  console.log("----111handleGetProductRequest")
   yield (apiCallHandler(action, CONSTANTS.GET_PRODUCTS_SUCCESS, CONSTANTS.GET_PRODUCTS_FAILURE, apis.PRODUCT_APIS_BASE_URL,apiTypes.GET_ALL));
 }
 export function* watchGetProductRequest() {
-  console.log("saga---1111watchGetProductRequest")
   yield takeEvery(CONSTANTS.GET_PRODUCTS,handleGetProductRequest)
 }
 

@@ -21,7 +21,6 @@ const EditProduct = () => {
     const navigate = useNavigate();  // new
 
     useEffect(() => {
-        console.log("productFromStore----",productFromStore)
         if (!productFromStore) {
             dispatch(getProductById(id));
         } else {
@@ -31,14 +30,12 @@ const EditProduct = () => {
 
     useEffect(() => {
         if(updateSuccess){
-            console.log("update Success*******",updateSuccess)
              navigate('/');
             dispatch(resetUpdateSuccess());
         }
     })
 
     const handleFormSubmit = (values) => {
-        console.log("updating product---")
         dispatch(updateProduct(values));
     };
 

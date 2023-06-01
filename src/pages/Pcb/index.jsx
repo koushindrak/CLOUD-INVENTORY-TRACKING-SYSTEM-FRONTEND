@@ -1,5 +1,5 @@
 import { useState,useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import { Box, Typography, useTheme, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
@@ -13,11 +13,16 @@ import { successToast, errorToast } from '../../containers/react-toast-alert';
 import 'react-toastify/dist/ReactToastify.css';
 import {getPcb, getPcbSuccess} from "./GetAllPcb";
 import {getPcbStyles} from "./css/PcbStyles";
+import {getPcbById, getPcbByIdSuccess} from "./GetPCBById";
+import {getProductByIdSuccess} from "../Products/selectors";
+import {getProductById} from "../Products/actions";
 
 
 const Pcb = () => {
     const dispatch = useDispatch();
     const getPcbSuccessResponse = useSelector(getPcbSuccess);
+    // const getPcbByIdSuccessResponse = useSelector(getPcbByIdSuccess);
+    const getProductByIdSuccessResponse = useSelector(getProductByIdSuccess)
 
     //style constants
     const theme = useTheme();
@@ -28,17 +33,36 @@ const Pcb = () => {
     const [open, setOpen] = useState(false);
     const [selectedId, setSelectedId] = useState(null);
     const [selectedPcb, setSelectedPcb] = useState(null);
-
+    const [pcbs, setPcbs] = useState([]);
     //routing constants
     const navigate = useNavigate();  // new
+
+    // params from other page
+    let { productId } = useParams();
 
     /* Effects Start */
 
 
     useEffect(() => {
-        dispatch(getPcb());
+        console.log("productId Params--",productId)
+        if(productId){
+            console.log("productId--",productId)
+            dispatch(getProductById(productId));
+            // dispatch(getPcbByProductId(productId));
+            // dispatch(getProductsByPCBId)
+        }else{
+            console.log("productId2222--",productId)
+            dispatch(getPcb());
+        }
     }, [dispatch]);
 
+    useEffect( () => {
+        if(productId && getProductByIdSuccessResponse){
+            setPcbs(getProductByIdSuccessResponse.data.pcbs)
+        }else if(getPcbSuccessResponse){
+            setPcbs(getPcbSuccessResponse.data)
+        }
+    })
 
 
 
@@ -72,7 +96,11 @@ const Pcb = () => {
     };
 
     const handleAdd = () => {
-        navigate('/pcbs/add'); // Change this to the correct route
+        if(productId){
+            navigate('/product/'+productId+'/pcb/add')
+        }else {
+            navigate('/pcbs/add'); // Change this to the correct route
+        }
     };
     /* Button click actions ends here */
 
@@ -155,13 +183,16 @@ const Pcb = () => {
                 </Button>
 
 
-                <Header subtitleStyle={{ color: 'black' }} subtitle="Managing the Pcbs" />
+                <Header
+                    subtitleStyle={{ color: 'black' }}
+                    subtitle={productId ? `Managing the Pcbs for Product - ${getProductByIdSuccessResponse ? getProductByIdSuccessResponse.data.name : getProductByIdSuccessResponse }` : "Managing the Pcbs"}
+                    />
 
             <Box
                 m="40px 0 0 0"
                 height="75vh"
                 sx={pcbStyles}            >
-                <DataGrid   rows={getPcbSuccessResponse ? getPcbSuccessResponse.data : []} columns={columns} />
+                <DataGrid   rows={pcbs} columns={columns} />
             </Box>
             </Box>
             <Dialog

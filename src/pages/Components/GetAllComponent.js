@@ -11,7 +11,6 @@ export const GET_COMPONENT_FAILURE = 'GET_COMPONENT_FAILURE';
 
 //2. action
 export function getComponent() {
-    console.log("Action---getComponent")
     return {
         type: GET_COMPONENT_REQUEST
     }
@@ -19,7 +18,6 @@ export function getComponent() {
 
 //3. saga
 function* handleGetComponentRequest(action){
-    console.log("---saga--- handleGetcomponentRequest---")
     yield (apiCallHandler(action, GET_COMPONENT_SUCCESS, GET_COMPONENT_FAILURE, apis.COMPONENT_APIS_BASE_URL,apiTypes.GET_ALL));
 }
 export function* watchGetComponentRequest() {
@@ -31,7 +29,6 @@ export const initialState = fromJS({});
 export function GetComponentReducer(state = initialState, action) {
     switch (action.type) {
         case GET_COMPONENT_SUCCESS:
-            console.log("GET_COMPONENT_SUCCESS---",action.response)
             return Object.assign({}, state, {getComponentResponse: action.response})
 
         case GET_COMPONENT_FAILURE:

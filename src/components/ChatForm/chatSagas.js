@@ -5,7 +5,6 @@ import { fetchMessage, fetchMessageFailed, fetchMessageSuccess } from "./chatRed
 import { API_HOST } from "../../utils/constants";
 
 export function* fetchMessageSaga(action) {
-  console.log("chat Saga called----")
   try {
     yield put(fetchMessage(action.payload));
     let result = yield call(() =>

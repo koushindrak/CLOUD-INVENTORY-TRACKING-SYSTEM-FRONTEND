@@ -11,7 +11,6 @@ export const GET_PCB_FAILURE = 'GET_PCB_FAILURE';
 
 //2. action
 export function getPcb() {
-    console.log("Action---getPcb")
     return {
         type: GET_PCB_REQUEST
     }
@@ -19,7 +18,6 @@ export function getPcb() {
 
 //3. saga
 function* handleGetPcbRequest(action){
-    console.log("---saga--- handleGetpcbRequest---")
     yield (apiCallHandler(action, GET_PCB_SUCCESS, GET_PCB_FAILURE, apis.PCB_APIS_BASE_URL,apiTypes.GET_ALL));
 }
 export function* watchGetPcbRequest() {
@@ -31,7 +29,6 @@ export const initialState = fromJS({});
 export function GetPcbReducer(state = initialState, action) {
     switch (action.type) {
         case GET_PCB_SUCCESS:
-            console.log("GET_PCB_SUCCESS---",action.response)
             return Object.assign({}, state, {getPcbResponse: action.response})
 
         case GET_PCB_FAILURE:

@@ -11,7 +11,6 @@ export const GET_CATEGORY_FAILURE = 'GET_CATEGORY_FAILURE';
 
 //2. action
 export function getCategories() {
-    console.log("Action---getCategories")
     return {
         type: GET_CATEGORY_REQUEST
     }
@@ -19,7 +18,6 @@ export function getCategories() {
 
 //3. saga
 function* handleGetCategoryRequest(action){
-    console.log("---saga--- handleGetcategoryRequest---")
     yield (apiCallHandler(action, GET_CATEGORY_SUCCESS, GET_CATEGORY_FAILURE, apis.PRODUCT_APIS_BASE_URL+"/category",apiTypes.GET_ALL));
 }
 export function* watchGetCategoryRequest() {
@@ -31,7 +29,6 @@ export const initialState = fromJS({});
 export function GetCategoryReducer(state = initialState, action) {
     switch (action.type) {
         case GET_CATEGORY_SUCCESS:
-            console.log("GET_CATEGORY_SUCCESS---",action.response)
             return Object.assign({}, state, {getCategoryResponse: action.response})
 
         case GET_CATEGORY_FAILURE:
