@@ -31,6 +31,7 @@ import Pcb from "../pages/Pcb";
 import AddPcb from "../pages/Pcb/AddPcbPage";
 import AddComponent from "../pages/Components/AddComponentPage";
 import Supplier from "../pages/Suppliers";
+import EditPcb from "../pages/Pcb/EditPcb";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -71,7 +72,7 @@ function App() {
                 <Route path="/" element={<Products />} />
 
                 <Route path="/pcbs/add" element={<AddPcb />} />
-                <Route path="/pcbs/edit/:id" element={<EditProduct />} />
+                <Route path="/pcbs/edit/:id" element={<EditPcb />} />
                 <Route path="/pcbs" element={<Pcb />} />
 
                 <Route path="/components/edit/:id" element={<EditProduct />} />

@@ -16,6 +16,7 @@ import {getPcbStyles} from "./css/PcbStyles";
 import {getPcbById, getPcbByIdSuccess} from "./GetPCBById";
 import {getProductByIdSuccess} from "../Products/selectors";
 import {getProductById} from "../Products/actions";
+import EditPcb from './EditPcb';
 
 
 const Pcb = () => {
