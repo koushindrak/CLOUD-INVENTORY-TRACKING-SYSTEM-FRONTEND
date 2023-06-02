@@ -14,7 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {getOrder, getOrderSuccess} from "./GetAllOrders";
 import {getOrderStyles} from "./css/OrderStyle";
 import {ViewList} from "@mui/icons-material";
-
+import { columns } from './SalesOrdersColumns';
 
 const Orders = () => {
     const dispatch = useDispatch();
@@ -77,46 +77,8 @@ const Orders = () => {
     };
     /* Button click actions ends here */
 
-    const columns = [
-        {
-            field: "SalesorderId",
-            headerName: "Sales Order Id",
-            headerAlign: "center",
-            align: "center",
-            flex: 1,
-        },
-        {
-            field: "CustomerId",
-            headerName: "Customer Id",
-            headerAlign: "center",
-            align: "center",
-            cellClassName: "id-column--cell",  // Add the className here
-        },
-        {
-            field: "PurchaseOrder",
-            headerName: "Purchase Order",
-            headerAlign: "center",
-            align: "center",
-            flex: 1,
-        },
-        {
-            field: "DateEntered",
-            headerName: "Date Entered",
-            flex: 1,
-            headerAlign: "center",
-            align: "center",
-            valueFormatter: (params) => {
-                const date = new Date(params.value);
-                return new Intl.DateTimeFormat('en-US', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: '2-digit',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                }).format(date);
-            },
-        },
+    const completeColumns = [
+        ...columns,
         {
             headerName: "Actions",
             headerAlign: "center",
@@ -131,8 +93,9 @@ const Orders = () => {
                     </div>
                 );
             },
-        },
+        }
     ];
+
     function Header({ title, subtitle, subtitleStyle }) {
         return (
             <header>
@@ -175,7 +138,7 @@ const Orders = () => {
                 <DataGrid
                     getRowId={(row) => row.SalesorderId}
                     rows={getOrderSuccessResponse ? getOrderSuccessResponse.data : []}
-                    columns={columns} />
+                    columns={completeColumns} />
 
             </Box>
             </Box>
