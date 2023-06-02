@@ -6,15 +6,13 @@ import { tokens } from "../../theme";
 import { useDispatch, useSelector } from 'react-redux';
 import Header from "../../containers/Header";
 import IconButton from '@mui/material/IconButton';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import AddIcon from '@mui/icons-material/Add';
-import { successToast, errorToast } from '../../containers/react-toast-alert';
 import 'react-toastify/dist/ReactToastify.css';
 import {getOrder, getOrderSuccess} from "./GetAllOrders";
 import {getOrderStyles} from "./css/OrderStyle";
 import {ViewList} from "@mui/icons-material";
 import { columns } from './SalesOrdersColumns';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Orders = () => {
     const dispatch = useDispatch();
@@ -29,22 +27,25 @@ const Orders = () => {
     const [open, setOpen] = useState(false);
     const [selectedId, setSelectedId] = useState(null);
     const [selectedOrder, setSelectedOrder] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     //routing constants
     const navigate = useNavigate();  // new
 
     /* Effects Start */
 
-
     useEffect(() => {
-        dispatch(getOrder());
+        const fetchData = async () => {
+
+            setLoading(true);
+            await dispatch(getOrder());
+            setLoading(false);
+        };
+        fetchData();
     }, [dispatch]);
 
 
-
-
-
-    /*Effects Section Ends here */
+    /*------------Effects Section Ends here----------------- */
 
     /* Button click actions start here */
     const handleViewDetails = (row) => {
@@ -108,7 +109,6 @@ const Orders = () => {
 
     return (
         <Box m="20px">
-
             <Box position="relative">
                 <Button
                     onClick={handleAdd}
@@ -120,27 +120,33 @@ const Orders = () => {
                         zIndex: 1000,
                         color: 'white',
                         backgroundColor: '#847343'
-
                     }}
-                    startIcon={<AddIcon />}>
+                    startIcon={<AddIcon />}
+                >
                     Add Order
                 </Button>
-
-
                 <Header
                     subtitleStyle={{ color: colors.grey[100] }}
-                    subtitle="Managing the Orders" />
-
-            <Box
-                m="40px 0 0 0"
-                height="75vh"
-                sx={orderStyles}            >
-                <DataGrid
-                    getRowId={(row) => row.SalesorderId}
-                    rows={getOrderSuccessResponse ? getOrderSuccessResponse.data : []}
-                    columns={completeColumns} />
-
-            </Box>
+                    subtitle="Managing the Orders"
+                />
+                <Box m="40px 0 0 0" height="75vh" sx={orderStyles}>
+                    {getOrderSuccessResponse && !loading ? (
+                        <DataGrid
+                            getRowId={(row) => row.SalesorderId}
+                            rows={getOrderSuccessResponse.data}
+                            columns={completeColumns}
+                        />
+                    ) : (
+                        <Box
+                            display="flex"
+                            justifyContent="center"
+                            alignItems="center"
+                            height="100%"
+                        >
+                            <CircularProgress />
+                        </Box>
+                    )}
+                </Box>
             </Box>
             <Dialog
                 open={open}
