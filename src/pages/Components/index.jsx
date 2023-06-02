@@ -190,7 +190,9 @@ const Component = () => {
                 </Button>
 
 
-                <Header subtitleStyle={{ color: 'black' }} subtitle="Managing the Components" />
+                <Header
+                    subtitleStyle={{ color: colors.grey[100] }}
+                    subtitle="Managing the Components" />
 
             <Box
                 m="40px 0 0 0"

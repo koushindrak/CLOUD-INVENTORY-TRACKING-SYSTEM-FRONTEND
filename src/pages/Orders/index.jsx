@@ -1,5 +1,5 @@
 import { useState,useEffect } from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Box, Typography, useTheme, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
@@ -11,59 +11,35 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import AddIcon from '@mui/icons-material/Add';
 import { successToast, errorToast } from '../../containers/react-toast-alert';
 import 'react-toastify/dist/ReactToastify.css';
-import {getPcb, getPcbSuccess} from "./GetAllPcb";
-import {getPcbStyles} from "./css/PcbStyles";
-import {getPcbById, getPcbByIdSuccess} from "./GetPCBById";
-import {getProductByIdSuccess} from "../Products/selectors";
-import {getProductById} from "../Products/actions";
-import EditPcb from './EditPcb';
+import {getOrder, getOrderSuccess} from "./GetAllOrders";
+import {getOrderStyles} from "./css/OrderStyle";
+import {ViewList} from "@mui/icons-material";
 
 
-const Pcb = () => {
+const Orders = () => {
     const dispatch = useDispatch();
-    const getPcbSuccessResponse = useSelector(getPcbSuccess);
-    // const getPcbByIdSuccessResponse = useSelector(getPcbByIdSuccess);
-    const getProductByIdSuccessResponse = useSelector(getProductByIdSuccess)
+    const getOrderSuccessResponse = useSelector(getOrderSuccess);
 
     //style constants
     const theme = useTheme();
-    const pcbStyles = getPcbStyles(theme);
+    const orderStyles = getOrderStyles(theme);
     const colors = tokens(theme.palette.mode);
 
     //state constants
     const [open, setOpen] = useState(false);
     const [selectedId, setSelectedId] = useState(null);
-    const [selectedPcb, setSelectedPcb] = useState(null);
-    const [pcbs, setPcbs] = useState([]);
+    const [selectedOrder, setSelectedOrder] = useState(null);
+
     //routing constants
     const navigate = useNavigate();  // new
-
-    // params from other page
-    let { productId } = useParams();
 
     /* Effects Start */
 
 
     useEffect(() => {
-        console.log("productId Params--",productId)
-        if(productId){
-            console.log("productId--",productId)
-            dispatch(getProductById(productId));
-            // dispatch(getPcbByProductId(productId));
-            // dispatch(getProductsByPCBId)
-        }else{
-            console.log("productId2222--",productId)
-            dispatch(getPcb());
-        }
+        dispatch(getOrder());
     }, [dispatch]);
 
-    useEffect( () => {
-        if(productId && getProductByIdSuccessResponse){
-            setPcbs(getProductByIdSuccessResponse.data.pcbs)
-        }else if(getPcbSuccessResponse){
-            setPcbs(getPcbSuccessResponse.data)
-        }
-    })
 
 
 
@@ -71,9 +47,9 @@ const Pcb = () => {
     /*Effects Section Ends here */
 
     /* Button click actions start here */
-    const handleEdit = (row) => {
+    const handleViewDetails = (row) => {
         // Dispatch the edit action with the row data as payload
-        navigate(`/pcbs/edit/${row.id}`);
+        navigate(`/orders/edit/${row.id}`);
     };
 
 
@@ -81,8 +57,8 @@ const Pcb = () => {
         handleClickOpen(row);
     };
 
-    const handleClickOpen = (pcb) => {
-        setSelectedPcb(pcb);
+    const handleClickOpen = (order) => {
+        setSelectedOrder(order);
         setOpen(true);
     };
 
@@ -92,47 +68,54 @@ const Pcb = () => {
     };
 
     const handleConfirmDelete = () => {
-         // dispatch(deletePcb(selectedPcb.id));
+         // dispatch(deleteOrder(selectedOrder.id));
         setOpen(false);
     };
 
     const handleAdd = () => {
-        if(productId){
-            navigate('/product/'+productId+'/pcb/add')
-        }else {
-            navigate('/pcbs/add'); // Change this to the correct route
-        }
+        navigate('/orders/add'); // Change this to the correct route
     };
     /* Button click actions ends here */
 
     const columns = [
         {
-            field: "id",
-            headerName: "ID",
-            headerAlign: "center",
-            align: "center",
-        },
-        {
-            field: "name",
-            headerName: "Name",
-            flex: 1,
-            cellClassName: "name-column--cell",
-            headerAlign: "center",
-            align: "center",
-        },
-        {
-            field: "description",
-            headerName: "Description",
+            field: "SalesorderId",
+            headerName: "Sales Order Id",
             headerAlign: "center",
             align: "center",
             flex: 1,
         },
         {
-            field: "pcbCategoryName",
-            headerName: "Category",
+            field: "CustomerId",
+            headerName: "Customer Id",
+            headerAlign: "center",
+            align: "center",
+            cellClassName: "id-column--cell",  // Add the className here
+        },
+        {
+            field: "PurchaseOrder",
+            headerName: "Purchase Order",
+            headerAlign: "center",
+            align: "center",
+            flex: 1,
+        },
+        {
+            field: "DateEntered",
+            headerName: "Date Entered",
             flex: 1,
             headerAlign: "center",
             align: "center",
+            valueFormatter: (params) => {
+                const date = new Date(params.value);
+                return new Intl.DateTimeFormat('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                }).format(date);
+            },
         },
         {
             headerName: "Actions",
@@ -142,11 +125,8 @@ const Pcb = () => {
             renderCell: (params) => {
                 return (
                     <div>
-                        <IconButton color="secondary" onClick={() => handleEdit(params.row)}>
-                            <EditOutlinedIcon />
-                        </IconButton>
-                        <IconButton color="secondary" onClick={() => handleDelete(params.row)}>
-                            <DeleteOutlinedIcon />
+                        <IconButton color="secondary" onClick={() => handleViewDetails(params.row)}>
+                            <ViewList />
                         </IconButton>
                     </div>
                 );
@@ -176,24 +156,27 @@ const Pcb = () => {
                         right: 10,
                         zIndex: 1000,
                         color: 'white',
-                        backgroundColor: '#4b2eae'
+                        backgroundColor: '#847343'
 
                     }}
                     startIcon={<AddIcon />}>
-                    Add Pcb
+                    Add Order
                 </Button>
 
 
                 <Header
                     subtitleStyle={{ color: colors.grey[100] }}
-                    subtitle={productId ? `Managing the Pcbs for Product - ${getProductByIdSuccessResponse ? getProductByIdSuccessResponse.data.name : getProductByIdSuccessResponse }` : "Managing the Pcbs"}
-                    />
+                    subtitle="Managing the Orders" />
 
             <Box
                 m="40px 0 0 0"
                 height="75vh"
-                sx={pcbStyles}            >
-                <DataGrid   rows={pcbs} columns={columns} />
+                sx={orderStyles}            >
+                <DataGrid
+                    getRowId={(row) => row.SalesorderId}
+                    rows={getOrderSuccessResponse ? getOrderSuccessResponse.data : []}
+                    columns={columns} />
+
             </Box>
             </Box>
             <Dialog
@@ -202,10 +185,10 @@ const Pcb = () => {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <DialogTitle id="alert-dialog-title">{"Delete Pcb"}</DialogTitle>
+                <DialogTitle id="alert-dialog-title">{"Delete Order"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Are you sure you want to delete the pcb - {selectedPcb?.name}?
+                        Are you sure you want to delete the order - {selectedOrder?.name}?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -221,4 +204,4 @@ const Pcb = () => {
     );
 };
 
-export default Pcb;
+export default Orders;

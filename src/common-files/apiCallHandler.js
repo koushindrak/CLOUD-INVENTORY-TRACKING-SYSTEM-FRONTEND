@@ -21,6 +21,8 @@ export const apis= {
    PCB_APIS_BASE_URL: "/api/v1/pcb",
    COMPONENT_APIS_BASE_URL: "/api/v1/component",
    SUPPLIER_APIS_BASE_URL: "/api/v1/supplier",
+   ORDER_APIS_BASE_URL: "/api/v1/dk/get-order-history",
+
 
   /*OTHER APIS*/
    LOGIN: '/api/v1/auth/signin',

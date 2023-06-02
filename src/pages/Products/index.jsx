@@ -19,6 +19,7 @@ import {getCategories, getCategoryFailure, getCategorySuccess} from "./GetProduc
 import { successToast, errorToast } from '../../containers/react-toast-alert';
 import 'react-toastify/dist/ReactToastify.css';
 import DeveloperBoardIcon from "@mui/icons-material/DeveloperBoard";
+import Colors from "../../utils/colors";
 
 
 const Products = () => {
@@ -197,7 +198,7 @@ const Products = () => {
                 </Button>
 
 
-                <Header subtitleStyle={{ color: 'black' }} subtitle="Managing the Products" />
+                <Header subtitleStyle={{ color: colors.grey[100] }} subtitle="Managing the Products" />
 
             <Box
                 m="40px 0 0 0"

@@ -5,7 +5,7 @@ import COLORS from "../utils/colors";
 
 //NEW
 import { useState } from "react";
-// import Topbar from "../scenes/global/Topbar";
+import Topbar from "../scenes/global/Topbar";
 import Sidebar from "../scenes/global/Sidebar";
 import Dashboard from "../scenes/dashboard";
 import Team from "../scenes/team";
@@ -32,6 +32,7 @@ import AddPcb from "../pages/Pcb/AddPcbPage";
 import AddComponent from "../pages/Components/AddComponentPage";
 import Supplier from "../pages/Suppliers";
 import EditPcb from "../pages/Pcb/EditPcb";
+import Orders from "../pages/Orders";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -62,9 +63,11 @@ function App() {
         <div className="app">
           <Sidebar isSidebar={isSidebar} />
           <main className="content">
-            {/*<Topbar setIsSidebar={setIsSidebar} />*/}
+            <Topbar setIsSidebar={setIsSidebar} />
             {/*<BrowserRouter>*/}
               <Routes>
+                <Route path="/orders" element={<Orders/>}/>
+
                 <Route path="/products/add" element={<AddProduct />} />
                 <Route path="/products/edit/:id" element={<EditProduct />} />
                 <Route path="/product/:productId/pcb" element={<Pcb />} />

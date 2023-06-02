@@ -20,6 +20,7 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import DeveloperBoardIcon from '@mui/icons-material/DeveloperBoard';
 import MemoryIcon from '@mui/icons-material/Memory';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import Business from '@mui/icons-material/Business';
 
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -164,6 +165,13 @@ const Sidebar = () => {
               <Item
                   title="Suppliers"
                   to="/suppliers"
+                  icon={<Business />}
+                  selected={selected}
+                  setSelected={setSelected}
+              />
+              <Item
+                  title="Track Orders"
+                  to="/orders"
                   icon={<LocalShippingIcon />}
                   selected={selected}
                   setSelected={setSelected}

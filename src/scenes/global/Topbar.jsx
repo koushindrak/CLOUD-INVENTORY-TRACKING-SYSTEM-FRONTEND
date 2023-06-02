@@ -1,4 +1,3 @@
-/*
 import { Box, IconButton, useTheme } from "@mui/material";
 import { useContext } from "react";
 import { ColorModeContext, tokens } from "../../theme";
@@ -17,7 +16,7 @@ const Topbar = () => {
 
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
-      {/!* SEARCH BAR *!/}
+      {/* SEARCH BAR */}
       <Box
         display="flex"
         backgroundColor={colors.primary[400]}
@@ -29,7 +28,7 @@ const Topbar = () => {
         </IconButton>
       </Box>
 
-      {/!* ICONS *!/}
+      {/* ICONS */}
       <Box display="flex">
         <IconButton onClick={colorMode.toggleColorMode}>
           {theme.palette.mode === "dark" ? (
@@ -53,4 +52,3 @@ const Topbar = () => {
 };
 
 export default Topbar;
-*/
