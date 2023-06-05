@@ -1,6 +1,6 @@
 import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Typography, useTheme, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from "@mui/material";
+import { Box, Typography, useTheme, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button,Tooltip } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { useDispatch, useSelector } from 'react-redux';
@@ -88,13 +88,6 @@ const Products = () => {
         }
     }, [deleteFailure, dispatch]);
 
-    useEffect(() => {
-        if (deleteSuccess) {
-            // Refetch products when a product is successfully deleted
-            successToast(deleteSuccess.displayMessage)
-            dispatch(getProducts());
-        }
-    }, [deleteSuccess, dispatch]);
     /*Effects Section Ends here */
 
     /* Button click actions start here */
@@ -175,15 +168,24 @@ const Products = () => {
             renderCell: (params) => {
                 return (
                     <div>
+
+                        <Tooltip title="Edit Product" placement="top">
                         <IconButton color="secondary" onClick={() => handleEdit(params.row)}>
                             <EditOutlinedIcon />
                         </IconButton>
+                        </Tooltip>
+
+                        <Tooltip title="Delete Product" placement="top">
                         <IconButton color="secondary" onClick={() => handleDelete(params.row)}>
                             <DeleteOutlinedIcon />
                         </IconButton>
+                        </Tooltip>
+
+                        <Tooltip title="Manage PCB's" placement="top">
                         <IconButton color="secondary" onClick={() => handleManagePCB(params.row)}>
                             <DeveloperBoardIcon />
                         </IconButton>
+                        </Tooltip>
                     </div>
                 );
             },
