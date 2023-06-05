@@ -24,7 +24,7 @@ const AddPcb = () => {
     useEffect(() => {
         if(createSuccess){
              if(productId){
-                 navigate('/product/'+productId+'/pcb/');
+                 navigate('/products/'+productId+'/pcbs/');
              }else {
                  navigate('/pcbs');
              }

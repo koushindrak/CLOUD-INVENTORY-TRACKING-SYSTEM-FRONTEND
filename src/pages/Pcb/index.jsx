@@ -1,5 +1,5 @@
 import { useState,useEffect } from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import {Route, useNavigate, useParams} from 'react-router-dom';
 import { Box, Typography, useTheme, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
@@ -18,6 +18,7 @@ import DeleteDialog from "../../containers/DeleteDialog";
 import {deletePcbById, deletePcbByIdFailure, deletePcbByIdSuccess} from "./DeletePcb";
 import {errorToast, successToast} from "../../containers/react-toast-alert";
 import {getPcbById} from "./GetPCBById";
+import UpdatePcbPage from "./UpdatePcbPage";
 
 
 const Pcb = () => {
@@ -67,8 +68,6 @@ const Pcb = () => {
         if(productId){
             console.log("productId--",productId)
             dispatch(getProductById(productId));
-            // dispatch(getPcbByProductId(productId));
-            // dispatch(getProductsByPCBId)
         }else{
             console.log("productId2222--",productId)
             dispatch(getPcb());
@@ -81,7 +80,7 @@ const Pcb = () => {
         }else if(getPcbSuccessResponse){
             setPcbs(getPcbSuccessResponse.data)
         }
-    })
+    },[getProductByIdSuccessResponse,getPcbSuccessResponse,productId])
 
     /*Effects Section Ends here */
 
@@ -89,7 +88,16 @@ const Pcb = () => {
     /* Button click actions start here */
     const handleEdit = (row) => {
         // Dispatch the edit action with the row data as payload
-        navigate(`/pcbs/edit/${row.id}`);
+        console.log("pcb row--",row)
+        if(productId){
+            {/*edit an existing pcb for a product */}
+           // <Route path="/products/:productId/pcbs/edit/:pcbId" element={<UpdatePcbPage />} />
+            navigate(`/products/${productId}/pcbs/edit/${row.id}`)
+        }else{
+            {/*update pcb  */}
+            //<Route path="/pcbs/edit/:id" element={<UpdatePcbPage />} />
+            navigate(`/pcbs/edit/${row.id}`);
+        }
     };
 
 
@@ -113,7 +121,7 @@ const Pcb = () => {
 
     const handleAdd = () => {
         if(productId){
-            navigate('/product/'+productId+'/pcb/add')
+            navigate('/products/'+productId+'/pcbs/add')
         }else {
             navigate('/pcbs/add'); // Change this to the correct route
         }

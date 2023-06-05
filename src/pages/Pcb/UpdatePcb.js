@@ -42,6 +42,8 @@ export function UpdatePcbReducer(state = initialState, action) {
 
         case RESET_UPDATE_PCB_STATES:
             return Object.assign({}, state, {
+                getPcbByIdError:null,
+                getPcbByIdResponse:null,
                 updatePcbError: null,
                 updatePcbResponse: null,
             })

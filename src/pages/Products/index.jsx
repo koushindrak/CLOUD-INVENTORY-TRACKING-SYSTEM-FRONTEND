@@ -107,7 +107,10 @@ const Products = () => {
     };
 
     const handleManagePCB = (row) => {
-        navigate(`product/${row.id}/pcb/`)
+        /*get all pcbs for a product
+         <Route path="/products/:productId/pcbs" element={<Pcb />} />
+        */
+        navigate(`/products/${row.id}/pcbs/`)
     };
 
     const handleClose = () => {

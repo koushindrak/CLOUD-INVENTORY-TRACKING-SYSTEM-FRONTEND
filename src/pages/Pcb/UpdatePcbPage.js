@@ -12,7 +12,7 @@ import {getPcbById, getPcbByIdSuccess} from "./GetPCBById";
 import {resetUpdatePcbSates, updatePcb, updatePcbFailure, updatePcbSuccess} from "./UpdatePcb";
 
 const UpdatePcbPage = () => {
-    let { id } = useParams();
+    const { productId, pcbId } = useParams();
     const dispatch = useDispatch();
     const pcbSuccess = useSelector(getPcbByIdSuccess);
     const [pcb, setPCB] = useState(null);
@@ -23,16 +23,23 @@ const UpdatePcbPage = () => {
 
     useEffect(() => {
         if (!pcbSuccess) {
-            dispatch(getPcbById(id));
+            dispatch(getPcbById(pcbId));
         } else {
             setPCB(pcbSuccess.data);
         }
-    }, [dispatch, id, pcbSuccess]);
+    }, [dispatch, pcbSuccess]);
 
     useEffect(() => {
         if(updateSuccess){
             successToast(updateSuccess.displayMessage)
-            navigate('/pcbs');
+            if(productId){
+                /*get all pcbs for a product
+                 <Route path="/products/:productId/pcbs" element={<Pcb />} />
+                */
+                navigate(`/products/${productId}/pcbs/`)
+            }else {
+                navigate('/pcbs');
+            }
             dispatch(resetUpdatePcbSates());
         }
     },[updateSuccess])

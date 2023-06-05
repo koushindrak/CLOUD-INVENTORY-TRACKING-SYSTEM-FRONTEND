@@ -70,14 +70,32 @@ function App() {
                 <Route path="/orders" element={<Orders/>}/>
                 <Route path="/orders/:id/details" element={<GetOrderByIdPage/>}/>
 
+                {/*create product  */}
                 <Route path="/products/add" element={<AddProduct />} />
+
+                {/*update product */}
                 <Route path="/products/edit/:id" element={<EditProduct />} />
-                <Route path="/product/:productId/pcb" element={<Pcb />} />
-                <Route path="/product/:productId/pcb/add" element={<AddPcb />} />
+
+                {/*get all products */}
                 <Route path="/" element={<Products />} />
 
+                {/*get all pcbs for a product */}
+                <Route path="/products/:productId/pcbs" element={<Pcb />} />
+
+                {/*add new pcb to a product */}
+                <Route path="/products/:productId/pcbs/add" element={<AddPcb />} />
+
+                {/*edit an existing pcb for a product */}
+                <Route path="/products/:productId/pcbs/edit/:pcbId" element={<UpdatePcbPage />} />
+
+
+                {/*create pcb  */}
                 <Route path="/pcbs/add" element={<AddPcb />} />
+
+                {/*update pcb  */}
                 <Route path="/pcbs/edit/:id" element={<UpdatePcbPage />} />
+
+                {/*retrieve pcb  */}
                 <Route path="/pcbs" element={<Pcb />} />
 
                 <Route path="/components/edit/:id" element={<EditProduct />} />
