@@ -258,7 +258,7 @@ const Component = () => {
                 open={open}
                 handleClose={handleClose}
                 handleConfirmDelete={handleConfirmDelete}
-                entityName={selectedComponent?.name}
+                entityName={selectedComponent?.mfrptn}
             />
         </Box>
     );

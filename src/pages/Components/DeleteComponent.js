@@ -53,7 +53,7 @@ export function DeleteComponentByIdReducer(state = initialState, action) {
 }
 
 //5. Selector
-const deleteComponentByIdSelector = state => state.deleteById || initialState;
+const deleteComponentByIdSelector = state => state.deleteCompById || initialState;
 export const deleteComponentByIdSuccess = createSelector(deleteComponentByIdSelector,state=>state.deleteComponentByIdResponse)
 export const deleteComponentByIdFailure =  createSelector(deleteComponentByIdSelector,state=>state.deleteComponentByIdError)
 export {deleteComponentByIdSelector}

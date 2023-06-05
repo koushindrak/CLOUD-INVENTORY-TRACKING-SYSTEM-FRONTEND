@@ -100,7 +100,7 @@ function App() {
                 {/*retrieve pcb  */}
                 <Route path="/pcbs" element={<Pcb />} />
 
-                <Route path="/components/edit/:id" element={<UpdateComponentPage />} />
+                <Route path="/components/edit/:componentId" element={<UpdateComponentPage />} />
                 <Route path="/components/add" element={<AddComponent />} />
                 <Route path="/components" element={<Components />} />
 

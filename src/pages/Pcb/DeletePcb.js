@@ -53,7 +53,7 @@ export function DeletePcbByIdReducer(state = initialState, action) {
 }
 
 //5. Selector
-const deletePcbByIdSelector = state => state.deleteById || initialState;
+const deletePcbByIdSelector = state => state.deletePCBById || initialState;
 export const deletePcbByIdSuccess = createSelector(deletePcbByIdSelector,state=>state.deletePcbByIdResponse)
 export const deletePcbByIdFailure =  createSelector(deletePcbByIdSelector,state=>state.deletePcbByIdError)
 export {deletePcbByIdSelector}
