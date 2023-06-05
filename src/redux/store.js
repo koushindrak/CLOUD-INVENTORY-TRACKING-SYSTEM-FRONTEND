@@ -12,6 +12,8 @@ import {GetSupplierReducer} from "../pages/Suppliers/GetAllSupplier";
 import {GetPcbByIdReducer} from "../pages/Pcb/GetPCBById";
 import {GetOrderReducer} from "../pages/Orders/GetAllOrders";
 import {GetOrderByIdReducer} from "../pages/Orders/GetOrderById";
+import {DeletePcbByIdReducer} from "../pages/Pcb/DeletePcb";
+import {UpdatePcbReducer} from "../pages/Pcb/UpdatePcb";
 
 let sagaMiddleware = createSagaMiddleware();
 const middleware = (getDefaultMiddleware) => [
@@ -24,17 +26,29 @@ const middleware = (getDefaultMiddleware) => [
 const store = configureStore({
   reducer: {
     chat: chatSlice.reducer,
-    product: manageProductsReducer, // Add your product reducer here
+
+    //product
+    product: manageProductsReducer,
+
+    //category
     category: GetCategoryReducer,
 
+    //pcb
     pcb: GetPcbReducer,
     createPcb: CreatePcbReducer,
     createComponent: CreateComponentReducer,
+    pcbById: GetPcbByIdReducer,
+    deleteById: DeletePcbByIdReducer,
+    updatePcb: UpdatePcbReducer,
+
+    //component
     component: GetComponentReducer,
 
+    //supplier
     supplier: GetSupplierReducer,
-    pcbById: GetPcbByIdReducer,
 
+
+    //orders
     orders: GetOrderReducer,
     orderById: GetOrderByIdReducer
 

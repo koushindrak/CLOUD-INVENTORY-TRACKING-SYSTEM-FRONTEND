@@ -9,40 +9,58 @@ import IconButton from '@mui/material/IconButton';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import AddIcon from '@mui/icons-material/Add';
-import { successToast, errorToast } from '../../containers/react-toast-alert';
 import 'react-toastify/dist/ReactToastify.css';
 import {getPcb, getPcbSuccess} from "./GetAllPcb";
 import {getPcbStyles} from "./css/PcbStyles";
-import {getPcbById, getPcbByIdSuccess} from "./GetPCBById";
-import {getProductByIdSuccess} from "../Products/selectors";
 import {getProductById} from "../Products/actions";
-import EditPcb from './EditPcb';
+import {getProductByIdSuccess} from "../Products/selectors";
+import DeleteDialog from "../../containers/DeleteDialog";
+import {deletePcbById, deletePcbByIdFailure, deletePcbByIdSuccess} from "./DeletePcb";
+import {errorToast, successToast} from "../../containers/react-toast-alert";
+import {getPcbById} from "./GetPCBById";
 
 
 const Pcb = () => {
-    const dispatch = useDispatch();
+    //hooks & selectors
     const getPcbSuccessResponse = useSelector(getPcbSuccess);
-    // const getPcbByIdSuccessResponse = useSelector(getPcbByIdSuccess);
     const getProductByIdSuccessResponse = useSelector(getProductByIdSuccess)
+    const deleteSuccess = useSelector(deletePcbByIdSuccess);
+    const deleteFailure = useSelector(deletePcbByIdFailure);
 
-    //style constants
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+
+    //styles
     const theme = useTheme();
     const pcbStyles = getPcbStyles(theme);
     const colors = tokens(theme.palette.mode);
 
-    //state constants
+    //states
     const [open, setOpen] = useState(false);
     const [selectedId, setSelectedId] = useState(null);
     const [selectedPcb, setSelectedPcb] = useState(null);
     const [pcbs, setPcbs] = useState([]);
-    //routing constants
-    const navigate = useNavigate();  // new
+
 
     // params from other page
     let { productId } = useParams();
 
+
     /* Effects Start */
 
+    useEffect( () => {
+        if(deleteSuccess){
+            successToast(deleteSuccess.displayMessage)
+            dispatch(getPcb());
+        }
+    },[deleteSuccess])
+
+    useEffect( () => {
+        if(deleteFailure){
+            errorToast(deleteFailure.error)
+        }
+    },[deleteFailure])
 
     useEffect(() => {
         console.log("productId Params--",productId)
@@ -65,10 +83,8 @@ const Pcb = () => {
         }
     })
 
-
-
-
     /*Effects Section Ends here */
+
 
     /* Button click actions start here */
     const handleEdit = (row) => {
@@ -86,13 +102,12 @@ const Pcb = () => {
         setOpen(true);
     };
 
-
     const handleClose = () => {
         setOpen(false);
     };
 
     const handleConfirmDelete = () => {
-         // dispatch(deletePcb(selectedPcb.id));
+         dispatch(deletePcbById(selectedPcb.id));
         setOpen(false);
     };
 
@@ -196,27 +211,12 @@ const Pcb = () => {
                 <DataGrid   rows={pcbs} columns={columns} />
             </Box>
             </Box>
-            <Dialog
+            <DeleteDialog
                 open={open}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-            >
-                <DialogTitle id="alert-dialog-title">{"Delete Pcb"}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        Are you sure you want to delete the pcb - {selectedPcb?.name}?
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                        Cancel
-                    </Button>
-                    <Button onClick={handleConfirmDelete} color="primary" autoFocus>
-                        Delete
-                    </Button>
-                </DialogActions>
-            </Dialog>
+                handleClose={handleClose}
+                handleConfirmDelete={handleConfirmDelete}
+                entityName={selectedPcb?.name}
+            />
         </Box>
     );
 };

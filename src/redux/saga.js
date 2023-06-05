@@ -11,6 +11,8 @@ import {watchGetSupplierRequest} from "../pages/Suppliers/GetAllSupplier";
 import {watchGetPcbByIdRequest} from "../pages/Pcb/GetPCBById";
 import {watchGetOrderRequest} from "../pages/Orders/GetAllOrders";
 import {watchGetOrderByIdRequest} from "../pages/Orders/GetOrderById";
+import {watchDeletePcbByIdRequest} from "../pages/Pcb/DeletePcb";
+import {watchUpdatePcbRequest} from "../pages/Pcb/UpdatePcb";
 
 export let callAPI = async ({ url, method, data }) => {
   return await Axios({url, method, data});
@@ -19,19 +21,31 @@ export let callAPI = async ({ url, method, data }) => {
 export default function* rootSaga() {
   yield all([
       fetchMessageWatcher(),
-      productSaga(),
-      watchGetCategoryRequest(),
-      watchGetPcbRequest(),
-      watchCreatePcbRequest(),
 
+      //product
+      productSaga(),
+
+      //category
+      watchGetCategoryRequest(),
+
+      //component
       watchCreateComponentRequest(),
       watchGetComponentRequest(),
 
+      //supplier
       watchGetSupplierRequest(),
-      watchGetPcbByIdRequest(),
 
+      //pcb
+      watchCreatePcbRequest(),
+      watchGetPcbRequest(),
+      watchGetPcbByIdRequest(),
+      watchDeletePcbByIdRequest(),
+      watchUpdatePcbRequest(),
+
+      //order
       watchGetOrderRequest(),
       watchGetOrderByIdRequest()
+
 
   ]);
 }

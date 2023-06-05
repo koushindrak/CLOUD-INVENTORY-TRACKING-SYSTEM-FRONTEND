@@ -28,10 +28,10 @@ import Component from "../pages/Components";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Pcb from "../pages/Pcb";
-import AddPcb from "../pages/Pcb/AddPcbPage";
+import AddPcb from "../pages/Pcb/CreatePcbPage";
 import AddComponent from "../pages/Components/AddComponentPage";
 import Supplier from "../pages/Suppliers";
-import EditPcb from "../pages/Pcb/EditPcb";
+import UpdatePcbPage from "../pages/Pcb/UpdatePcbPage";
 import Orders from "../pages/Orders";
 import GetOrderByIdPage from "../pages/Orders/GetOrderByIdPage";
 
@@ -77,7 +77,7 @@ function App() {
                 <Route path="/" element={<Products />} />
 
                 <Route path="/pcbs/add" element={<AddPcb />} />
-                <Route path="/pcbs/edit/:id" element={<EditPcb />} />
+                <Route path="/pcbs/edit/:id" element={<UpdatePcbPage />} />
                 <Route path="/pcbs" element={<Pcb />} />
 
                 <Route path="/components/edit/:id" element={<EditProduct />} />

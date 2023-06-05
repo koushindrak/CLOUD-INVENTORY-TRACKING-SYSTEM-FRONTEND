@@ -1,53 +1,66 @@
-import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+
 import { Box, Button, TextField } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { useDispatch, useSelector } from 'react-redux';
-import { getPcbById, resetUpdateSuccess, updatePcb } from './actions';
-import { getPcbByIdSuccess, updatePcbSuccess } from './selectors';
+import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import Header from "../../containers/Header";
+import {useEffect, useState} from "react";
+import { useNavigate } from 'react-router-dom';
+import {errorToast, successToast} from "../../containers/react-toast-alert";
+import {getPcbById, getPcbByIdSuccess} from "./GetPCBById";
+import {updatePcb, updatePcbFailure, updatePcbSuccess} from "./UpdatePcb";
+import {resetUpdateSuccess, updateProduct} from "../Products/actions";
 
-const EditPcb = () => {
-    const { id } = useParams();
+const UpdatePcbPage = () => {
+    let { id } = useParams();
     const dispatch = useDispatch();
-    const pcbFromStore = useSelector(getPcbByIdSuccess);
-    const updateSuccess = useSelector(updatePcbSuccess);
+    const pcbSuccess = useSelector(getPcbByIdSuccess);
+    const [pcb, setPCB] = useState(null);
+    const updateSuccess = useSelector(updatePcbSuccess)
+    const updateFailure = useSelector(updatePcbFailure)
 
     const navigate = useNavigate();
 
-    const [pcb, setPcb] = useState(null);
-
     useEffect(() => {
-        if (!pcbFromStore) {
+        if (!pcbSuccess) {
             dispatch(getPcbById(id));
         } else {
-            setPcb(pcbFromStore.data);
+            setPCB(pcbSuccess.data);
         }
-    }, [dispatch, id, pcbFromStore]);
+    }, [dispatch, id, pcbSuccess]);
 
     useEffect(() => {
-        if (updateSuccess) {
-            navigate('/pcbs');
+        if(updateSuccess){
+            successToast(updateSuccess.displayMessage)
+            navigate('/');
             dispatch(resetUpdateSuccess());
         }
-    }, [updateSuccess, dispatch, navigate]);
+    },[updateSuccess])
+
+    useEffect(() => {
+        if(updateFailure){
+            errorToast(updateFailure.error)
+            dispatch(resetUpdateSuccess());
+
+        }
+    },[updateFailure])
 
     const handleFormSubmit = (values) => {
         dispatch(updatePcb(values));
     };
 
+
     const pcbSchema = yup.object().shape({
         id: yup.string().required("Required"),
         name: yup.string().required("Required"),
-        description: yup.string().required("Required"),
         pcbCategoryName: yup.string().required("Required"),
     });
 
     return (
         <Box m="20px">
             <Header title="Edit PCB" subtitle="Edit an Existing PCB" />
-            {pcb && (
+            {pcb && (  // Conditional rendering
                 <Formik
                     onSubmit={handleFormSubmit}
                     initialValues={{
@@ -59,13 +72,13 @@ const EditPcb = () => {
                     validationSchema={pcbSchema}
                 >
                     {({
-                        values,
-                        errors,
-                        touched,
-                        handleBlur,
-                        handleChange,
-                        handleSubmit,
-                    }) => (
+                          values,
+                          errors,
+                          touched,
+                          handleBlur,
+                          handleChange,
+                          handleSubmit,
+                      }) => (
                         <form onSubmit={handleSubmit}>
                             <Box
                                 display="grid"
@@ -128,4 +141,5 @@ const EditPcb = () => {
     );
 };
 
-export default EditPcb;
+export default UpdatePcbPage;
+
