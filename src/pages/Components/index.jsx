@@ -1,99 +1,54 @@
 import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Typography, useTheme, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button,Tooltip } from "@mui/material";
+import { Box, Typography, useTheme, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { useDispatch, useSelector } from 'react-redux';
-import { getProducts, createProduct, updateProduct, deleteProduct } from './actions';
-import {
-    getProductSuccess,
-    createProductSuccess,
-    updateProductSuccess,
-    deleteProductSuccess,
-    deleteProductFailure
-} from './selectors';
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../containers/Header";
-import {getProductStyles} from "./ProductStyles";
 import IconButton from '@mui/material/IconButton';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import AddIcon from '@mui/icons-material/Add';
-import {getCategories, getCategoryFailure, getCategorySuccess} from "./GetProductCategories";
 import { successToast, errorToast } from '../../containers/react-toast-alert';
 import 'react-toastify/dist/ReactToastify.css';
-import DeveloperBoardIcon from "@mui/icons-material/DeveloperBoard";
-import Colors from "../../utils/colors";
+import {getComponent, getComponentSuccess} from "./GetAllComponent";
+import {getComponentStyles} from "./css/ComponentStyles";
 
 
-const Products = () => {
+const Component = () => {
     const dispatch = useDispatch();
-    //selectors constants
-    const productResponse = useSelector(getProductSuccess);
-    const deleteSuccess = useSelector(deleteProductSuccess);
-    const deleteFailure = useSelector(deleteProductFailure);
-    const getCategorySuccessResponse = useSelector(getCategorySuccess);
-    const getCategoryFailureResponse = useSelector(getCategoryFailure);
+    const getComponentSuccessResponse = useSelector(getComponentSuccess);
 
     //style constants
     const theme = useTheme();
-    const productStyles = getProductStyles(theme);
+    const componentStyles = getComponentStyles(theme);
     const colors = tokens(theme.palette.mode);
 
     //state constants
     const [open, setOpen] = useState(false);
     const [selectedId, setSelectedId] = useState(null);
-    const [selectedProduct, setSelectedProduct] = useState(null);
-    const [productCategoryList,setProductCategoryList] = useState(null);
+    const [selectedComponent, setSelectedComponent] = useState(null);
 
     //routing constants
     const navigate = useNavigate();  // new
 
     /* Effects Start */
 
-    useEffect( () => {
-       if (getCategoryFailureResponse){
-            errorToast(getCategoryFailureResponse.error)
-        }
-    },[getCategoryFailureResponse,dispatch])
 
-    useEffect( () => {
-        if (getCategorySuccessResponse){
-            setProductCategoryList(getCategorySuccessResponse.data)
-        }
-    },[getCategorySuccessResponse,dispatch])
     useEffect(() => {
-        dispatch(getProducts());
+        dispatch(getComponent());
     }, [dispatch]);
 
-    useEffect(() => {
-        dispatch(getCategories())
-    }, [dispatch]);
-
-    useEffect(() => {
-        if (deleteSuccess) {
-            // Refetch products when a product is successfully deleted
-            successToast(deleteSuccess.displayMessage)
-            dispatch(getProducts());
-        }
-    }, [deleteSuccess, dispatch]);
 
 
-    useEffect(() => {
-        if (deleteFailure) {
-            successToast(deleteFailure.error)
-            // dispatch(getProducts());
-        }
-    }, [deleteFailure, dispatch]);
+
 
     /*Effects Section Ends here */
 
     /* Button click actions start here */
     const handleEdit = (row) => {
         // Dispatch the edit action with the row data as payload
-        navigate(`/products/edit/${row.id}`);
+        navigate(`/components/edit/${row.id}`);
     };
 
 
@@ -101,26 +56,23 @@ const Products = () => {
         handleClickOpen(row);
     };
 
-    const handleClickOpen = (product) => {
-        setSelectedProduct(product);
+    const handleClickOpen = (component) => {
+        setSelectedComponent(component);
         setOpen(true);
     };
 
-    const handleManagePCB = (row) => {
-        navigate(`product/${row.id}/pcb/`)
-    };
 
     const handleClose = () => {
         setOpen(false);
     };
 
     const handleConfirmDelete = () => {
-         dispatch(deleteProduct(selectedProduct.id));
+         // dispatch(deleteComponent(selectedComponent.id));
         setOpen(false);
     };
 
     const handleAdd = () => {
-        navigate('/products/add'); // Change this to the correct route
+        navigate('/components/add'); // Change this to the correct route
     };
     /* Button click actions ends here */
 
@@ -130,14 +82,14 @@ const Products = () => {
             headerName: "ID",
             headerAlign: "center",
             align: "center",
+            cellClassName: "id-column--cell",  // Add the className here
         },
         {
-            field: "name",
-            headerName: "Name",
-            flex: 1,
-            cellClassName: "name-column--cell",
+            field: "mfrptn",
+            headerName: "MFRPTN",
             headerAlign: "center",
             align: "center",
+            flex: 1,
         },
         {
             field: "description",
@@ -147,15 +99,43 @@ const Products = () => {
             flex: 1,
         },
         {
-            field: "serialNumber",
-            headerName: "Serial Number",
+            field: "componentCategoryName",
+            headerName: "Category",
             flex: 1,
             headerAlign: "center",
             align: "center",
         },
         {
-            field: "productCategoryName",
-            headerName: "Category",
+            field: "footprint",
+            headerName: "FOOTPRINT",
+            flex: 1,
+            headerAlign: "center",
+            align: "center",
+        },
+        {
+            field: "value",
+            headerName: "VALUE",
+            flex: 1,
+            headerAlign: "center",
+            align: "center",
+        },
+        {
+            field: "isObselete",
+            headerName: "Obselete",
+            flex: 1,
+            headerAlign: "center",
+            align: "center",
+        },
+        {
+            field: "threshold",
+            headerName: "Threshold",
+            flex: 1,
+            headerAlign: "center",
+            align: "center",
+        },
+        {
+            field: "stock",
+            headerName: "Stock",
             flex: 1,
             headerAlign: "center",
             align: "center",
@@ -168,24 +148,12 @@ const Products = () => {
             renderCell: (params) => {
                 return (
                     <div>
-
-                        <Tooltip title="Edit Product" placement="top">
                         <IconButton color="secondary" onClick={() => handleEdit(params.row)}>
                             <EditOutlinedIcon />
                         </IconButton>
-                        </Tooltip>
-
-                        <Tooltip title="Delete Product" placement="top">
                         <IconButton color="secondary" onClick={() => handleDelete(params.row)}>
                             <DeleteOutlinedIcon />
                         </IconButton>
-                        </Tooltip>
-
-                        <Tooltip title="Manage PCB's" placement="top">
-                        <IconButton color="secondary" onClick={() => handleManagePCB(params.row)}>
-                            <DeveloperBoardIcon />
-                        </IconButton>
-                        </Tooltip>
                     </div>
                 );
             },
@@ -214,21 +182,23 @@ const Products = () => {
                         right: 10,
                         zIndex: 1000,
                         color: 'white',
-                        backgroundColor: 'lightseagreen'
+                        backgroundColor: '#847343'
 
                     }}
                     startIcon={<AddIcon />}>
-                    Add Product
+                    Add Component
                 </Button>
 
 
-                <Header subtitleStyle={{ color: colors.grey[100] }} subtitle="Managing the Products" />
+                <Header
+                    subtitleStyle={{ color: colors.grey[100] }}
+                    subtitle="Managing the Components" />
 
             <Box
                 m="40px 0 0 0"
                 height="75vh"
-                sx={productStyles}            >
-                <DataGrid   rows={productResponse ? productResponse.data : []} columns={columns} />
+                sx={componentStyles}            >
+                <DataGrid   rows={getComponentSuccessResponse ? getComponentSuccessResponse.data : []} columns={columns} />
             </Box>
             </Box>
             <Dialog
@@ -237,10 +207,10 @@ const Products = () => {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <DialogTitle id="alert-dialog-title">{"Delete Product"}</DialogTitle>
+                <DialogTitle id="alert-dialog-title">{"Delete Component"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Are you sure you want to delete the product - {selectedProduct?.name}?
+                        Are you sure you want to delete the component - {selectedComponent?.name}?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -256,4 +226,4 @@ const Products = () => {
     );
 };
 
-export default Products;
+export default Component;

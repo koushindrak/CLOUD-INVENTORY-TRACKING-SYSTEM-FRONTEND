@@ -19,7 +19,6 @@ function manageProductsReducer(state = initialState, action) {
       return Object.assign({},state, {createProductError:{error:action.error,errorTime:new Date()}})
 
     case CONSTANTS.GET_PRODUCTS_SUCCESS:
-      console.log("GET_PRODUCTS_SUCCESS selector---",action)
       return Object.assign({},state,{getProductResponse:action.response})
 
     case CONSTANTS.GET_PRODUCTS_FAILURE:

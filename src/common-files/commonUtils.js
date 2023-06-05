@@ -13,9 +13,6 @@ export function GetHeaders() {
 }
 
 export function* ErrorCheck(action, error, errorConst) {
-  console.log("action=>",action)
-  console.log("error=>",error)
-  console.log("errorConst=>",errorConst)
   if (!error.response && error.message) {
     yield put({type: errorConst, error: error.message, addOns: action});
   } else if (error.response.status === 400 || error.response.status === 403 || error.response.status === 500) {

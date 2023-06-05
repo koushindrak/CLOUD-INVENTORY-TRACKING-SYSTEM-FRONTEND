@@ -4,66 +4,60 @@ import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import {createProduct, getProductById, resetUpdateSuccess, updateProduct} from './actions';
-import {createProductFailure, createProductSuccess, getProductByIdSuccess, updateProductSuccess} from './selectors';
 import Header from "../../containers/Header";
 import {useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
-import {successToast,errorToast} from "../../containers/react-toast-alert";
+import {createPcb, createPcbSuccess, resetPcbSates} from "./CreatePcb";
+import {resetUpdateSuccess} from "../Products/actions";
+import {getProductByIdSuccess} from "../Products/selectors";
 
-const AddProduct = () => {
+const AddPcb = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const { id } = useParams();
     const dispatch = useDispatch();
-    const [product, setProduct] = useState(null);
-    const createProductSuccessResponse = useSelector(createProductSuccess)
-    const createProductFailureResponse = useSelector(createProductFailure)
+    const [pcb, setPcb] = useState(null);
+    const createSuccess = useSelector(createPcbSuccess)
+    const getProductByIdSuccessResponse = useSelector(getProductByIdSuccess)
 
     const navigate = useNavigate();  // new
-
-
-    useEffect(() => {
-        if(createProductSuccessResponse){
-             navigate('/');
-            dispatch(resetUpdateSuccess());
-            successToast("New Product Created Successfully")
-        }
-    },[createProductSuccessResponse])
+    let { productId }  = useParams();
 
     useEffect(() => {
-        if(createProductFailureResponse){
-            console.log("createProductFailureResponse---",createProductFailureResponse)
-            // navigate('/');
-            dispatch(resetUpdateSuccess());
-            errorToast(createProductFailureResponse.error)
+        if(createSuccess){
+             if(productId){
+                 navigate('/product/'+productId+'/pcb/');
+             }else {
+                 navigate('/pcbs');
+             }
+            dispatch(resetPcbSates());
         }
-    },[createProductFailureResponse])
+    },[createSuccess])
 
     const handleFormSubmit = (values) => {
-        dispatch(createProduct(values));
+        dispatch(createPcb(values));
     };
 
 
-    const productSchema = yup.object().shape({
+
+    const pcbSchema = yup.object().shape({
         name: yup.string().required("required"),
-        description: yup.string().required("required"),
-        serialNumber: yup.string().required("required"),
-        productCategoryName: yup.string().required("required"),
+        pcbCategoryName: yup.string().required("required"),
     });
+
 
     return (
         <Box m="20px">
-            <Header title="Add New Product"  />
+            <Header title={productId ? `Add new PCB to Product - ${getProductByIdSuccessResponse ? getProductByIdSuccessResponse.data.name : getProductByIdSuccessResponse }` : "Add new PCB"} />
                 <Formik
                     onSubmit={handleFormSubmit}
                     initialValues={{
                         id: '',
                         name: '',
                         description: '',
-                        serialNumber: '',
-                        productCategoryName: ''
+                        pcbCategoryName: '',
+                        productId:productId && !isNaN(productId) ? parseInt(productId) : productId
                     }}
-                    validationSchema={productSchema}
+                    validationSchema={pcbSchema}
                 >
                 {({
                       values,
@@ -112,32 +106,19 @@ const AddProduct = () => {
                                 fullWidth
                                 variant="filled"
                                 type="text"
-                                label="Serial Number"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                value={values.serialNumber}
-                                name="serialNumber"
-                                error={!!touched.serialNumber && !!errors.serialNumber}
-                                helperText={touched.serialNumber && errors.serialNumber}
-                                sx={{ gridColumn: "span 2" }}
-                            />
-                            <TextField
-                                fullWidth
-                                variant="filled"
-                                type="text"
                                 label="Category"
                                 onBlur={handleBlur}
                                 onChange={handleChange}
-                                value={values.productCategoryName}
-                                name="productCategoryName"
-                                error={!!touched.productCategoryName && !!errors.productCategoryName}
-                                helperText={touched.productCategoryName && errors.productCategoryName}
+                                value={values.pcbCategoryName}
+                                name="pcbCategoryName"
+                                error={!!touched.pcbCategoryName && !!errors.pcbCategoryName}
+                                helperText={touched.pcbCategoryName && errors.pcbCategoryName}
                                 sx={{ gridColumn: "span 2" }}
                             />
                         </Box>
                         <Box display="flex" justifyContent="end" mt="20px">
                             <Button type="submit" color="secondary" variant="contained">
-                                Save Product
+                                Save Pcb
                             </Button>
                         </Box>
                     </form>
@@ -148,5 +129,5 @@ const AddProduct = () => {
     );
 };
 
-export default AddProduct;
+export default AddPcb;
 

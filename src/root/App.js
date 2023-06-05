@@ -1,6 +1,5 @@
 import { ConfigProvider } from "antd";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ChatGPT from "../pages/ChatGPT";
 import Page404 from "../pages/Page404";
 import COLORS from "../utils/colors";
 
@@ -25,7 +24,16 @@ import Calendar from "../scenes/calendar/calendar";
 import Products from "../pages/Products/index";
 import EditProduct from "../pages/Products/EditProduct";
 import AddProduct from "../pages/Products/AddProduct";
-import CollapsibleTable from "../pages/Components";
+import Component from "../pages/Components";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+import Pcb from "../pages/Pcb";
+import AddPcb from "../pages/Pcb/CreatePcbPage";
+import AddComponent from "../pages/Components/AddComponentPage";
+import Supplier from "../pages/Suppliers";
+import UpdatePcbPage from "../pages/Pcb/UpdatePcbPage";
+import Orders from "../pages/Orders";
+import GetOrderByIdPage from "../pages/Orders/GetOrderByIdPage";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -52,21 +60,32 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <ToastContainer />  {/* Add this line */}
         <div className="app">
           <Sidebar isSidebar={isSidebar} />
           <main className="content">
             <Topbar setIsSidebar={setIsSidebar} />
             {/*<BrowserRouter>*/}
               <Routes>
-                {/*<Route index element={<Home />} />*/}
-                {/*<Route path="/" element={<Dashboard />} />*/}
-                <Route path="/chat" element={<ChatGPT />} />
+                <Route path="/orders" element={<Orders/>}/>
+                <Route path="/orders/:id/details" element={<GetOrderByIdPage/>}/>
 
                 <Route path="/products/add" element={<AddProduct />} />
                 <Route path="/products/edit/:id" element={<EditProduct />} />
-                <Route path="/products" element={<Products />} />
-                <Route path="/components" element={<CollapsibleTable />} />
-                <Route path="/" element={<Team />} />
+                <Route path="/product/:productId/pcb" element={<Pcb />} />
+                <Route path="/product/:productId/pcb/add" element={<AddPcb />} />
+                <Route path="/" element={<Products />} />
+
+                <Route path="/pcbs/add" element={<AddPcb />} />
+                <Route path="/pcbs/edit/:id" element={<UpdatePcbPage />} />
+                <Route path="/pcbs" element={<Pcb />} />
+
+                <Route path="/components/edit/:id" element={<EditProduct />} />
+                <Route path="/components/add" element={<AddComponent />} />
+                <Route path="/components" element={<Component />} />
+
+                <Route path="/suppliers" element={<Supplier />} />
+
                 <Route path="/contacts" element={<Contacts />} />
                 <Route path="/invoices" element={<Invoices />} />
                 <Route path="/form" element={<Form />} />
