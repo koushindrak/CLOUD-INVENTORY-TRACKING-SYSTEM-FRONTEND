@@ -15,6 +15,7 @@ import {watchDeletePcbByIdRequest} from "../pages/Pcb/DeletePcb";
 import {watchUpdatePcbRequest} from "../pages/Pcb/UpdatePcb";
 import {watchGetComponentByIdRequest} from "../pages/Components/GetComponentById";
 import {watchDeleteComponentByIdRequest} from "../pages/Components/DeleteComponent";
+import {watchUpdateComponentRequest} from "../pages/Components/UpdateComponent";
 
 export let callAPI = async ({ url, method, data }) => {
   return await Axios({url, method, data});
@@ -35,6 +36,7 @@ export default function* rootSaga() {
       watchGetComponentRequest(),
       watchGetComponentByIdRequest(),
       watchDeleteComponentByIdRequest(),
+      watchUpdateComponentRequest(),
 
       //supplier
       watchGetSupplierRequest(),
