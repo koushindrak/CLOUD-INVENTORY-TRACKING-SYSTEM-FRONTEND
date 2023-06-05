@@ -17,7 +17,7 @@ import {getProductByIdSuccess} from "../Products/selectors";
 import DeleteDialog from "../../containers/DeleteDialog";
 import {deletePcbById, deletePcbByIdFailure, deletePcbByIdSuccess} from "./DeletePcb";
 import {errorToast, successToast} from "../../containers/react-toast-alert";
-import {getPcbById} from "./GetPCBById";
+import {getPcbById, resetGetPcbByIdSates} from "./GetPCBById";
 import UpdatePcbPage from "./UpdatePcbPage";
 
 
@@ -80,6 +80,7 @@ const Pcb = () => {
         }else if(getPcbSuccessResponse){
             setPcbs(getPcbSuccessResponse.data)
         }
+        dispatch(resetGetPcbByIdSates())
     },[getProductByIdSuccessResponse,getPcbSuccessResponse,productId])
 
     /*Effects Section Ends here */
@@ -91,11 +92,11 @@ const Pcb = () => {
         console.log("pcb row--",row)
         if(productId){
             {/*edit an existing pcb for a product */}
-           // <Route path="/products/:productId/pcbs/edit/:pcbId" element={<UpdatePcbPage />} />
+           // <Route path="/products/:productId/pcbs/edit/:pcbId" element={<UpdateComponentPage />} />
             navigate(`/products/${productId}/pcbs/edit/${row.id}`)
         }else{
             {/*update pcb  */}
-            //<Route path="/pcbs/edit/:id" element={<UpdatePcbPage />} />
+            //<Route path="/pcbs/edit/:id" element={<UpdateComponentPage />} />
             navigate(`/pcbs/edit/${row.id}`);
         }
     };

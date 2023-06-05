@@ -29,11 +29,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Pcb from "../pages/Pcb";
 import AddPcb from "../pages/Pcb/CreatePcbPage";
-import AddComponent from "../pages/Components/AddComponentPage";
+import AddComponent from "../pages/Components/CreateComponentPage";
 import Supplier from "../pages/Suppliers";
 import UpdatePcbPage from "../pages/Pcb/UpdatePcbPage";
 import Orders from "../pages/Orders";
 import GetOrderByIdPage from "../pages/Orders/GetOrderByIdPage";
+import Components from "../pages/Components";
+import UpdateComponentPage from "../pages/Components/UpdateComponentPage";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -93,14 +95,14 @@ function App() {
                 <Route path="/pcbs/add" element={<AddPcb />} />
 
                 {/*update pcb  */}
-                <Route path="/pcbs/edit/:id" element={<UpdatePcbPage />} />
+                <Route path="/pcbs/edit/:pcbId" element={<UpdatePcbPage />} />
 
                 {/*retrieve pcb  */}
                 <Route path="/pcbs" element={<Pcb />} />
 
-                <Route path="/components/edit/:id" element={<EditProduct />} />
+                <Route path="/components/edit/:id" element={<UpdateComponentPage />} />
                 <Route path="/components/add" element={<AddComponent />} />
-                <Route path="/components" element={<Component />} />
+                <Route path="/components" element={<Components />} />
 
                 <Route path="/suppliers" element={<Supplier />} />
 

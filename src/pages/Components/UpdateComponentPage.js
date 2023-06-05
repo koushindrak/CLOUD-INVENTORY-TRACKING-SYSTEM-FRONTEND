@@ -8,75 +8,76 @@ import Header from "../../containers/Header";
 import {useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
 import {errorToast, successToast} from "../../containers/react-toast-alert";
-import {getPcbById, getPcbByIdSuccess, resetGetPcbByIdSates} from "./GetPCBById";
-import {resetUpdatePcbSates, updatePcb, updatePcbFailure, updatePcbSuccess} from "./UpdatePcb";
+import {getComponentById, getComponentByIdSuccess, resetGetComponentByIdSates} from "./GetComponentById";
+import {resetUpdateComponentSates, updateComponent, updateComponentFailure, updateComponentSuccess} from "./UpdateComponent";
 
-const UpdatePcbPage = () => {
-    const { productId, pcbId } = useParams();
+const UpdateComponentPage = () => {
+    const { productId, componentId } = useParams();
     const dispatch = useDispatch();
-    const pcbSuccess = useSelector(getPcbByIdSuccess);
-    const [pcb, setPCB] = useState(null);
-    const updateSuccess = useSelector(updatePcbSuccess)
-    const updateFailure = useSelector(updatePcbFailure)
+    const componentSuccess = useSelector(getComponentByIdSuccess);
+    const [component, setComponent] = useState(null);
+    const updateSuccess = useSelector(updateComponentSuccess)
+    const updateFailure = useSelector(updateComponentFailure)
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!pcbSuccess) {
-            dispatch(getPcbById(pcbId));
+        console.log("componentSuccess--",componentSuccess)
+        if (!componentSuccess) {
+            dispatch(getComponentById(componentId));
         } else {
-            setPCB(pcbSuccess.data);
+            setComponent(componentSuccess.data);
         }
-    }, [dispatch, pcbSuccess]);
+    }, [dispatch, componentSuccess]);
 
     useEffect(() => {
         if(updateSuccess){
             successToast(updateSuccess.displayMessage)
             if(productId){
-                /*get all pcbs for a product
-                 <Route path="/products/:productId/pcbs" element={<Pcb />} />
+                /*get all components for a product
+                 <Route path="/products/:productId/components" element={<Component />} />
                 */
-                navigate(`/products/${productId}/pcbs/`)
+                navigate(`/products/${productId}/components/`)
             }else {
-                navigate('/pcbs');
+                navigate('/components');
             }
-            dispatch(resetGetPcbByIdSates());
-            dispatch(resetUpdatePcbSates());
+            dispatch(resetGetComponentByIdSates());
+            dispatch(resetUpdateComponentSates());
         }
     },[updateSuccess])
 
     useEffect(() => {
         if(updateFailure){
             errorToast(updateFailure.error)
-            dispatch(resetUpdatePcbSates());
+            dispatch(resetUpdateComponentSates());
 
         }
     },[updateFailure])
 
     const handleFormSubmit = (values) => {
-        dispatch(updatePcb(values));
+        dispatch(updateComponent(values));
     };
 
 
-    const pcbSchema = yup.object().shape({
+    const componentSchema = yup.object().shape({
         id: yup.string().required("Required"),
         name: yup.string().required("Required"),
-        pcbCategoryName: yup.string().required("Required"),
+        componentCategoryName: yup.string().required("Required"),
     });
 
     return (
         <Box m="20px">
-            <Header title="Edit PCB" subtitle="Edit an Existing PCB" />
-            {pcb && (  // Conditional rendering
+            <Header title="Edit Component" subtitle="Edit an Existing Component" />
+            {component && (  // Conditional rendering
                 <Formik
                     onSubmit={handleFormSubmit}
                     initialValues={{
-                        id: pcb.id,
-                        name: pcb.name,
-                        description: pcb.description,
-                        pcbCategoryName: pcb.pcbCategoryName
+                        id: component.id,
+                        name: component.name,
+                        description: component.description,
+                        componentCategoryName: component.componentCategoryName
                     }}
-                    validationSchema={pcbSchema}
+                    validationSchema={componentSchema}
                 >
                     {({
                           values,
@@ -125,10 +126,10 @@ const UpdatePcbPage = () => {
                                     label="Category"
                                     onBlur={handleBlur}
                                     onChange={handleChange}
-                                    value={values.pcbCategoryName}
-                                    name="pcbCategoryName"
-                                    error={!!touched.pcbCategoryName && !!errors.pcbCategoryName}
-                                    helperText={touched.pcbCategoryName && errors.pcbCategoryName}
+                                    value={values.componentCategoryName}
+                                    name="componentCategoryName"
+                                    error={!!touched.componentCategoryName && !!errors.componentCategoryName}
+                                    helperText={touched.componentCategoryName && errors.componentCategoryName}
                                     sx={{ gridColumn: "span 2" }}
                                 />
                                 <Button
@@ -137,7 +138,7 @@ const UpdatePcbPage = () => {
                                     color="primary"
                                     sx={{ gridColumn: "span 2" }}
                                 >
-                                    Update PCB
+                                    Update Component
                                 </Button>
                             </Box>
                         </form>
@@ -148,5 +149,5 @@ const UpdatePcbPage = () => {
     );
 };
 
-export default UpdatePcbPage;
+export default UpdateComponentPage;
 

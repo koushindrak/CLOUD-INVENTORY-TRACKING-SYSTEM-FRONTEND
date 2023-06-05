@@ -13,6 +13,7 @@ import {watchGetOrderRequest} from "../pages/Orders/GetAllOrders";
 import {watchGetOrderByIdRequest} from "../pages/Orders/GetOrderById";
 import {watchDeletePcbByIdRequest} from "../pages/Pcb/DeletePcb";
 import {watchUpdatePcbRequest} from "../pages/Pcb/UpdatePcb";
+import {watchGetComponentByIdRequest} from "../pages/Components/GetComponentById";
 
 export let callAPI = async ({ url, method, data }) => {
   return await Axios({url, method, data});
@@ -31,6 +32,8 @@ export default function* rootSaga() {
       //component
       watchCreateComponentRequest(),
       watchGetComponentRequest(),
+      watchGetComponentByIdRequest(),
+
 
       //supplier
       watchGetSupplierRequest(),
