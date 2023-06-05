@@ -5,11 +5,12 @@ import {apiCallHandler, apis, apiTypes} from "../../common-files/apiCallHandler"
 import {createSelector} from "reselect";
 import {fromJS} from "immutable";
 import * as CONSTANTS from "../Products/constants";
+import {updatePcbSuccess} from "./UpdatePcb";
 
 export const CREATE_PCB_REQUEST = 'CREATE_PCB_REQUEST';
 export const CREATE_PCB_SUCCESS = 'CREATE_PCB_SUCCESS';
 export const CREATE_PCB_FAILURE = 'CREATE_PCB_FAILURE';
-export const RESET_PCB_STATE = 'RESET_PCB_STATE';
+export const RESET_CREATE_PCB_STATES = 'RESET_CREATE_PCB_STATES';
 
 //2. action
 export function createPcb(payload) {
@@ -19,9 +20,10 @@ export function createPcb(payload) {
     }
 }
 
-export const resetPcbSates= () => ({
-    type: RESET_PCB_STATE
+export const resetCreatePcbSates= () => ({
+    type: RESET_CREATE_PCB_STATES
 });
+
 //3. saga
 function* handleCreatePcbRequest(action){
     yield (apiCallHandler(action, CREATE_PCB_SUCCESS, CREATE_PCB_FAILURE, apis.PCB_APIS_BASE_URL,apiTypes.CREATE));
@@ -40,12 +42,11 @@ export function CreatePcbReducer(state = initialState, action) {
         case CREATE_PCB_FAILURE:
             return Object.assign({}, state, {createPcbError: {error: action.error, errorTime: new Date()}})
 
-        case RESET_PCB_STATE:
+        case RESET_CREATE_PCB_STATES:
             return Object.assign({}, state, {
-                getPcbError: null,
-                getPcbResponse:null,
-                createPcbError:null,
-                createPcbResponse:null})
+                createPcbError: null,
+                createPcbResponse: null,
+            })
         default:
             return state;
     }

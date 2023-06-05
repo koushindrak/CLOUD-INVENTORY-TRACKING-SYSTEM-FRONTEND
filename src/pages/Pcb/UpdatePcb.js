@@ -4,11 +4,12 @@ import { call, put, takeLatest, all } from 'redux-saga/effects';
 import {apiCallHandler, apis, apiTypes} from "../../common-files/apiCallHandler";
 import {fromJS} from "immutable";
 import {createSelector} from "reselect";
+import {RESET_CREATE_PCB_STATES, RESET_PCB_STATE} from "./CreatePcb";
 
 export const UPDATE_PCB_REQUEST = 'UPDATE_PCB_REQUEST';
 export const UPDATE_PCB_SUCCESS = 'UPDATE_PCB_SUCCESS';
 export const UPDATE_PCB_FAILURE = 'UPDATE_PCB_FAILURE';
-export const RESET_PCB_STATE = 'RESET_PCB_STATE';
+export const RESET_UPDATE_PCB_STATES = 'RESET_UPDATE_PCB_STATES';
 
 //2. action
 export function updatePcb(payload) {
@@ -17,10 +18,10 @@ export function updatePcb(payload) {
         payload
     }
 }
-
-export const resetPcbSates= () => ({
-    type: RESET_PCB_STATE
+export const resetUpdatePcbSates= () => ({
+    type: RESET_UPDATE_PCB_STATES
 });
+
 //3. saga
 function* handleUpdatePcbRequest(action){
     yield (apiCallHandler(action, UPDATE_PCB_SUCCESS, UPDATE_PCB_FAILURE, apis.PCB_APIS_BASE_URL,apiTypes.UPDATE_BY_ID));
@@ -39,12 +40,11 @@ export function UpdatePcbReducer(state = initialState, action) {
         case UPDATE_PCB_FAILURE:
             return Object.assign({}, state, {updatePcbError: {error: action.error, errorTime: new Date()}})
 
-        case RESET_PCB_STATE:
+        case RESET_UPDATE_PCB_STATES:
             return Object.assign({}, state, {
-                getPcbError: null,
-                getPcbResponse:null,
-                updatePcbError:null,
-                updatePcbResponse:null})
+                updatePcbError: null,
+                updatePcbResponse: null,
+            })
         default:
             return state;
     }

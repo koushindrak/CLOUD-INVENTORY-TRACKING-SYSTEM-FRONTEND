@@ -9,8 +9,7 @@ import {useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
 import {errorToast, successToast} from "../../containers/react-toast-alert";
 import {getPcbById, getPcbByIdSuccess} from "./GetPCBById";
-import {updatePcb, updatePcbFailure, updatePcbSuccess} from "./UpdatePcb";
-import {resetUpdateSuccess, updateProduct} from "../Products/actions";
+import {resetUpdatePcbSates, updatePcb, updatePcbFailure, updatePcbSuccess} from "./UpdatePcb";
 
 const UpdatePcbPage = () => {
     let { id } = useParams();
@@ -33,15 +32,15 @@ const UpdatePcbPage = () => {
     useEffect(() => {
         if(updateSuccess){
             successToast(updateSuccess.displayMessage)
-            navigate('/');
-            dispatch(resetUpdateSuccess());
+            navigate('/pcbs');
+            dispatch(resetUpdatePcbSates());
         }
     },[updateSuccess])
 
     useEffect(() => {
         if(updateFailure){
             errorToast(updateFailure.error)
-            dispatch(resetUpdateSuccess());
+            dispatch(resetUpdatePcbSates());
 
         }
     },[updateFailure])

@@ -43,7 +43,7 @@ function manageProductsReducer(state = initialState, action) {
     case CONSTANTS.DELETE_PRODUCT_FAILURE:
       return Object.assign({},state, {deleteProductError:{error:action.error,errorTime:new Date()}})
 
-      // New reset case
+
     case CONSTANTS.RESET_PRODUCTS_STATE:
       return Object.assign({}, state, {
         updateProductResponse: null,

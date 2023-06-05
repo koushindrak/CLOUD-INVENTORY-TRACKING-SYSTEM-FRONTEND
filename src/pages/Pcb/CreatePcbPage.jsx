@@ -7,8 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Header from "../../containers/Header";
 import {useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
-import {createPcb, createPcbSuccess, resetPcbSates} from "./CreatePcb";
-import {resetUpdateSuccess} from "../Products/actions";
+import {createPcb, createPcbSuccess, resetCreatePcbSates} from "./CreatePcb";
 import {getProductByIdSuccess} from "../Products/selectors";
 
 const AddPcb = () => {
@@ -29,7 +28,7 @@ const AddPcb = () => {
              }else {
                  navigate('/pcbs');
              }
-            dispatch(resetPcbSates());
+            dispatch(resetCreatePcbSates());
         }
     },[createSuccess])
 
