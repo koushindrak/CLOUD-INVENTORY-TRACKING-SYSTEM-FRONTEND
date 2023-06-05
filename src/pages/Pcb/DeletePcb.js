@@ -4,10 +4,12 @@ import { call, put, takeLatest, all } from 'redux-saga/effects';
 import {apiCallHandler, apis, apiTypes} from "../../common-files/apiCallHandler";
 import {createSelector} from "reselect";
 import {fromJS} from "immutable";
+import {RESET_GET_PCB_BY_ID_STATES} from "./GetPCBById";
 
 export const DELETE_PCB_BY_ID_REQUEST = 'DELETE_PCB_BY_ID_REQUEST';
 export const DELETE_PCB_BY_ID_SUCCESS = 'DELETE_PCB_BY_ID_SUCCESS';
 export const DELETE_PCB_BY_ID_FAILURE = 'DELETE_PCB_BY_ID_FAILURE';
+export const RESET_DELETE_PCB_BY_ID_STATES = 'RESET_DELETE_PCB_BY_ID_STATES';
 
 //2. action
 export function deletePcbById(id) {
@@ -16,6 +18,10 @@ export function deletePcbById(id) {
         id
     }
 }
+
+export const deleteGetPcbByIdSates= () => ({
+    type: RESET_DELETE_PCB_BY_ID_STATES
+});
 
 //3. saga
 function* handleDeletePcbByIdRequest(action){
@@ -34,6 +40,13 @@ export function DeletePcbByIdReducer(state = initialState, action) {
 
         case DELETE_PCB_BY_ID_FAILURE:
             return Object.assign({}, state, {deletePcbByIdError: {error: action.error, errorTime: new Date()}})
+
+        case RESET_DELETE_PCB_BY_ID_STATES:
+            return Object.assign({}, state, {
+                deletePcbByIdError: null,
+                deletePcbByIdResponse: null,
+            })
+
         default:
             return state;
     }

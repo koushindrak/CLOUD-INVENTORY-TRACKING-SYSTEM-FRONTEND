@@ -5,6 +5,7 @@ import {apiCallHandler, apis, apiTypes} from "../../common-files/apiCallHandler"
 import {fromJS} from "immutable";
 import {createSelector} from "reselect";
 import {RESET_CREATE_PCB_STATES, RESET_PCB_STATE} from "./CreatePcb";
+import {useDispatch} from "react-redux";
 
 export const UPDATE_PCB_REQUEST = 'UPDATE_PCB_REQUEST';
 export const UPDATE_PCB_SUCCESS = 'UPDATE_PCB_SUCCESS';
@@ -42,11 +43,10 @@ export function UpdatePcbReducer(state = initialState, action) {
 
         case RESET_UPDATE_PCB_STATES:
             return Object.assign({}, state, {
-                getPcbByIdError:null,
-                getPcbByIdResponse:null,
                 updatePcbError: null,
                 updatePcbResponse: null,
             })
+
         default:
             return state;
     }

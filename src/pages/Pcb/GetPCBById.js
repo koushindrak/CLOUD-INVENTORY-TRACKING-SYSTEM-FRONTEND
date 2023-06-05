@@ -4,10 +4,12 @@ import { call, put, takeLatest, all } from 'redux-saga/effects';
 import {apiCallHandler, apis, apiTypes} from "../../common-files/apiCallHandler";
 import {createSelector} from "reselect";
 import {fromJS} from "immutable";
+import {RESET_UPDATE_PCB_STATES} from "./UpdatePcb";
 
 export const GET_PCB_BY_ID_REQUEST = 'GET_PCB_BY_ID_REQUEST';
 export const GET_PCB_BY_ID_SUCCESS = 'GET_PCB_BY_ID_SUCCESS';
 export const GET_PCB_BY_ID_FAILURE = 'GET_PCB_BY_ID_FAILURE';
+export const RESET_GET_PCB_BY_ID_STATES = 'RESET_GET_PCB_BY_ID_STATES';
 
 //2. action
 export function getPcbById(id) {
@@ -16,6 +18,11 @@ export function getPcbById(id) {
         id
     }
 }
+
+export const resetGetPcbByIdSates= () => ({
+    type: RESET_GET_PCB_BY_ID_STATES
+});
+
 
 //3. saga
 function* handleGetPcbByIdRequest(action){
@@ -34,6 +41,12 @@ export function GetPcbByIdReducer(state = initialState, action) {
 
         case GET_PCB_BY_ID_FAILURE:
             return Object.assign({}, state, {getPcbByIdError: {error: action.error, errorTime: new Date()}})
+
+        case RESET_GET_PCB_BY_ID_STATES:
+            return Object.assign({}, state, {
+                getPcbByIdError: null,
+                getPcbByIdResponse: null,
+            })
         default:
             return state;
     }

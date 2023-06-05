@@ -26,6 +26,7 @@ import { successToast, errorToast } from '../../containers/react-toast-alert';
 import 'react-toastify/dist/ReactToastify.css';
 import DeveloperBoardIcon from "@mui/icons-material/DeveloperBoard";
 import Colors from "../../utils/colors";
+import DeleteDialog from "../../containers/DeleteDialog";
 
 
 const Products = () => {
@@ -234,27 +235,12 @@ const Products = () => {
                 <DataGrid   rows={productResponse ? productResponse.data : []} columns={columns} />
             </Box>
             </Box>
-            <Dialog
+            <DeleteDialog
                 open={open}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-            >
-                <DialogTitle id="alert-dialog-title">{"Delete Product"}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        Are you sure you want to delete the product - {selectedProduct?.name}?
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                        Cancel
-                    </Button>
-                    <Button onClick={handleConfirmDelete} color="primary" autoFocus>
-                        Delete
-                    </Button>
-                </DialogActions>
-            </Dialog>
+                handleClose={handleClose}
+                handleConfirmDelete={handleConfirmDelete}
+                entityName={selectedProduct?.name}
+            />
         </Box>
     );
 };

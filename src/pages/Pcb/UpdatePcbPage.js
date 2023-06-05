@@ -8,7 +8,7 @@ import Header from "../../containers/Header";
 import {useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
 import {errorToast, successToast} from "../../containers/react-toast-alert";
-import {getPcbById, getPcbByIdSuccess} from "./GetPCBById";
+import {getPcbById, getPcbByIdSuccess, resetGetPcbByIdSates} from "./GetPCBById";
 import {resetUpdatePcbSates, updatePcb, updatePcbFailure, updatePcbSuccess} from "./UpdatePcb";
 
 const UpdatePcbPage = () => {
@@ -22,6 +22,7 @@ const UpdatePcbPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        console.log("pcbSuccess--",pcbSuccess)
         if (!pcbSuccess) {
             dispatch(getPcbById(pcbId));
         } else {
@@ -40,6 +41,7 @@ const UpdatePcbPage = () => {
             }else {
                 navigate('/pcbs');
             }
+            dispatch(resetGetPcbByIdSates());
             dispatch(resetUpdatePcbSates());
         }
     },[updateSuccess])
