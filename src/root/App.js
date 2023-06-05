@@ -33,6 +33,7 @@ import AddComponent from "../pages/Components/AddComponentPage";
 import Supplier from "../pages/Suppliers";
 import EditPcb from "../pages/Pcb/EditPcb";
 import Orders from "../pages/Orders";
+import GetOrderByIdPage from "../pages/Orders/GetOrderByIdPage";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -67,6 +68,7 @@ function App() {
             {/*<BrowserRouter>*/}
               <Routes>
                 <Route path="/orders" element={<Orders/>}/>
+                <Route path="/orders/:id/details" element={<GetOrderByIdPage/>}/>
 
                 <Route path="/products/add" element={<AddProduct />} />
                 <Route path="/products/edit/:id" element={<EditProduct />} />

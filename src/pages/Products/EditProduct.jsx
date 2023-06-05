@@ -5,10 +5,11 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {getProductById, resetUpdateSuccess, updateProduct} from './actions';
-import {getProductByIdSuccess, updateProductSuccess} from './selectors';
+import {getProductByIdSuccess, updateProductFailure, updateProductSuccess} from './selectors';
 import Header from "../../containers/Header";
 import {useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
+import {errorToast, successToast} from "../../containers/react-toast-alert";
 
 const EditProduct = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -17,6 +18,7 @@ const EditProduct = () => {
     const productFromStore = useSelector(getProductByIdSuccess);
     const [product, setProduct] = useState(null);
     const updateSuccess = useSelector(updateProductSuccess)
+    const updateFailure = useSelector(updateProductFailure)
 
     const navigate = useNavigate();  // new
 
@@ -30,10 +32,19 @@ const EditProduct = () => {
 
     useEffect(() => {
         if(updateSuccess){
+             successToast(updateSuccess.displayMessage)
              navigate('/');
             dispatch(resetUpdateSuccess());
         }
-    })
+    },[updateSuccess])
+
+    useEffect(() => {
+        if(updateFailure){
+            errorToast(updateFailure.error)
+            dispatch(resetUpdateSuccess());
+
+        }
+    },[updateFailure])
 
     const handleFormSubmit = (values) => {
         dispatch(updateProduct(values));

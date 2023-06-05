@@ -5,7 +5,13 @@ import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts, createProduct, updateProduct, deleteProduct } from './actions';
-import { getProductSuccess, createProductSuccess, updateProductSuccess, deleteProductSuccess } from './selectors';
+import {
+    getProductSuccess,
+    createProductSuccess,
+    updateProductSuccess,
+    deleteProductSuccess,
+    deleteProductFailure
+} from './selectors';
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
@@ -27,6 +33,7 @@ const Products = () => {
     //selectors constants
     const productResponse = useSelector(getProductSuccess);
     const deleteSuccess = useSelector(deleteProductSuccess);
+    const deleteFailure = useSelector(deleteProductFailure);
     const getCategorySuccessResponse = useSelector(getCategorySuccess);
     const getCategoryFailureResponse = useSelector(getCategoryFailure);
 
@@ -68,11 +75,26 @@ const Products = () => {
     useEffect(() => {
         if (deleteSuccess) {
             // Refetch products when a product is successfully deleted
+            successToast(deleteSuccess.displayMessage)
             dispatch(getProducts());
         }
     }, [deleteSuccess, dispatch]);
 
 
+    useEffect(() => {
+        if (deleteFailure) {
+            successToast(deleteFailure.error)
+            // dispatch(getProducts());
+        }
+    }, [deleteFailure, dispatch]);
+
+    useEffect(() => {
+        if (deleteSuccess) {
+            // Refetch products when a product is successfully deleted
+            successToast(deleteSuccess.displayMessage)
+            dispatch(getProducts());
+        }
+    }, [deleteSuccess, dispatch]);
     /*Effects Section Ends here */
 
     /* Button click actions start here */

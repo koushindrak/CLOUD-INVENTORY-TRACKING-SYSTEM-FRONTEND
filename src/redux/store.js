@@ -11,6 +11,7 @@ import {GetComponentReducer} from "../pages/Components/GetAllComponent";
 import {GetSupplierReducer} from "../pages/Suppliers/GetAllSupplier";
 import {GetPcbByIdReducer} from "../pages/Pcb/GetPCBById";
 import {GetOrderReducer} from "../pages/Orders/GetAllOrders";
+import {GetOrderByIdReducer} from "../pages/Orders/GetOrderById";
 
 let sagaMiddleware = createSagaMiddleware();
 const middleware = (getDefaultMiddleware) => [
@@ -34,7 +35,8 @@ const store = configureStore({
     supplier: GetSupplierReducer,
     pcbById: GetPcbByIdReducer,
 
-    orders: GetOrderReducer
+    orders: GetOrderReducer,
+    orderById: GetOrderByIdReducer
 
   },
   middleware,

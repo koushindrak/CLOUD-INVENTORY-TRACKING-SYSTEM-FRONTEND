@@ -5,27 +5,39 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {createProduct, getProductById, resetUpdateSuccess, updateProduct} from './actions';
-import {createProductSuccess, getProductByIdSuccess, updateProductSuccess} from './selectors';
+import {createProductFailure, createProductSuccess, getProductByIdSuccess, updateProductSuccess} from './selectors';
 import Header from "../../containers/Header";
 import {useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
+import {successToast,errorToast} from "../../containers/react-toast-alert";
 
 const AddProduct = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const { id } = useParams();
     const dispatch = useDispatch();
     const [product, setProduct] = useState(null);
-    const createSuccess = useSelector(createProductSuccess)
+    const createProductSuccessResponse = useSelector(createProductSuccess)
+    const createProductFailureResponse = useSelector(createProductFailure)
 
     const navigate = useNavigate();  // new
 
 
     useEffect(() => {
-        if(createSuccess){
+        if(createProductSuccessResponse){
              navigate('/');
             dispatch(resetUpdateSuccess());
+            successToast("New Product Created Successfully")
         }
-    },[createSuccess])
+    },[createProductSuccessResponse])
+
+    useEffect(() => {
+        if(createProductFailureResponse){
+            console.log("createProductFailureResponse---",createProductFailureResponse)
+            // navigate('/');
+            dispatch(resetUpdateSuccess());
+            errorToast(createProductFailureResponse.error)
+        }
+    },[createProductFailureResponse])
 
     const handleFormSubmit = (values) => {
         dispatch(createProduct(values));
