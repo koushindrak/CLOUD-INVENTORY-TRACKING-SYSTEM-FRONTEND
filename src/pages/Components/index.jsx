@@ -1,6 +1,17 @@
 import { useState,useEffect } from 'react';
 import {Route, useNavigate, useParams} from 'react-router-dom';
-import { Box, Typography, useTheme, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from "@mui/material";
+import {
+    Box,
+    Typography,
+    useTheme,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText,
+    DialogActions,
+    Button,
+    Tooltip
+} from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { useDispatch, useSelector } from 'react-redux';
@@ -200,12 +211,17 @@ const Component = () => {
             renderCell: (params) => {
                 return (
                     <div>
-                        <IconButton color="secondary" onClick={() => handleEdit(params.row)}>
-                            <EditOutlinedIcon />
-                        </IconButton>
-                        <IconButton color="secondary" onClick={() => handleDelete(params.row)}>
-                            <DeleteOutlinedIcon />
-                        </IconButton>
+                        <Tooltip title="Edit Component" placement="top">
+                            <IconButton color="secondary" onClick={() => handleEdit(params.row)}>
+                                <EditOutlinedIcon />
+                            </IconButton>
+                        </Tooltip>
+
+                        <Tooltip title="Delete Component" placement="top">
+                            <IconButton color="secondary" onClick={() => handleDelete(params.row)}>
+                                <DeleteOutlinedIcon />
+                            </IconButton>
+                        </Tooltip>
                     </div>
                 );
             },
