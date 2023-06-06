@@ -234,7 +234,7 @@ const Component = () => {
                         right: 10,
                         zIndex: 1000,
                         color: 'white',
-                        backgroundColor: '#4b2eae'
+                        backgroundColor: '#847343'
 
                     }}
                     startIcon={<AddIcon />}>

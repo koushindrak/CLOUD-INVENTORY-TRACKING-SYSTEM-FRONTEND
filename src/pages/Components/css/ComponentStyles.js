@@ -14,8 +14,13 @@ export const getComponentStyles = (theme) => {
         "& .name-column--cell": {
             color: colors.greenAccent[300],
         },
+        "& .id-column--cell": {   // Add your ID column styling here
+            color: colors.redAccent[400],
+            fontWeight: 'bold',
+            fontSize: '1.2em',
+        },
         "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: "#4b2eae",
+            backgroundColor: "#847343",
             color: "white",
             borderBottom: "none",
         },
@@ -24,7 +29,7 @@ export const getComponentStyles = (theme) => {
         },
         "& .MuiDataGrid-footerContainer": {
             borderTop: "none",
-            backgroundColor: "#4b2eae",
+            backgroundColor: "#847343",
         },
         "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,

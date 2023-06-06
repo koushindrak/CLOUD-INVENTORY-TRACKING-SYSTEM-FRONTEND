@@ -7,15 +7,23 @@ import { useSelector, useDispatch } from 'react-redux';
 import Header from "../../containers/Header";
 import {useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
-import {createComponent, createComponentSuccess, resetCreateComponentSates} from "./CreateComponent";
+import {
+    createComponent,
+    createComponentFailure,
+    createComponentSuccess,
+    resetCreateComponentSates
+} from "./CreateComponent";
 import {getProductByIdSuccess} from "../Products/selectors";
+import {errorToast, successToast} from "../../containers/react-toast-alert";
 
 const AddComponent = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const { id } = useParams();
     const dispatch = useDispatch();
     const [component, setComponent] = useState(null);
-    const createSuccess = useSelector(createComponentSuccess)
+    const createSuccess = useSelector(createComponentSuccess);
+    const createFailure = useSelector(createComponentFailure);
+
     const getProductByIdSuccessResponse = useSelector(getProductByIdSuccess)
 
     const navigate = useNavigate();  // new
@@ -24,6 +32,7 @@ const AddComponent = () => {
     useEffect(() => {
         if(createSuccess){
              if(productId){
+                 successToast(createSuccess.displayMessage)
                  navigate('/products/'+productId+'/components/');
              }else {
                  navigate('/components');
@@ -31,6 +40,12 @@ const AddComponent = () => {
             dispatch(resetCreateComponentSates());
         }
     },[createSuccess])
+
+    useEffect( () => {
+        if(createFailure){
+            errorToast(createFailure.error)
+        }
+    },[createFailure])
 
     const handleFormSubmit = (values) => {
         console.log("values--",values)
