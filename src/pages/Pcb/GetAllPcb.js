@@ -11,6 +11,7 @@ export const GET_PCB_FAILURE = 'GET_PCB_FAILURE';
 
 //2. action
 export function getPcb() {
+    console.log("getting pcbssss")
     return {
         type: GET_PCB_REQUEST
     }

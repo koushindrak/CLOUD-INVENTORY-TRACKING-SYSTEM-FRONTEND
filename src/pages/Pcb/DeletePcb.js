@@ -19,7 +19,7 @@ export function deletePcbById(id) {
     }
 }
 
-export const deleteGetPcbByIdSates= () => ({
+export const resetDeletePcbByIdSates= () => ({
     type: RESET_DELETE_PCB_BY_ID_STATES
 });
 

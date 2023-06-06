@@ -104,6 +104,13 @@ function App() {
                 <Route path="/components/add" element={<AddComponent />} />
                 <Route path="/components" element={<Components />} />
 
+
+                {/*get all pcbs for a component */}
+                <Route path="/components/:componentId/pcbs" element={<Pcb />} />
+
+                {/*add new pcb to a component */}
+                <Route path="/components/:componentId/pcbs/add" element={<AddPcb />} />
+
                 <Route path="/suppliers" element={<Supplier />} />
 
                 <Route path="/contacts" element={<Contacts />} />

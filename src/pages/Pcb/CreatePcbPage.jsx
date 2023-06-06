@@ -9,6 +9,7 @@ import {useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
 import {createPcb, createPcbSuccess, resetCreatePcbSates} from "./CreatePcb";
 import {getProductByIdSuccess} from "../Products/selectors";
+import {getComponentByIdSuccess} from "../Components/GetComponentById";
 
 const AddPcb = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -17,15 +18,18 @@ const AddPcb = () => {
     const [pcb, setPcb] = useState(null);
     const createSuccess = useSelector(createPcbSuccess)
     const getProductByIdSuccessResponse = useSelector(getProductByIdSuccess)
+    const getComponentByIdSuccessResponse = useSelector(getComponentByIdSuccess)
 
     const navigate = useNavigate();  // new
-    let { productId }  = useParams();
+    let { productId,componentId }  = useParams();
 
     useEffect(() => {
         if(createSuccess){
              if(productId){
                  navigate('/products/'+productId+'/pcbs/');
-             }else {
+             }else if(componentId){
+                 navigate('/components/'+componentId+'/pcbs/');
+             } else {
                  navigate('/pcbs');
              }
             dispatch(resetCreatePcbSates());
@@ -43,18 +47,31 @@ const AddPcb = () => {
         pcbCategoryName: yup.string().required("required"),
     });
 
+    const getTitle = () => {
+        if (productId) {
+            return `Add new PCB to Product - ${getProductByIdSuccessResponse?.data.name}`;
+        }
+
+        if (componentId) {
+            return `Add new PCB to Component - ${getComponentByIdSuccessResponse?.data.mfrptn}`;
+        }
+
+        return "Add new PCB";
+    };
+
 
     return (
         <Box m="20px">
-            <Header title={productId ? `Add new PCB to Product - ${getProductByIdSuccessResponse ? getProductByIdSuccessResponse.data.name : getProductByIdSuccessResponse }` : "Add new PCB"} />
-                <Formik
+            <Header title={getTitle()} />
+            <Formik
                     onSubmit={handleFormSubmit}
                     initialValues={{
                         id: '',
                         name: '',
                         description: '',
                         pcbCategoryName: '',
-                        productId:productId && !isNaN(productId) ? parseInt(productId) : productId
+                        productId:productId && !isNaN(productId) ? parseInt(productId) : productId,
+                        componentId:componentId && !isNaN(componentId) ? parseInt(componentId) : componentId
                     }}
                     validationSchema={pcbSchema}
                 >

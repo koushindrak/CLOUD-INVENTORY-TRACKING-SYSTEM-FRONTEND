@@ -1,7 +1,7 @@
 import { useState,useEffect } from 'react';
 import {Route, useNavigate, useParams} from 'react-router-dom';
 import { Box, Typography, useTheme, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
+import {DataGrid, GridToolbar} from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { useDispatch, useSelector } from 'react-redux';
 import Header from "../../containers/Header";
@@ -15,16 +15,26 @@ import {getPcbStyles} from "./css/PcbStyles";
 import {getProductById} from "../Products/actions";
 import {getProductByIdSuccess} from "../Products/selectors";
 import DeleteDialog from "../../containers/DeleteDialog";
-import {deletePcbById, deletePcbByIdFailure, deletePcbByIdSuccess} from "./DeletePcb";
+import {
+    deletePcbById,
+    deletePcbByIdFailure,
+    deletePcbByIdSates,
+    deletePcbByIdSuccess,
+    resetDeletePcbByIdSates
+} from "./DeletePcb";
 import {errorToast, successToast} from "../../containers/react-toast-alert";
 import {getPcbById, resetGetPcbByIdSates} from "./GetPCBById";
 import UpdatePcbPage from "./UpdatePcbPage";
+import components from "../Components";
+import {getComponentById, getComponentByIdSuccess} from "../Components/GetComponentById";
 
 
 const Pcb = () => {
     //hooks & selectors
     const getPcbSuccessResponse = useSelector(getPcbSuccess);
     const getProductByIdSuccessResponse = useSelector(getProductByIdSuccess)
+    const getComponentByIdSuccessResponse = useSelector(getComponentByIdSuccess)
+
     const deleteSuccess = useSelector(deletePcbByIdSuccess);
     const deleteFailure = useSelector(deletePcbByIdFailure);
 
@@ -46,7 +56,7 @@ const Pcb = () => {
 
     // params from other page
     let { productId } = useParams();
-
+    let { componentId } = useParams();
 
     /* Effects Start */
 
@@ -55,6 +65,7 @@ const Pcb = () => {
             successToast(deleteSuccess.displayMessage)
             dispatch(getPcb());
         }
+        dispatch(resetDeletePcbByIdSates())
     },[deleteSuccess])
 
     useEffect( () => {
@@ -68,20 +79,25 @@ const Pcb = () => {
         if(productId){
             console.log("productId--",productId)
             dispatch(getProductById(productId));
-        }else{
+        }else if (componentId){
+            console.log("fetch pcbs for componentId--",componentId);
+            dispatch(getComponentById(componentId))
+        } else{
             console.log("productId2222--",productId)
             dispatch(getPcb());
         }
-    }, [dispatch]);
+    }, [deleteSuccess,dispatch]);
 
     useEffect( () => {
         if(productId && getProductByIdSuccessResponse){
             setPcbs(getProductByIdSuccessResponse.data.pcbs)
-        }else if(getPcbSuccessResponse){
+        }else if(componentId && getComponentByIdSuccessResponse){
+            setPcbs(getComponentByIdSuccessResponse.data.pcbs)
+        } else if(getPcbSuccessResponse){
             setPcbs(getPcbSuccessResponse.data)
         }
         dispatch(resetGetPcbByIdSates())
-    },[getProductByIdSuccessResponse,getPcbSuccessResponse,productId])
+    },[getProductByIdSuccessResponse,getComponentByIdSuccessResponse, getPcbSuccessResponse,productId,componentId])
 
     /*Effects Section Ends here */
 
@@ -123,7 +139,9 @@ const Pcb = () => {
     const handleAdd = () => {
         if(productId){
             navigate('/products/'+productId+'/pcbs/add')
-        }else {
+        }else if(componentId){
+            navigate('/components/'+componentId+'/pcbs/add')
+        } else {
             navigate('/pcbs/add'); // Change this to the correct route
         }
     };
@@ -216,8 +234,15 @@ const Pcb = () => {
             <Box
                 m="40px 0 0 0"
                 height="75vh"
-                sx={pcbStyles}            >
-                <DataGrid   rows={pcbs} columns={columns} />
+                sx={pcbStyles}>
+                <DataGrid
+                    pageSize={10}
+                    pagination
+                    components={{
+                        Toolbar: GridToolbar
+                        }}
+                    rows={pcbs}
+                    columns={columns} />
             </Box>
             </Box>
             <DeleteDialog

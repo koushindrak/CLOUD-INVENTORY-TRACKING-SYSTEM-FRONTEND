@@ -30,6 +30,7 @@ import {deleteComponentById, deleteComponentByIdFailure, deleteComponentByIdSucc
 import {errorToast, successToast} from "../../containers/react-toast-alert";
 import {getComponentById} from "./GetComponentById";
 import UpdateComponentPage from "./UpdateComponentPage";
+import DeveloperBoardIcon from "@mui/icons-material/DeveloperBoard";
 
 
 const Component = () => {
@@ -137,6 +138,13 @@ const Component = () => {
             navigate('/components/add'); // Change this to the correct route
         }
     };
+
+    const handleManagePCB = (row) => {
+        /*get all pcbs for a product
+         <Route path="/components/:componentId/pcbs" element={<Components />} />
+        */
+        navigate(`/components/${row.id}/pcbs/`)
+    };
     /* Button click actions ends here */
 
     const columns = [
@@ -220,6 +228,12 @@ const Component = () => {
                         <Tooltip title="Delete Component" placement="top">
                             <IconButton color="secondary" onClick={() => handleDelete(params.row)}>
                                 <DeleteOutlinedIcon />
+                            </IconButton>
+                        </Tooltip>
+
+                        <Tooltip title="Manage PCB's" placement="top">
+                            <IconButton color="secondary" onClick={() => handleManagePCB(params.row)}>
+                                <DeveloperBoardIcon />
                             </IconButton>
                         </Tooltip>
                     </div>

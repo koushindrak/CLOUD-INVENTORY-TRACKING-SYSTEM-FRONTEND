@@ -1,7 +1,7 @@
 import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Typography, useTheme, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button,Tooltip } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
+import {DataGrid, GridToolbar} from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts, createProduct, updateProduct, deleteProduct } from './actions';
@@ -218,8 +218,13 @@ const Products = () => {
                         right: 10,
                         zIndex: 1000,
                         color: 'white',
-                        backgroundColor: 'lightseagreen'
-
+                        backgroundColor: colors.greenAccent[400],
+                        '&:hover': {
+                            backgroundColor: colors.greenAccent[300], // change this to the color you want on hover
+                            // If you want the color to remain white on hover, you can add the following line
+                            color: 'white',
+                            fontweight: 900
+                        },
                     }}
                     startIcon={<AddIcon />}>
                     Add Product
@@ -232,7 +237,14 @@ const Products = () => {
                 m="40px 0 0 0"
                 height="75vh"
                 sx={productStyles}            >
-                <DataGrid   rows={productResponse ? productResponse.data : []} columns={columns} />
+                <DataGrid
+                    pageSize={10}
+                    pagination
+                    components={{
+                        Toolbar: GridToolbar
+                }}
+                    rows={productResponse ? productResponse.data : []}
+                    columns={columns} />
             </Box>
             </Box>
             <DeleteDialog
