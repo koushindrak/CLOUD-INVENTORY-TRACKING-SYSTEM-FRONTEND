@@ -32,6 +32,10 @@ import AddPcb from "../pages/Pcb/AddPcbPage";
 import AddComponent from "../pages/Components/AddComponentPage";
 import Supplier from "../pages/Suppliers";
 import EditPcb from "../pages/Pcb/EditPcb";
+import LoginPage from "../pages/Login/Login";
+import newPass from "../pages/Password/newPass";
+import ForgotPassword from "../pages/Password/forgotPass";
+import ResetPassword from "../pages/Password/newPass";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -65,6 +69,10 @@ function App() {
             {/*<Topbar setIsSidebar={setIsSidebar} />*/}
             {/*<BrowserRouter>*/}
               <Routes>
+              <Route path="/login" element={<LoginPage/>} />
+              <Route path="/forgot-pass" element={<ForgotPassword/>} />
+              <Route path="/new-pass" element={<ResetPassword/>} />
+
                 <Route path="/products/add" element={<AddProduct />} />
                 <Route path="/products/edit/:id" element={<EditProduct />} />
                 <Route path="/" element={<Products />} />

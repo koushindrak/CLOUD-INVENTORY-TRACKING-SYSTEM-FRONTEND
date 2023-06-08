@@ -20,7 +20,9 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import DeveloperBoardIcon from '@mui/icons-material/DeveloperBoard';
 import MemoryIcon from '@mui/icons-material/Memory';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-
+import AssignmentIndRoundedIcon from '@mui/icons-material/AssignmentIndRounded';
+import HelpCenterRoundedIcon from '@mui/icons-material/HelpCenterRounded';
+import LockResetRoundedIcon from '@mui/icons-material/LockResetRounded';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -137,6 +139,30 @@ const Sidebar = () => {
             {/*>*/}
             {/*  Data*/}
             {/*</Typography>*/}
+            <Item
+                  title="Login"
+                  to="/login"
+                  icon={<AssignmentIndRoundedIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+              />
+
+              <Item
+                  title="Forgot Password"
+                  to="/forgot-pass"
+                  icon={<HelpCenterRoundedIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+              />
+              
+              <Item
+                  title="New Password"
+                  to="/new-pass"
+                  icon={<LockResetRoundedIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+              />
+
               <Item
                   title="Products"
                   to="/"
