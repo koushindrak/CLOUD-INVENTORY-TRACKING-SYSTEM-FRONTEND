@@ -1,10 +1,9 @@
-import { call, put, takeLatest, all } from 'redux-saga/effects';
+import {takeLatest} from 'redux-saga/effects';
 
 //1. constant
 import {apiCallHandler, apis, apiTypes} from "../../common-files/apiCallHandler";
 import {createSelector} from "reselect";
 import {fromJS} from "immutable";
-import {RESET_GET_PCB_BY_ID_STATES} from "./GetPCBById";
 
 export const DELETE_PCB_BY_ID_REQUEST = 'DELETE_PCB_BY_ID_REQUEST';
 export const DELETE_PCB_BY_ID_SUCCESS = 'DELETE_PCB_BY_ID_SUCCESS';

@@ -1,15 +1,18 @@
-
 import {Box, Button, Checkbox, FormControlLabel, TextField} from "@mui/material";
-import { Formik } from "formik";
+import {Formik} from "formik";
 import * as yup from "yup";
-import { useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import {useNavigate, useParams} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
 import Header from "../../containers/Header";
 import {useEffect, useState} from "react";
-import { useNavigate } from 'react-router-dom';
 import {errorToast, successToast} from "../../containers/react-toast-alert";
 import {getComponentById, getComponentByIdSuccess, resetGetComponentByIdSates} from "./GetComponentById";
-import {resetUpdateComponentSates, updateComponent, updateComponentFailure, updateComponentSuccess} from "./UpdateComponent";
+import {
+    resetUpdateComponentSates,
+    updateComponent,
+    updateComponentFailure,
+    updateComponentSuccess
+} from "./UpdateComponent";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 const UpdateComponentPage = () => {

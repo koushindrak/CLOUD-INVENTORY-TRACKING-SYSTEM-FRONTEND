@@ -1,7 +1,7 @@
-import { Box, useTheme } from "@mui/material";
+import {Box, useTheme} from "@mui/material";
 import StaticDateTimePickerLandscape from "../../containers/MyDateTimePicker";
 import Header from "../../containers/Header";
-import { tokens } from "../../theme";
+import {tokens} from "../../theme";
 
 const StaticDateTimePickerLandscape1 = () => {
   const theme = useTheme();

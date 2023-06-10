@@ -1,12 +1,24 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { Grid, Box, Typography, Card, CardContent, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress } from '@mui/material';
-import { styled } from '@mui/system';
-import { useDispatch, useSelector } from 'react-redux';
-import { getOrderById, getOrderByIdFailure, getOrderByIdSuccess } from "./GetOrderById";
+import {useEffect, useState} from 'react';
+import {useParams} from 'react-router-dom';
+import {
+    Box,
+    Card,
+    CardContent,
+    CircularProgress,
+    Grid,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Typography
+} from '@mui/material';
+import {styled} from '@mui/system';
+import {useDispatch, useSelector} from 'react-redux';
+import {getOrderById, getOrderByIdFailure, getOrderByIdSuccess} from "./GetOrderById";
 import {errorToast} from "../../containers/react-toast-alert";
-import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const StyledCard = styled(Card)(({ theme }) => ({
     margin: theme.spacing(2),

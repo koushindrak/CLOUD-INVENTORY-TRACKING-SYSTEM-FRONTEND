@@ -1,9 +1,9 @@
-import { useState,useEffect } from 'react';
-import {Route, useNavigate, useParams} from 'react-router-dom';
-import { Box, Typography, useTheme, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from "@mui/material";
+import {useEffect, useState} from 'react';
+import {useNavigate, useParams} from 'react-router-dom';
+import {Box, Button, useTheme} from "@mui/material";
 import {DataGrid, GridToolbar} from "@mui/x-data-grid";
-import { tokens } from "../../theme";
-import { useDispatch, useSelector } from 'react-redux';
+import {tokens} from "../../theme";
+import {useDispatch, useSelector} from 'react-redux';
 import Header from "../../containers/Header";
 import IconButton from '@mui/material/IconButton';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
@@ -15,17 +15,9 @@ import {getPcbStyles} from "./css/PcbStyles";
 import {getProductById} from "../Products/actions";
 import {getProductByIdSuccess} from "../Products/selectors";
 import DeleteDialog from "../../containers/DeleteDialog";
-import {
-    deletePcbById,
-    deletePcbByIdFailure,
-    deletePcbByIdSates,
-    deletePcbByIdSuccess,
-    resetDeletePcbByIdSates
-} from "./DeletePcb";
+import {deletePcbById, deletePcbByIdFailure, deletePcbByIdSuccess, resetDeletePcbByIdSates} from "./DeletePcb";
 import {errorToast, successToast} from "../../containers/react-toast-alert";
-import {getPcbById, resetGetPcbByIdSates} from "./GetPCBById";
-import UpdatePcbPage from "./UpdatePcbPage";
-import components from "../Components";
+import {resetGetPcbByIdSates} from "./GetPCBById";
 import {getComponentById, getComponentByIdSuccess} from "../Components/GetComponentById";
 
 

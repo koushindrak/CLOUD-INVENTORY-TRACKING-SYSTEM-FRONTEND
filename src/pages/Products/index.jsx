@@ -1,20 +1,11 @@
-import { useState,useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Box, Typography, useTheme, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button,Tooltip } from "@mui/material";
+import {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {Box, Button, Tooltip, useTheme} from "@mui/material";
 import {DataGrid, GridToolbar} from "@mui/x-data-grid";
-import { tokens } from "../../theme";
-import { useDispatch, useSelector } from 'react-redux';
-import { getProducts, createProduct, updateProduct, deleteProduct } from './actions';
-import {
-    getProductSuccess,
-    createProductSuccess,
-    updateProductSuccess,
-    deleteProductSuccess,
-    deleteProductFailure
-} from './selectors';
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
+import {tokens} from "../../theme";
+import {useDispatch, useSelector} from 'react-redux';
+import {deleteProduct, getProducts} from './actions';
+import {deleteProductFailure, deleteProductSuccess, getProductSuccess} from './selectors';
 import Header from "../../containers/Header";
 import {getProductStyles} from "./ProductStyles";
 import IconButton from '@mui/material/IconButton';
@@ -22,10 +13,9 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import AddIcon from '@mui/icons-material/Add';
 import {getCategories, getCategoryFailure, getCategorySuccess} from "./GetProductCategories";
-import { successToast, errorToast } from '../../containers/react-toast-alert';
+import {errorToast, successToast} from '../../containers/react-toast-alert';
 import 'react-toastify/dist/ReactToastify.css';
 import DeveloperBoardIcon from "@mui/icons-material/DeveloperBoard";
-import Colors from "../../utils/colors";
 import DeleteDialog from "../../containers/DeleteDialog";
 
 

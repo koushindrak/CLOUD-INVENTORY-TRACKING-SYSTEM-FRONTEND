@@ -1,6 +1,3 @@
-import IconButton from "@mui/material/IconButton";
-import {ViewList} from "@mui/icons-material";
-
 export const columns = [
     {
         field: "SalesorderId",

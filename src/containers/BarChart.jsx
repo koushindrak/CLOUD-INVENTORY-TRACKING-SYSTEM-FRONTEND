@@ -1,7 +1,7 @@
-import { useTheme } from "@mui/material";
-import { ResponsiveBar } from "@nivo/bar";
-import { tokens } from "../theme";
-import { mockBarData as data } from "../data/mockData";
+import {useTheme} from "@mui/material";
+import {ResponsiveBar} from "@nivo/bar";
+import {tokens} from "../theme";
+import {mockBarData as data} from "../data/mockData";
 
 // eslint-disable-next-line react/prop-types
 const BarChart = ({ isDashboard = false }) => {

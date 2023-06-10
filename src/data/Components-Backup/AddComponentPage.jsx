@@ -1,14 +1,12 @@
-import { Box, Button, TextField, FormControlLabel, Checkbox } from "@mui/material";
-import { Formik } from "formik";
+import {Box, Button, Checkbox, FormControlLabel, TextField} from "@mui/material";
+import {Formik} from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import {useNavigate, useParams} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
 import Header from "../../containers/Header";
 import {useEffect, useState} from "react";
-import { useNavigate } from 'react-router-dom';
 import {createComponent, createComponentSuccess, resetComponentSates} from "./CreateComponent";
-import {resetUpdateSuccess} from "../Products/actions";
 
 const AddComponent = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");

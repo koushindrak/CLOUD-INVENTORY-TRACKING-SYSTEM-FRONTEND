@@ -1,8 +1,8 @@
 import React from "react";
-import { call, put } from 'redux-saga/effects';
+import {call, put} from 'redux-saga/effects';
 import axios from 'axios';
 import * as COMMON_UTILS from './commonUtils';
-import { API_HOST } from "../utils/constants";
+import {API_HOST} from "../utils/constants";
 
 export const apiTypes={
   GET_ALL:"GET_ALL",

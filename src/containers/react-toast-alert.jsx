@@ -1,5 +1,5 @@
 // common-files/toast.js
-import { toast } from 'react-toastify';
+import {toast} from 'react-toastify';
 
 const toastOptions = {
     success: {

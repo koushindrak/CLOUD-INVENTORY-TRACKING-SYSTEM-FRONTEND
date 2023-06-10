@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Box } from '@mui/material';
-import { Formik } from 'formik';
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField} from '@mui/material';
+import {Formik} from 'formik';
 import * as yup from 'yup';
 
 export default function AddComponents(props) {
@@ -9,7 +9,6 @@ export default function AddComponents(props) {
 
   const handleSave = (values) => {
     // Handle save functionality here
-    console.log('Saving component:', values);
 
     // Close the AddComponents dialog
     handleClose();

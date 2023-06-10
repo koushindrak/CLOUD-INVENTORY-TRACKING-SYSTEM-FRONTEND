@@ -5,10 +5,10 @@
  */
 
 
-import { fromJS } from 'immutable';
+import {fromJS} from 'immutable';
+import * as CONSTANTS from './constants'
 
 export const initialState = fromJS({});
-import * as CONSTANTS from './constants'
 
 function manageProductsReducer(state = initialState, action) {
   switch (action.type) {

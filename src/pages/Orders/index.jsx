@@ -1,17 +1,16 @@
-import { useState,useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Box, Typography, useTheme, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
-import { tokens } from "../../theme";
-import { useDispatch, useSelector } from 'react-redux';
+import {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {Box, useTheme} from "@mui/material";
+import {DataGrid} from "@mui/x-data-grid";
+import {tokens} from "../../theme";
+import {useDispatch, useSelector} from 'react-redux';
 import Header from "../../containers/Header";
 import IconButton from '@mui/material/IconButton';
-import AddIcon from '@mui/icons-material/Add';
 import 'react-toastify/dist/ReactToastify.css';
 import {getOrder, getOrderFailure, getOrderSuccess} from "./GetAllOrders";
 import {getOrderStyles} from "./css/OrderStyle";
 import {ViewList} from "@mui/icons-material";
-import { columns } from './SalesOrdersColumns';
+import {columns} from './SalesOrdersColumns';
 import CircularProgress from '@mui/material/CircularProgress';
 import {errorToast} from "../../containers/react-toast-alert";
 

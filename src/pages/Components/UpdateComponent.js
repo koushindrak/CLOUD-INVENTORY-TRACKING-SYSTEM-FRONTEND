@@ -1,11 +1,9 @@
-import { call, put, takeLatest, all } from 'redux-saga/effects';
+import {takeLatest} from 'redux-saga/effects';
 
 //1. constant
 import {apiCallHandler, apis, apiTypes} from "../../common-files/apiCallHandler";
 import {fromJS} from "immutable";
 import {createSelector} from "reselect";
-import {RESET_CREATE_COMPONENT_STATES, RESET_COMPONENT_STATE} from "./CreateComponent";
-import {useDispatch} from "react-redux";
 
 export const UPDATE_COMPONENT_REQUEST = 'UPDATE_COMPONENT_REQUEST';
 export const UPDATE_COMPONENT_SUCCESS = 'UPDATE_COMPONENT_SUCCESS';

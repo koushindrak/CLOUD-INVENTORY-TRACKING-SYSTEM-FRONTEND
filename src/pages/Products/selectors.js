@@ -1,5 +1,5 @@
-import { createSelector } from 'reselect';
-import { initialState } from './reducers';
+import {createSelector} from 'reselect';
+import {initialState} from './reducers';
 
 const selectManageProductsDomain = state => state.product || initialState;
 

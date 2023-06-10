@@ -1,4 +1,4 @@
-import { take, takeEvery,call, put, select,all } from 'redux-saga/effects';
+import {all, takeEvery} from 'redux-saga/effects';
 import {apiCallHandler, apis, apiTypes} from "../../common-files/apiCallHandler";
 import * as CONSTANTS from "./constants";
 

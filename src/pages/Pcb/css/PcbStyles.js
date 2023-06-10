@@ -1,4 +1,4 @@
-import { tokens } from "../../../theme";
+import {tokens} from "../../../theme";
 
 export const getPcbStyles = (theme) => {
     const colors = tokens(theme.palette.mode);

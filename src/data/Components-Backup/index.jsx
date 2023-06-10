@@ -1,26 +1,24 @@
-import { useState,useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import {
     Box,
-    Typography,
-    useTheme,
+    Button,
     Dialog,
-    DialogTitle,
+    DialogActions,
     DialogContent,
     DialogContentText,
-    DialogActions,
-    Button,
-    Tooltip
+    DialogTitle,
+    Tooltip,
+    useTheme
 } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
-import { tokens } from "../../theme";
-import { useDispatch, useSelector } from 'react-redux';
+import {DataGrid} from "@mui/x-data-grid";
+import {tokens} from "../../theme";
+import {useDispatch, useSelector} from 'react-redux';
 import Header from "../../containers/Header";
 import IconButton from '@mui/material/IconButton';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import AddIcon from '@mui/icons-material/Add';
-import { successToast, errorToast } from '../../containers/react-toast-alert';
 import 'react-toastify/dist/ReactToastify.css';
 import {getComponent, getComponentSuccess} from "./GetAllComponent";
 import {getComponentStyles} from "./css/ComponentStyles";

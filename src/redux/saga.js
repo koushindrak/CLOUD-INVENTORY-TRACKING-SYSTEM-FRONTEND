@@ -1,6 +1,5 @@
-import { all } from "redux-saga/effects";
-import Axios from "axios";
-import productSaga  from '../pages/Products/saga';
+import {all} from "redux-saga/effects";
+import productSaga from '../pages/Products/saga';
 import {watchGetCategoryRequest} from "../pages/Products/GetProductCategories";
 import {watchGetPcbRequest} from "../pages/Pcb/GetAllPcb";
 import {watchCreatePcbRequest} from "../pages/Pcb/CreatePcb";

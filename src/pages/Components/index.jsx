@@ -1,20 +1,9 @@
-import { useState,useEffect } from 'react';
-import {Route, useNavigate, useParams} from 'react-router-dom';
-import {
-    Box,
-    Typography,
-    useTheme,
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogContentText,
-    DialogActions,
-    Button,
-    Tooltip
-} from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
-import { tokens } from "../../theme";
-import { useDispatch, useSelector } from 'react-redux';
+import {useEffect, useState} from 'react';
+import {useNavigate, useParams} from 'react-router-dom';
+import {Box, Button, Tooltip, useTheme} from "@mui/material";
+import {DataGrid} from "@mui/x-data-grid";
+import {tokens} from "../../theme";
+import {useDispatch, useSelector} from 'react-redux';
 import Header from "../../containers/Header";
 import IconButton from '@mui/material/IconButton';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
@@ -28,9 +17,8 @@ import {getProductByIdSuccess} from "../Products/selectors";
 import DeleteDialog from "../../containers/DeleteDialog";
 import {deleteComponentById, deleteComponentByIdFailure, deleteComponentByIdSuccess} from "./DeleteComponent";
 import {errorToast, successToast} from "../../containers/react-toast-alert";
-import {getComponentById} from "./GetComponentById";
-import UpdateComponentPage from "./UpdateComponentPage";
 import DeveloperBoardIcon from "@mui/icons-material/DeveloperBoard";
+import {componentColumns} from "./ComponentColumns";
 
 
 const Component = () => {
@@ -147,70 +135,9 @@ const Component = () => {
     };
     /* Button click actions ends here */
 
-    const columns = [
-        {
-            field: "id",
-            headerName: "ID",
-            headerAlign: "center",
-            align: "center",
-            cellClassName: "id-column--cell",  // Add the className here
-        },
-        {
-            field: "mfrptn",
-            headerName: "MFRPTN",
-            headerAlign: "center",
-            align: "center",
-            flex: 1,
-        },
-        {
-            field: "description",
-            headerName: "Description",
-            headerAlign: "center",
-            align: "center",
-            flex: 1,
-        },
-        {
-            field: "componentCategoryName",
-            headerName: "Category",
-            flex: 1,
-            headerAlign: "center",
-            align: "center",
-        },
-        {
-            field: "footprint",
-            headerName: "FOOTPRINT",
-            flex: 1,
-            headerAlign: "center",
-            align: "center",
-        },
-        {
-            field: "value",
-            headerName: "VALUE",
-            flex: 1,
-            headerAlign: "center",
-            align: "center",
-        },
-        {
-            field: "isObselete",
-            headerName: "Obselete",
-            flex: 1,
-            headerAlign: "center",
-            align: "center",
-        },
-        {
-            field: "threshold",
-            headerName: "Threshold",
-            flex: 1,
-            headerAlign: "center",
-            align: "center",
-        },
-        {
-            field: "stock",
-            headerName: "Stock",
-            flex: 1,
-            headerAlign: "center",
-            align: "center",
-        },
+
+    const completeColumns = [
+        ...componentColumns,
         {
             headerName: "Actions",
             headerAlign: "center",
@@ -281,7 +208,7 @@ const Component = () => {
                 m="40px 0 0 0"
                 height="75vh"
                 sx={componentStyles}>
-                <DataGrid   rows={components} columns={columns} />
+                <DataGrid   rows={components} columns={completeColumns} />
             </Box>
             </Box>
             <DeleteDialog

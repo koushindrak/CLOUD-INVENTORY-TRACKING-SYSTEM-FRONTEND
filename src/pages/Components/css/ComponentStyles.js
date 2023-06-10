@@ -1,4 +1,4 @@
-import { tokens } from "../../../theme";
+import {tokens} from "../../../theme";
 
 export const getComponentStyles = (theme) => {
     const colors = tokens(theme.palette.mode);

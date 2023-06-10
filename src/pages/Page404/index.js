@@ -1,4 +1,5 @@
-import { Typography, Result } from "antd";
+import {Result, Typography} from "antd";
+
 const { Link } = Typography;
 
 const Page404 = () => {

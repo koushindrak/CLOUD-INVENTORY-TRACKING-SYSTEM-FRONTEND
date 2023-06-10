@@ -1,32 +1,24 @@
-import { ConfigProvider } from "antd";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import Page404 from "../pages/Page404";
-import COLORS from "../utils/colors";
 
 //NEW
-import { useState } from "react";
+import {useState} from "react";
 import Topbar from "../scenes/global/Topbar";
 import Sidebar from "../scenes/global/Sidebar";
-import Dashboard from "../scenes/dashboard";
-import Team from "../scenes/team";
 import Invoices from "../scenes/invoices";
 import Contacts from "../scenes/contacts";
-import Bar from "../scenes/bar";
 import Form from "../scenes/form";
-import Line from "../scenes/line";
-import Pie from "../scenes/pie";
 import FAQ from "../scenes/faq";
-import Geography from "../scenes/geography";
 import StaticDateTimePickerLandscape from "../scenes/DateTimePicker";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import { ColorModeContext, useMode } from "../theme";
+import {CssBaseline, ThemeProvider} from "@mui/material";
+import {ColorModeContext, useMode} from "../theme";
 import Calendar from "../scenes/calendar/calendar";
 import Products from "../pages/Products/index";
 import EditProduct from "../pages/Products/EditProduct";
 import AddProduct from "../pages/Products/AddProduct";
-import Component from "../pages/Components";
+import Components from "../pages/Components";
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
+import {ToastContainer} from 'react-toastify';
 import Pcb from "../pages/Pcb";
 import AddPcb from "../pages/Pcb/CreatePcbPage";
 import AddComponent from "../pages/Components/CreateComponentPage";
@@ -34,7 +26,6 @@ import Supplier from "../pages/Suppliers";
 import UpdatePcbPage from "../pages/Pcb/UpdatePcbPage";
 import Orders from "../pages/Orders";
 import GetOrderByIdPage from "../pages/Orders/GetOrderByIdPage";
-import Components from "../pages/Components";
 import UpdateComponentPage from "../pages/Components/UpdateComponentPage";
 
 function App() {
