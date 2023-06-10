@@ -32,11 +32,11 @@ const Orders = () => {
     const navigate = useNavigate();  // new
 
     /* Effects Start */
-    useEffect( () => {
-        if(getOrderFailureResponse){
+    useEffect(() => {
+        if (getOrderFailureResponse) {
             errorToast(getOrderFailureResponse.error)
         }
-    },[getOrderFailureResponse] )
+    }, [getOrderFailureResponse])
     useEffect(() => {
         const fetchData = async () => {
 
@@ -69,7 +69,7 @@ const Orders = () => {
                 return (
                     <div>
                         <IconButton color="secondary" onClick={() => handleViewDetails(params.row)}>
-                            <ViewList />
+                            <ViewList/>
                         </IconButton>
                     </div>
                 );
@@ -77,7 +77,7 @@ const Orders = () => {
         }
     ];
 
-    function Header({ title, subtitle, subtitleStyle }) {
+    function Header({title, subtitle, subtitleStyle}) {
         return (
             <header>
                 <h1>{title}</h1>
@@ -92,7 +92,7 @@ const Orders = () => {
             <Box position="relative">
 
                 <Header
-                    subtitleStyle={{ color: colors.grey[100] }}
+                    subtitleStyle={{color: colors.grey[100]}}
                     subtitle="Tracking the Orders"
                 />
                 <Box m="40px 0 0 0" height="75vh" sx={orderStyles}>
@@ -109,7 +109,7 @@ const Orders = () => {
                             alignItems="center"
                             height="100%"
                         >
-                            <CircularProgress />
+                            <CircularProgress/>
                         </Box>
                     )}
                 </Box>

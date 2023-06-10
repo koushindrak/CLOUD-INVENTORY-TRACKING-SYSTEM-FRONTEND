@@ -44,9 +44,6 @@ const Supplier = () => {
     }, [dispatch]);
 
 
-
-
-
     /*Effects Section Ends here */
 
     /* Button click actions start here */
@@ -71,7 +68,7 @@ const Supplier = () => {
     };
 
     const handleConfirmDelete = () => {
-         // dispatch(deleteSupplier(selectedSupplier.id));
+        // dispatch(deleteSupplier(selectedSupplier.id));
         setOpen(false);
     };
 
@@ -128,7 +125,8 @@ const Supplier = () => {
         //     },
         // },
     ];
-    function Header({ title, subtitle, subtitleStyle }) {
+
+    function Header({title, subtitle, subtitleStyle}) {
         return (
             <header>
                 <h1>{title}</h1>
@@ -145,15 +143,16 @@ const Supplier = () => {
 
 
                 <Header
-                    subtitleStyle={{ color: colors.grey[100] }}
-                    subtitle="Managing the Suppliers" />
+                    subtitleStyle={{color: colors.grey[100]}}
+                    subtitle="Managing the Suppliers"/>
 
-            <Box
-                m="40px 0 0 0"
-                height="75vh"
-                sx={supplierStyles}            >
-                <DataGrid   rows={getSupplierSuccessResponse ? getSupplierSuccessResponse.data : []} columns={columns} />
-            </Box>
+                <Box
+                    m="40px 0 0 0"
+                    height="75vh"
+                    sx={supplierStyles}>
+                    <DataGrid rows={getSupplierSuccessResponse ? getSupplierSuccessResponse.data : []}
+                              columns={columns}/>
+                </Box>
             </Box>
             <Dialog
                 open={open}

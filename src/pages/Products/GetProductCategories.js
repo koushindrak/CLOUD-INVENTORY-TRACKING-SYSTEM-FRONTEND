@@ -17,15 +17,17 @@ export function getCategories() {
 }
 
 //3. saga
-function* handleGetCategoryRequest(action){
-    yield (apiCallHandler(action, GET_CATEGORY_SUCCESS, GET_CATEGORY_FAILURE, apis.PRODUCT_APIS_BASE_URL+"/category",apiTypes.GET_ALL));
+function* handleGetCategoryRequest(action) {
+    yield (apiCallHandler(action, GET_CATEGORY_SUCCESS, GET_CATEGORY_FAILURE, apis.PRODUCT_APIS_BASE_URL + "/category", apiTypes.GET_ALL));
 }
+
 export function* watchGetCategoryRequest() {
-    yield takeLatest(GET_CATEGORY_REQUEST,handleGetCategoryRequest)
+    yield takeLatest(GET_CATEGORY_REQUEST, handleGetCategoryRequest)
 }
 
 //4. Reducer
 export const initialState = fromJS({});
+
 export function GetCategoryReducer(state = initialState, action) {
     switch (action.type) {
         case GET_CATEGORY_SUCCESS:
@@ -40,6 +42,6 @@ export function GetCategoryReducer(state = initialState, action) {
 
 //5. Selector
 const getCategorySelector = state => state.category || initialState;
-export const getCategorySuccess = createSelector(getCategorySelector,state=>state.getCategoryResponse)
-export const getCategoryFailure =  createSelector(getCategorySelector,state=>state.getCategoryError)
+export const getCategorySuccess = createSelector(getCategorySelector, state => state.getCategoryResponse)
+export const getCategoryFailure = createSelector(getCategorySelector, state => state.getCategoryError)
 export {getCategorySelector}

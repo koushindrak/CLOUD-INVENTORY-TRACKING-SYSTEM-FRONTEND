@@ -39,48 +39,47 @@ const Component = () => {
 
     //states
     const [open, setOpen] = useState(false);
-    const [selectedId, setSelectedId] = useState(null);
     const [selectedComponent, setSelectedComponent] = useState(null);
     const [components, setComponents] = useState([]);
 
 
     // params from other page
-    let { productId } = useParams();
+    let {productId} = useParams();
 
 
     /* Effects Start */
 
-    useEffect( () => {
-        if(deleteSuccess){
+    useEffect(() => {
+        if (deleteSuccess) {
             successToast(deleteSuccess.displayMessage)
             dispatch(getComponent());
         }
-    },[deleteSuccess])
-
-    useEffect( () => {
-        if(deleteFailure){
-            errorToast(deleteFailure.error)
-        }
-    },[deleteFailure])
+    }, [deleteSuccess])
 
     useEffect(() => {
-        console.log("productId Params--",productId)
-        if(productId){
-            console.log("productId--",productId)
+        if (deleteFailure) {
+            errorToast(deleteFailure.error)
+        }
+    }, [deleteFailure])
+
+    useEffect(() => {
+        console.log("productId Params--", productId)
+        if (productId) {
+            console.log("productId--", productId)
             dispatch(getProductById(productId));
-        }else{
-            console.log("productId2222--",productId)
+        } else {
+            console.log("productId2222--", productId)
             dispatch(getComponent());
         }
     }, [dispatch]);
 
-    useEffect( () => {
-        if(productId && getProductByIdSuccessResponse){
+    useEffect(() => {
+        if (productId && getProductByIdSuccessResponse) {
             setComponents(getProductByIdSuccessResponse.data.components)
-        }else if(getComponentSuccessResponse){
+        } else if (getComponentSuccessResponse) {
             setComponents(getComponentSuccessResponse.data)
         }
-    },[getProductByIdSuccessResponse,getComponentSuccessResponse,productId])
+    }, [getProductByIdSuccessResponse, getComponentSuccessResponse, productId])
 
     /*Effects Section Ends here */
 
@@ -88,13 +87,15 @@ const Component = () => {
     /* Button click actions start here */
     const handleEdit = (row) => {
         // Dispatch the edit action with the row data as payload
-        console.log("component row--",row)
-        if(productId){
-            {/*edit an existing component for a product */}
-           // <Route path="/products/:productId/components/edit/:componentId" element={<UpdateComponentPage />} />
+        console.log("component row--", row)
+        if (productId) {
+            {/*edit an existing component for a product */
+            }
+            // <Route path="/products/:productId/components/edit/:componentId" element={<UpdateComponentPage />} />
             navigate(`/products/${productId}/components/edit/${row.id}`)
-        }else{
-            {/*update component  */}
+        } else {
+            {/*update component  */
+            }
             //<Route path="/components/edit/:id" element={<UpdateComponentPage />} />
             navigate(`/components/edit/${row.id}`);
         }
@@ -115,14 +116,14 @@ const Component = () => {
     };
 
     const handleConfirmDelete = () => {
-         dispatch(deleteComponentById(selectedComponent.id));
+        dispatch(deleteComponentById(selectedComponent.id));
         setOpen(false);
     };
 
     const handleAdd = () => {
-        if(productId){
-            navigate('/products/'+productId+'/components/add')
-        }else {
+        if (productId) {
+            navigate('/products/' + productId + '/components/add')
+        } else {
             navigate('/components/add'); // Change this to the correct route
         }
     };
@@ -148,19 +149,19 @@ const Component = () => {
                     <div>
                         <Tooltip title="Edit Component" placement="top">
                             <IconButton color="secondary" onClick={() => handleEdit(params.row)}>
-                                <EditOutlinedIcon />
+                                <EditOutlinedIcon/>
                             </IconButton>
                         </Tooltip>
 
                         <Tooltip title="Delete Component" placement="top">
                             <IconButton color="secondary" onClick={() => handleDelete(params.row)}>
-                                <DeleteOutlinedIcon />
+                                <DeleteOutlinedIcon/>
                             </IconButton>
                         </Tooltip>
 
                         <Tooltip title="Manage PCB's" placement="top">
                             <IconButton color="secondary" onClick={() => handleManagePCB(params.row)}>
-                                <DeveloperBoardIcon />
+                                <DeveloperBoardIcon/>
                             </IconButton>
                         </Tooltip>
                     </div>
@@ -168,7 +169,8 @@ const Component = () => {
             },
         },
     ];
-    function Header({ title, subtitle, subtitleStyle }) {
+
+    function Header({title, subtitle, subtitleStyle}) {
         return (
             <header>
                 <h1>{title}</h1>
@@ -194,22 +196,22 @@ const Component = () => {
                         backgroundColor: '#847343'
 
                     }}
-                    startIcon={<AddIcon />}>
+                    startIcon={<AddIcon/>}>
                     Add Component
                 </Button>
 
 
                 <Header
-                    subtitleStyle={{ color: colors.grey[100] }}
-                    subtitle={productId ? `Managing the Components for Product - ${getProductByIdSuccessResponse ? getProductByIdSuccessResponse.data.name : getProductByIdSuccessResponse }` : "Managing the Components"}
-                    />
+                    subtitleStyle={{color: colors.grey[100]}}
+                    subtitle={productId ? `Managing the Components for Product - ${getProductByIdSuccessResponse ? getProductByIdSuccessResponse.data.name : getProductByIdSuccessResponse}` : "Managing the Components"}
+                />
 
-            <Box
-                m="40px 0 0 0"
-                height="75vh"
-                sx={componentStyles}>
-                <DataGrid   rows={components} columns={completeColumns} />
-            </Box>
+                <Box
+                    m="40px 0 0 0"
+                    height="75vh"
+                    sx={componentStyles}>
+                    <DataGrid rows={components} columns={completeColumns}/>
+                </Box>
             </Box>
             <DeleteDialog
                 open={open}

@@ -20,18 +20,18 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getOrderById, getOrderByIdFailure, getOrderByIdSuccess} from "./GetOrderById";
 import {errorToast} from "../../containers/react-toast-alert";
 
-const StyledCard = styled(Card)(({ theme }) => ({
+const StyledCard = styled(Card)(({theme}) => ({
     margin: theme.spacing(2),
     backgroundColor: '#C8FACD', // Added color here
     boxShadow: theme.shadows[3],
 }));
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
+const StyledTableCell = styled(TableCell)(({theme}) => ({
     color: '#05386B', // Changed color here
     fontWeight: 'bold',
 }));
 
-const ColorfulBox = styled(Box)(({ theme }) => ({
+const ColorfulBox = styled(Box)(({theme}) => ({
     backgroundColor: '#EDF5E1', // Added color here
     color: '#05386B', // Added color here
 }));
@@ -46,29 +46,29 @@ const OrderById = () => {
     const [loading, setLoading] = useState(true);
     let {id} = useParams();
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getOrderById(id))
-    },[])
+    }, [])
 
-    useEffect( () => {
-        if(orderSuccess){
+    useEffect(() => {
+        if (orderSuccess) {
             setLoading(false)
         }
-    },[orderSuccess])
+    }, [orderSuccess])
 
-    useEffect( () => {
-        if(orderFailure){
+    useEffect(() => {
+        if (orderFailure) {
             errorToast(orderFailure.error)
         }
-    },[orderFailure] )
+    }, [orderFailure])
 
     const order = orderSuccess && orderSuccess.data;
 
     return (
-        <ColorfulBox m="20px" p="20px"style={{maxWidth: '80vw', overflowX: 'hidden'}}>
+        <ColorfulBox m="20px" p="20px" style={{maxWidth: '80vw', overflowX: 'hidden'}}>
             <Box position="relative">
                 {loading ? (
-                    <CircularProgress />
+                    <CircularProgress/>
                 ) : (
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
@@ -108,15 +108,18 @@ const OrderById = () => {
                         </Grid>
                         <Grid item xs={6} md={4} lg={3}>
                             <Typography variant="h6">Backorder Shipping Method:</Typography>
-                            <Typography variant="h6">{order ? order.BackorderShippingMethod || 'N/A' : 'Loading...'}</Typography>
+                            <Typography
+                                variant="h6">{order ? order.BackorderShippingMethod || 'N/A' : 'Loading...'}</Typography>
                         </Grid>
                         <Grid item xs={6} md={4} lg={3}>
                             <Typography variant="h6">Shipper Account Number:</Typography>
-                            <Typography variant="h6">{order ? order.ShipperAccountNumber || 'N/A' : 'Loading...'}</Typography>
+                            <Typography
+                                variant="h6">{order ? order.ShipperAccountNumber || 'N/A' : 'Loading...'}</Typography>
                         </Grid>
                         <Grid item xs={6} md={4} lg={3}>
                             <Typography variant="h6">Backorder Shipper Account Number:</Typography>
-                            <Typography variant="h6">{order ? order.BackorderShipperAccountNumber || 'N/A' : 'Loading...'}</Typography>
+                            <Typography
+                                variant="h6">{order ? order.BackorderShipperAccountNumber || 'N/A' : 'Loading...'}</Typography>
                         </Grid>
                         <Grid item xs={6} md={4} lg={3}>
                             <Typography variant="h6">Shipment Type:</Typography>
@@ -136,10 +139,12 @@ const OrderById = () => {
                             {order && order.ShippingAddress && (
                                 <>
                                     <Typography variant="body1">{order.ShippingAddress.Company}</Typography>
-                                    <Typography variant="body1">{order.ShippingAddress.FirstName} {order.ShippingAddress.LastName}</Typography>
+                                    <Typography
+                                        variant="body1">{order.ShippingAddress.FirstName} {order.ShippingAddress.LastName}</Typography>
                                     <Typography variant="body2">{order.ShippingAddress.AddressLineOne}</Typography>
                                     <Typography variant="body2">{order.ShippingAddress.AddressLineTwo}</Typography>
-                                    <Typography variant="body2">{order.ShippingAddress.City}, {order.ShippingAddress.Province} {order.ShippingAddress.PostalCode}</Typography>
+                                    <Typography
+                                        variant="body2">{order.ShippingAddress.City}, {order.ShippingAddress.Province} {order.ShippingAddress.PostalCode}</Typography>
                                     <Typography variant="body2">{order.ShippingAddress.Country}</Typography>
                                 </>
                             )}
@@ -151,10 +156,12 @@ const OrderById = () => {
                             {order && order.BillingAddress && (
                                 <>
                                     <Typography variant="body1">{order.BillingAddress.Company}</Typography>
-                                    <Typography variant="body1">{order.BillingAddress.FirstName} {order.BillingAddress.LastName}</Typography>
+                                    <Typography
+                                        variant="body1">{order.BillingAddress.FirstName} {order.BillingAddress.LastName}</Typography>
                                     <Typography variant="body2">{order.BillingAddress.AddressLineOne}</Typography>
                                     <Typography variant="body2">{order.BillingAddress.AddressLineTwo}</Typography>
-                                    <Typography variant="body2">{order.BillingAddress.City}, {order.BillingAddress.Province} {order.BillingAddress.PostalCode}</Typography>
+                                    <Typography
+                                        variant="body2">{order.BillingAddress.City}, {order.BillingAddress.Province} {order.BillingAddress.PostalCode}</Typography>
                                     <Typography variant="body2">{order.BillingAddress.Country}</Typography>
                                 </>
                             )}
@@ -205,7 +212,7 @@ const OrderById = () => {
                                         <TableCell>{item.Schedule ? JSON.stringify(item.Schedule) : 'N/A'}</TableCell>
                                     </TableRow>
                                 ))}
-                            </TableBody>                        </Table>
+                            </TableBody> </Table>
                     </TableContainer>
                 </Box>
                 <Box marginY={2}>

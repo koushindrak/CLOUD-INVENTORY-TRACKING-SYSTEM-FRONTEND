@@ -17,20 +17,23 @@ export function updateComponent(payload) {
         payload
     }
 }
-export const resetUpdateComponentSates= () => ({
+
+export const resetUpdateComponentSates = () => ({
     type: RESET_UPDATE_COMPONENT_STATES
 });
 
 //3. saga
-function* handleUpdateComponentRequest(action){
-    yield (apiCallHandler(action, UPDATE_COMPONENT_SUCCESS, UPDATE_COMPONENT_FAILURE, apis.COMPONENT_APIS_BASE_URL,apiTypes.UPDATE_BY_ID));
+function* handleUpdateComponentRequest(action) {
+    yield (apiCallHandler(action, UPDATE_COMPONENT_SUCCESS, UPDATE_COMPONENT_FAILURE, apis.COMPONENT_APIS_BASE_URL, apiTypes.UPDATE_BY_ID));
 }
+
 export function* watchUpdateComponentRequest() {
-    yield takeLatest(UPDATE_COMPONENT_REQUEST,handleUpdateComponentRequest)
+    yield takeLatest(UPDATE_COMPONENT_REQUEST, handleUpdateComponentRequest)
 }
 
 //4. Reducer
 export const initialState = fromJS({});
+
 export function UpdateComponentReducer(state = initialState, action) {
     switch (action.type) {
         case UPDATE_COMPONENT_SUCCESS:
@@ -52,6 +55,6 @@ export function UpdateComponentReducer(state = initialState, action) {
 
 //5. Selector
 const updateComponentSelector = state => state.updateComponent || initialState;
-export const updateComponentSuccess = createSelector(updateComponentSelector,state=>state.updateComponentResponse)
-export const updateComponentFailure =  createSelector(updateComponentSelector,state=>state.updateComponentError)
+export const updateComponentSuccess = createSelector(updateComponentSelector, state => state.updateComponentResponse)
+export const updateComponentFailure = createSelector(updateComponentSelector, state => state.updateComponentError)
 export {updateComponentSelector}

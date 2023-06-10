@@ -18,21 +18,23 @@ export function getComponentById(id) {
     }
 }
 
-export const resetGetComponentByIdSates= () => ({
+export const resetGetComponentByIdSates = () => ({
     type: RESET_GET_COMPONENT_BY_ID_STATES
 });
 
 
 //3. saga
-function* handleGetComponentByIdRequest(action){
-    yield (apiCallHandler(action, GET_COMPONENT_BY_ID_SUCCESS, GET_COMPONENT_BY_ID_FAILURE, apis.COMPONENT_APIS_BASE_URL,apiTypes.GET_BY_ID));
+function* handleGetComponentByIdRequest(action) {
+    yield (apiCallHandler(action, GET_COMPONENT_BY_ID_SUCCESS, GET_COMPONENT_BY_ID_FAILURE, apis.COMPONENT_APIS_BASE_URL, apiTypes.GET_BY_ID));
 }
+
 export function* watchGetComponentByIdRequest() {
-    yield takeLatest(GET_COMPONENT_BY_ID_REQUEST,handleGetComponentByIdRequest)
+    yield takeLatest(GET_COMPONENT_BY_ID_REQUEST, handleGetComponentByIdRequest)
 }
 
 //4. Reducer
 export const initialState = fromJS({});
+
 export function GetComponentByIdReducer(state = initialState, action) {
     switch (action.type) {
         case GET_COMPONENT_BY_ID_SUCCESS:
@@ -53,6 +55,6 @@ export function GetComponentByIdReducer(state = initialState, action) {
 
 //5. Selector
 const getComponentByIdSelector = state => state.componentById || initialState;
-export const getComponentByIdSuccess = createSelector(getComponentByIdSelector,state=>state.getComponentByIdResponse)
-export const getComponentByIdFailure =  createSelector(getComponentByIdSelector,state=>state.getComponentByIdError)
+export const getComponentByIdSuccess = createSelector(getComponentByIdSelector, state => state.getComponentByIdResponse)
+export const getComponentByIdFailure = createSelector(getComponentByIdSelector, state => state.getComponentByIdError)
 export {getComponentByIdSelector}

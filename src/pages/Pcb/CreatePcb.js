@@ -18,20 +18,22 @@ export function createPcb(payload) {
     }
 }
 
-export const resetCreatePcbSates= () => ({
+export const resetCreatePcbSates = () => ({
     type: RESET_CREATE_PCB_STATES
 });
 
 //3. saga
-function* handleCreatePcbRequest(action){
-    yield (apiCallHandler(action, CREATE_PCB_SUCCESS, CREATE_PCB_FAILURE, apis.PCB_APIS_BASE_URL,apiTypes.CREATE));
+function* handleCreatePcbRequest(action) {
+    yield (apiCallHandler(action, CREATE_PCB_SUCCESS, CREATE_PCB_FAILURE, apis.PCB_APIS_BASE_URL, apiTypes.CREATE));
 }
+
 export function* watchCreatePcbRequest() {
-    yield takeLatest(CREATE_PCB_REQUEST,handleCreatePcbRequest)
+    yield takeLatest(CREATE_PCB_REQUEST, handleCreatePcbRequest)
 }
 
 //4. Reducer
 export const initialState = fromJS({});
+
 export function CreatePcbReducer(state = initialState, action) {
     switch (action.type) {
         case CREATE_PCB_SUCCESS:
@@ -52,6 +54,6 @@ export function CreatePcbReducer(state = initialState, action) {
 
 //5. Selector
 const createPcbSelector = state => state.createPcb || initialState;
-export const createPcbSuccess = createSelector(createPcbSelector,state=>state.createPcbResponse)
-export const createPcbFailure =  createSelector(createPcbSelector,state=>state.createPcbError)
+export const createPcbSuccess = createSelector(createPcbSelector, state => state.createPcbResponse)
+export const createPcbFailure = createSelector(createPcbSelector, state => state.createPcbError)
 export {createPcbSelector}

@@ -1,57 +1,58 @@
 import {put} from "redux-saga/effects";
 
 export function GetHeaders() {
-  let headers = {
-    headers: {
-      'Content-Type': 'application/json',
+    let headers = {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    };
+    if (localStorage.token) {
+        headers.headers["Authorization"] = `Bearer ${localStorage.token}`;
     }
-  };
-  if (localStorage.token) {
-    headers.headers["Authorization"] = `Bearer ${localStorage.token}`;
-  }
-  return headers
+    return headers
 }
 
 export function* ErrorCheck(action, error, errorConst) {
-  if (!error.response && error.message) {
-    yield put({type: errorConst, error: error.message, addOns: action});
-  } else if (error.response.status === 400 || error.response.status === 403 || error.response.status === 500) {
-    yield put({type: errorConst, error: error.response.data.displayError, addOns: action});
-  } else if (error.response.status === 401) {
-    localStorage.clear();
-    yield put({type: errorConst, error: error.response.data.displayError, addOns: action});
-  }
+    if (!error.response && error.message) {
+        yield put({type: errorConst, error: error.message, addOns: action});
+    } else if (error.response.status === 400 || error.response.status === 403 || error.response.status === 500) {
+        yield put({type: errorConst, error: error.response.data.displayError, addOns: action});
+    } else if (error.response.status === 401) {
+        localStorage.clear();
+        yield put({type: errorConst, error: error.response.data.displayError, addOns: action});
+    }
 }
 
 function formatErrors(errorObject) {
-  let errorMessages = [];
+    let errorMessages = [];
 
-  for (const key in errorObject) {
-    if (errorObject.hasOwnProperty(key)) {
-      errorMessages.push(`${key}: ${errorObject[key].join(', ')}`);
+    for (const key in errorObject) {
+        if (errorObject.hasOwnProperty(key)) {
+            errorMessages.push(`${key}: ${errorObject[key].join(', ')}`);
+        }
     }
-  }
 
-  return errorMessages.join('\n');
+    return errorMessages.join('\n');
 }
 
 export function compare(newProps, oldProps) {
-  return newProps && newProps !== oldProps;
+    return newProps && newProps !== oldProps;
 }
 
 export function getKeyByValue(object, value) {
-  return Object.keys(object).find(key => object[key] === value);
+    return Object.keys(object).find(key => object[key] === value);
 }
 
 export function getCommaSepratedValuesFromObject(inputObject) {
-  return Object.keys(inputObject).map(function (k) {
-    return inputObject[k]
-  }).join(",")
+    return Object.keys(inputObject).map(function (k) {
+        return inputObject[k]
+    }).join(",")
 }
 
 export function getCommaSepratedValuesFromArray(inputArray) {
-  let values = '';
-   inputArray.forEach(inputObject => values + getCommaSepratedValuesFromObject(inputObject))
-  return values;
+    let values = '';
+    inputArray.forEach(inputObject => values + getCommaSepratedValuesFromObject(inputObject))
+    return values;
 }
+
 export const GoogleMapsAPIKey = 'AIzaSyDSiHSy5W40gQJqhQhpYS0MuPHpWwg_GMw';

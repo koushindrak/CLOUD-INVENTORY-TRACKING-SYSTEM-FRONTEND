@@ -18,15 +18,17 @@ export function getPcb() {
 }
 
 //3. saga
-function* handleGetPcbRequest(action){
-    yield (apiCallHandler(action, GET_PCB_SUCCESS, GET_PCB_FAILURE, apis.PCB_APIS_BASE_URL,apiTypes.GET_ALL));
+function* handleGetPcbRequest(action) {
+    yield (apiCallHandler(action, GET_PCB_SUCCESS, GET_PCB_FAILURE, apis.PCB_APIS_BASE_URL, apiTypes.GET_ALL));
 }
+
 export function* watchGetPcbRequest() {
-    yield takeLatest(GET_PCB_REQUEST,handleGetPcbRequest)
+    yield takeLatest(GET_PCB_REQUEST, handleGetPcbRequest)
 }
 
 //4. Reducer
 export const initialState = fromJS({});
+
 export function GetPcbReducer(state = initialState, action) {
     switch (action.type) {
         case GET_PCB_SUCCESS:
@@ -41,6 +43,6 @@ export function GetPcbReducer(state = initialState, action) {
 
 //5. Selector
 const getPcbSelector = state => state.pcb || initialState;
-export const getPcbSuccess = createSelector(getPcbSelector,state=>state.getPcbResponse)
-export const getPcbFailure =  createSelector(getPcbSelector,state=>state.getPcbError)
+export const getPcbSuccess = createSelector(getPcbSelector, state => state.getPcbResponse)
+export const getPcbFailure = createSelector(getPcbSelector, state => state.getPcbError)
 export {getPcbSelector}

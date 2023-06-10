@@ -17,20 +17,23 @@ export function updatePcb(payload) {
         payload
     }
 }
-export const resetUpdatePcbSates= () => ({
+
+export const resetUpdatePcbSates = () => ({
     type: RESET_UPDATE_PCB_STATES
 });
 
 //3. saga
-function* handleUpdatePcbRequest(action){
-    yield (apiCallHandler(action, UPDATE_PCB_SUCCESS, UPDATE_PCB_FAILURE, apis.PCB_APIS_BASE_URL,apiTypes.UPDATE_BY_ID));
+function* handleUpdatePcbRequest(action) {
+    yield (apiCallHandler(action, UPDATE_PCB_SUCCESS, UPDATE_PCB_FAILURE, apis.PCB_APIS_BASE_URL, apiTypes.UPDATE_BY_ID));
 }
+
 export function* watchUpdatePcbRequest() {
-    yield takeLatest(UPDATE_PCB_REQUEST,handleUpdatePcbRequest)
+    yield takeLatest(UPDATE_PCB_REQUEST, handleUpdatePcbRequest)
 }
 
 //4. Reducer
 export const initialState = fromJS({});
+
 export function UpdatePcbReducer(state = initialState, action) {
     switch (action.type) {
         case UPDATE_PCB_SUCCESS:
@@ -52,6 +55,6 @@ export function UpdatePcbReducer(state = initialState, action) {
 
 //5. Selector
 const updatePcbSelector = state => state.updatePcb || initialState;
-export const updatePcbSuccess = createSelector(updatePcbSelector,state=>state.updatePcbResponse)
-export const updatePcbFailure =  createSelector(updatePcbSelector,state=>state.updatePcbError)
+export const updatePcbSuccess = createSelector(updatePcbSelector, state => state.updatePcbResponse)
+export const updatePcbFailure = createSelector(updatePcbSelector, state => state.updatePcbError)
 export {updatePcbSelector}

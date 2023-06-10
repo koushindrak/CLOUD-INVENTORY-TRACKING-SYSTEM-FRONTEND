@@ -37,24 +37,24 @@ const Products = () => {
     const [open, setOpen] = useState(false);
     const [selectedId, setSelectedId] = useState(null);
     const [selectedProduct, setSelectedProduct] = useState(null);
-    const [productCategoryList,setProductCategoryList] = useState(null);
+    const [productCategoryList, setProductCategoryList] = useState(null);
 
     //routing constants
     const navigate = useNavigate();  // new
 
     /* Effects Start */
 
-    useEffect( () => {
-       if (getCategoryFailureResponse){
+    useEffect(() => {
+        if (getCategoryFailureResponse) {
             errorToast(getCategoryFailureResponse.error)
         }
-    },[getCategoryFailureResponse,dispatch])
+    }, [getCategoryFailureResponse, dispatch])
 
-    useEffect( () => {
-        if (getCategorySuccessResponse){
+    useEffect(() => {
+        if (getCategorySuccessResponse) {
             setProductCategoryList(getCategorySuccessResponse.data)
         }
-    },[getCategorySuccessResponse,dispatch])
+    }, [getCategorySuccessResponse, dispatch])
     useEffect(() => {
         dispatch(getProducts());
     }, [dispatch]);
@@ -109,7 +109,7 @@ const Products = () => {
     };
 
     const handleConfirmDelete = () => {
-         dispatch(deleteProduct(selectedProduct.id));
+        dispatch(deleteProduct(selectedProduct.id));
         setOpen(false);
     };
 
@@ -164,28 +164,29 @@ const Products = () => {
                     <div>
 
                         <Tooltip title="Edit Product" placement="top">
-                        <IconButton color="secondary" onClick={() => handleEdit(params.row)}>
-                            <EditOutlinedIcon />
-                        </IconButton>
+                            <IconButton color="secondary" onClick={() => handleEdit(params.row)}>
+                                <EditOutlinedIcon/>
+                            </IconButton>
                         </Tooltip>
 
                         <Tooltip title="Delete Product" placement="top">
-                        <IconButton color="secondary" onClick={() => handleDelete(params.row)}>
-                            <DeleteOutlinedIcon />
-                        </IconButton>
+                            <IconButton color="secondary" onClick={() => handleDelete(params.row)}>
+                                <DeleteOutlinedIcon/>
+                            </IconButton>
                         </Tooltip>
 
                         <Tooltip title="Manage PCB's" placement="top">
-                        <IconButton color="secondary" onClick={() => handleManagePCB(params.row)}>
-                            <DeveloperBoardIcon />
-                        </IconButton>
+                            <IconButton color="secondary" onClick={() => handleManagePCB(params.row)}>
+                                <DeveloperBoardIcon/>
+                            </IconButton>
                         </Tooltip>
                     </div>
                 );
             },
         },
     ];
-    function Header({ title, subtitle, subtitleStyle }) {
+
+    function Header({title, subtitle, subtitleStyle}) {
         return (
             <header>
                 <h1>{title}</h1>
@@ -216,26 +217,26 @@ const Products = () => {
                             fontweight: 900
                         },
                     }}
-                    startIcon={<AddIcon />}>
+                    startIcon={<AddIcon/>}>
                     Add Product
                 </Button>
 
 
-                <Header subtitleStyle={{ color: colors.grey[100] }} subtitle="Managing the Products" />
+                <Header subtitleStyle={{color: colors.grey[100]}} subtitle="Managing the Products"/>
 
-            <Box
-                m="40px 0 0 0"
-                height="75vh"
-                sx={productStyles}            >
-                <DataGrid
-                    pageSize={10}
-                    pagination
-                    components={{
-                        Toolbar: GridToolbar
-                }}
-                    rows={productResponse ? productResponse.data : []}
-                    columns={columns} />
-            </Box>
+                <Box
+                    m="40px 0 0 0"
+                    height="75vh"
+                    sx={productStyles}>
+                    <DataGrid
+                        pageSize={10}
+                        pagination
+                        components={{
+                            Toolbar: GridToolbar
+                        }}
+                        rows={productResponse ? productResponse.data : []}
+                        columns={columns}/>
+                </Box>
             </Box>
             <DeleteDialog
                 open={open}

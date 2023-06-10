@@ -10,14 +10,14 @@ import {BrowserRouter} from "react-router-dom";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     //using strict mode each component will be rendered twice and each api will be called twice
-  // <React.StrictMode>
+    // <React.StrictMode>
     <Provider store={store}>
         <BrowserRouter>
-        <App />
+            <App/>
         </BrowserRouter>
 
     </Provider>
-  // </React.StrictMode>
+    // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

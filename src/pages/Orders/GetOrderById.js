@@ -18,15 +18,17 @@ export function getOrderById(id) {
 }
 
 //3. saga
-function* handleGetOrderByIdRequest(action){
-    yield (apiCallHandler(action, GET_ORDER_BY_ID_SUCCESS, GET_ORDER_BY_ID_FAILURE, apis.ORDER_APIS_BASE_URL,apiTypes.GET_BY_ID));
+function* handleGetOrderByIdRequest(action) {
+    yield (apiCallHandler(action, GET_ORDER_BY_ID_SUCCESS, GET_ORDER_BY_ID_FAILURE, apis.ORDER_APIS_BASE_URL, apiTypes.GET_BY_ID));
 }
+
 export function* watchGetOrderByIdRequest() {
-    yield takeLatest(GET_ORDER_BY_ID_REQUEST,handleGetOrderByIdRequest)
+    yield takeLatest(GET_ORDER_BY_ID_REQUEST, handleGetOrderByIdRequest)
 }
 
 //4. Reducer
 export const initialState = fromJS({});
+
 export function GetOrderByIdReducer(state = initialState, action) {
     switch (action.type) {
         case GET_ORDER_BY_ID_SUCCESS:
@@ -41,6 +43,6 @@ export function GetOrderByIdReducer(state = initialState, action) {
 
 //5. Selector
 const getOrderByIdSelector = state => state.orderById || initialState;
-export const getOrderByIdSuccess = createSelector(getOrderByIdSelector,state=>state.getOrderByIdResponse)
-export const getOrderByIdFailure =  createSelector(getOrderByIdSelector,state=>state.getOrderByIdError)
+export const getOrderByIdSuccess = createSelector(getOrderByIdSelector, state => state.getOrderByIdResponse)
+export const getOrderByIdFailure = createSelector(getOrderByIdSelector, state => state.getOrderByIdError)
 export {getOrderByIdSelector}

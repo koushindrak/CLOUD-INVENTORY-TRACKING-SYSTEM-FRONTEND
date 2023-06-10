@@ -10,7 +10,7 @@ import {getPcbById, getPcbByIdSuccess, resetGetPcbByIdSates} from "./GetPCBById"
 import {resetUpdatePcbSates, updatePcb, updatePcbFailure, updatePcbSuccess} from "./UpdatePcb";
 
 const UpdatePcbPage = () => {
-    const { productId, pcbId } = useParams();
+    const {productId, pcbId} = useParams();
     const dispatch = useDispatch();
     const pcbSuccess = useSelector(getPcbByIdSuccess);
     const [pcb, setPCB] = useState(null);
@@ -28,28 +28,28 @@ const UpdatePcbPage = () => {
     }, [dispatch, pcbSuccess]);
 
     useEffect(() => {
-        if(updateSuccess){
+        if (updateSuccess) {
             successToast(updateSuccess.displayMessage)
-            if(productId){
+            if (productId) {
                 /*get all pcbs for a product
                  <Route path="/products/:productId/pcbs" element={<Pcb />} />
                 */
                 navigate(`/products/${productId}/pcbs/`)
-            }else {
+            } else {
                 navigate('/pcbs');
             }
             dispatch(resetGetPcbByIdSates());
             dispatch(resetUpdatePcbSates());
         }
-    },[updateSuccess])
+    }, [updateSuccess])
 
     useEffect(() => {
-        if(updateFailure){
+        if (updateFailure) {
             errorToast(updateFailure.error)
             dispatch(resetUpdatePcbSates());
 
         }
-    },[updateFailure])
+    }, [updateFailure])
 
     const handleFormSubmit = (values) => {
         dispatch(updatePcb(values));
@@ -64,7 +64,7 @@ const UpdatePcbPage = () => {
 
     return (
         <Box m="20px">
-            <Header title="Edit PCB" subtitle="Edit an Existing PCB" />
+            <Header title="Edit PCB" subtitle="Edit an Existing PCB"/>
             {pcb && (  // Conditional rendering
                 <Formik
                     onSubmit={handleFormSubmit}
@@ -101,7 +101,7 @@ const UpdatePcbPage = () => {
                                     name="name"
                                     error={!!touched.name && !!errors.name}
                                     helperText={touched.name && errors.name}
-                                    sx={{ gridColumn: "span 2" }}
+                                    sx={{gridColumn: "span 2"}}
                                 />
                                 <TextField
                                     fullWidth
@@ -114,7 +114,7 @@ const UpdatePcbPage = () => {
                                     name="description"
                                     error={!!touched.description && !!errors.description}
                                     helperText={touched.description && errors.description}
-                                    sx={{ gridColumn: "span 2" }}
+                                    sx={{gridColumn: "span 2"}}
                                 />
                                 <TextField
                                     fullWidth
@@ -127,13 +127,13 @@ const UpdatePcbPage = () => {
                                     name="pcbCategoryName"
                                     error={!!touched.pcbCategoryName && !!errors.pcbCategoryName}
                                     helperText={touched.pcbCategoryName && errors.pcbCategoryName}
-                                    sx={{ gridColumn: "span 2" }}
+                                    sx={{gridColumn: "span 2"}}
                                 />
                                 <Button
                                     type="submit"
                                     variant="contained"
                                     color="primary"
-                                    sx={{ gridColumn: "span 2" }}
+                                    sx={{gridColumn: "span 2"}}
                                 >
                                     Update PCB
                                 </Button>

@@ -12,7 +12,7 @@ import {errorToast, successToast} from "../../containers/react-toast-alert";
 
 const AddProduct = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
-    const { id } = useParams();
+    const {id} = useParams();
     const dispatch = useDispatch();
     const [product, setProduct] = useState(null);
     const createProductSuccessResponse = useSelector(createProductSuccess)
@@ -22,21 +22,21 @@ const AddProduct = () => {
 
 
     useEffect(() => {
-        if(createProductSuccessResponse){
-             navigate('/');
+        if (createProductSuccessResponse) {
+            navigate('/');
             dispatch(resetUpdateSuccess());
             successToast("New Product Created Successfully")
         }
-    },[createProductSuccessResponse])
+    }, [createProductSuccessResponse])
 
     useEffect(() => {
-        if(createProductFailureResponse){
-            console.log("createProductFailureResponse---",createProductFailureResponse)
+        if (createProductFailureResponse) {
+            console.log("createProductFailureResponse---", createProductFailureResponse)
             // navigate('/');
             dispatch(resetUpdateSuccess());
             errorToast(createProductFailureResponse.error)
         }
-    },[createProductFailureResponse])
+    }, [createProductFailureResponse])
 
     const handleFormSubmit = (values) => {
         dispatch(createProduct(values));
@@ -52,18 +52,18 @@ const AddProduct = () => {
 
     return (
         <Box m="20px">
-            <Header title="Add New Product"  />
-                <Formik
-                    onSubmit={handleFormSubmit}
-                    initialValues={{
-                        id: '',
-                        name: '',
-                        description: '',
-                        serialNumber: '',
-                        productCategoryName: ''
-                    }}
-                    validationSchema={productSchema}
-                >
+            <Header title="Add New Product"/>
+            <Formik
+                onSubmit={handleFormSubmit}
+                initialValues={{
+                    id: '',
+                    name: '',
+                    description: '',
+                    serialNumber: '',
+                    productCategoryName: ''
+                }}
+                validationSchema={productSchema}
+            >
                 {({
                       values,
                       errors,
@@ -78,7 +78,7 @@ const AddProduct = () => {
                             gap="30px"
                             gridTemplateColumns="repeat(2, minmax(0, 1fr))"
                             sx={{
-                                "& > div": { gridColumn: isNonMobile ? undefined : "span 2" },
+                                "& > div": {gridColumn: isNonMobile ? undefined : "span 2"},
                             }}
                         >
                             <TextField
@@ -92,7 +92,7 @@ const AddProduct = () => {
                                 name="name"
                                 error={!!touched.name && !!errors.name}
                                 helperText={touched.name && errors.name}
-                                sx={{ gridColumn: "span 2" }}
+                                sx={{gridColumn: "span 2"}}
                             />
                             <TextField
                                 fullWidth
@@ -105,7 +105,7 @@ const AddProduct = () => {
                                 name="description"
                                 error={!!touched.description && !!errors.description}
                                 helperText={touched.description && errors.description}
-                                sx={{ gridColumn: "span 2" }}
+                                sx={{gridColumn: "span 2"}}
                             />
                             <TextField
                                 fullWidth
@@ -118,7 +118,7 @@ const AddProduct = () => {
                                 name="serialNumber"
                                 error={!!touched.serialNumber && !!errors.serialNumber}
                                 helperText={touched.serialNumber && errors.serialNumber}
-                                sx={{ gridColumn: "span 2" }}
+                                sx={{gridColumn: "span 2"}}
                             />
                             <TextField
                                 fullWidth
@@ -131,7 +131,7 @@ const AddProduct = () => {
                                 name="productCategoryName"
                                 error={!!touched.productCategoryName && !!errors.productCategoryName}
                                 helperText={touched.productCategoryName && errors.productCategoryName}
-                                sx={{ gridColumn: "span 2" }}
+                                sx={{gridColumn: "span 2"}}
                             />
                         </Box>
                         <Box display="flex" justifyContent="end" mt="20px">

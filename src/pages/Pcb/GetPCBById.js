@@ -18,21 +18,23 @@ export function getPcbById(id) {
     }
 }
 
-export const resetGetPcbByIdSates= () => ({
+export const resetGetPcbByIdSates = () => ({
     type: RESET_GET_PCB_BY_ID_STATES
 });
 
 
 //3. saga
-function* handleGetPcbByIdRequest(action){
-    yield (apiCallHandler(action, GET_PCB_BY_ID_SUCCESS, GET_PCB_BY_ID_FAILURE, apis.PCB_APIS_BASE_URL,apiTypes.GET_BY_ID));
+function* handleGetPcbByIdRequest(action) {
+    yield (apiCallHandler(action, GET_PCB_BY_ID_SUCCESS, GET_PCB_BY_ID_FAILURE, apis.PCB_APIS_BASE_URL, apiTypes.GET_BY_ID));
 }
+
 export function* watchGetPcbByIdRequest() {
-    yield takeLatest(GET_PCB_BY_ID_REQUEST,handleGetPcbByIdRequest)
+    yield takeLatest(GET_PCB_BY_ID_REQUEST, handleGetPcbByIdRequest)
 }
 
 //4. Reducer
 export const initialState = fromJS({});
+
 export function GetPcbByIdReducer(state = initialState, action) {
     switch (action.type) {
         case GET_PCB_BY_ID_SUCCESS:
@@ -53,6 +55,6 @@ export function GetPcbByIdReducer(state = initialState, action) {
 
 //5. Selector
 const getPcbByIdSelector = state => state.pcbById || initialState;
-export const getPcbByIdSuccess = createSelector(getPcbByIdSelector,state=>state.getPcbByIdResponse)
-export const getPcbByIdFailure =  createSelector(getPcbByIdSelector,state=>state.getPcbByIdError)
+export const getPcbByIdSuccess = createSelector(getPcbByIdSelector, state => state.getPcbByIdResponse)
+export const getPcbByIdFailure = createSelector(getPcbByIdSelector, state => state.getPcbByIdError)
 export {getPcbByIdSelector}

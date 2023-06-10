@@ -19,44 +19,45 @@ import {UpdateComponentReducer} from "../pages/Components/UpdateComponent";
 
 let sagaMiddleware = createSagaMiddleware();
 const middleware = (getDefaultMiddleware) => [
-  ...getDefaultMiddleware({ thunk: false,     serializableCheck: false,
-  }),
-  sagaMiddleware,
+    ...getDefaultMiddleware({
+        thunk: false, serializableCheck: false,
+    }),
+    sagaMiddleware,
 
 ];
 
 const store = configureStore({
-  reducer: {
+    reducer: {
 
-    //product
-    product: manageProductsReducer,
+        //product
+        product: manageProductsReducer,
 
-    //category
-    category: GetCategoryReducer,
+        //category
+        category: GetCategoryReducer,
 
-    //pcb
-    pcb: GetPcbReducer,
-    createPcb: CreatePcbReducer,
-    pcbById: GetPcbByIdReducer,
-    deletePCBById: DeletePcbByIdReducer,
-    updatePcb: UpdatePcbReducer,
+        //pcb
+        pcb: GetPcbReducer,
+        createPcb: CreatePcbReducer,
+        pcbById: GetPcbByIdReducer,
+        deletePCBById: DeletePcbByIdReducer,
+        updatePcb: UpdatePcbReducer,
 
-    //component
-    createComponent: CreateComponentReducer,
-    component: GetComponentReducer,
-    componentById: GetComponentByIdReducer,
-    deleteCompById: DeleteComponentByIdReducer,
-    updateComponent: UpdateComponentReducer,
-    //supplier
-    supplier: GetSupplierReducer,
+        //component
+        createComponent: CreateComponentReducer,
+        component: GetComponentReducer,
+        componentById: GetComponentByIdReducer,
+        deleteCompById: DeleteComponentByIdReducer,
+        updateComponent: UpdateComponentReducer,
+        //supplier
+        supplier: GetSupplierReducer,
 
 
-    //orders
-    orders: GetOrderReducer,
-    orderById: GetOrderByIdReducer
+        //orders
+        orders: GetOrderReducer,
+        orderById: GetOrderByIdReducer
 
-  },
-  middleware,
+    },
+    middleware,
 });
 
 sagaMiddleware.run(saga);

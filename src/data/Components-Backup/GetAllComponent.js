@@ -17,15 +17,17 @@ export function getComponent() {
 }
 
 //3. saga
-function* handleGetComponentRequest(action){
-    yield (apiCallHandler(action, GET_COMPONENT_SUCCESS, GET_COMPONENT_FAILURE, apis.COMPONENT_APIS_BASE_URL,apiTypes.GET_ALL));
+function* handleGetComponentRequest(action) {
+    yield (apiCallHandler(action, GET_COMPONENT_SUCCESS, GET_COMPONENT_FAILURE, apis.COMPONENT_APIS_BASE_URL, apiTypes.GET_ALL));
 }
+
 export function* watchGetComponentRequest() {
-    yield takeLatest(GET_COMPONENT_REQUEST,handleGetComponentRequest)
+    yield takeLatest(GET_COMPONENT_REQUEST, handleGetComponentRequest)
 }
 
 //4. Reducer
 export const initialState = fromJS({});
+
 export function GetComponentReducer(state = initialState, action) {
     switch (action.type) {
         case GET_COMPONENT_SUCCESS:
@@ -40,6 +42,6 @@ export function GetComponentReducer(state = initialState, action) {
 
 //5. Selector
 const getComponentSelector = state => state.component || initialState;
-export const getComponentSuccess = createSelector(getComponentSelector,state=>state.getComponentResponse)
-export const getComponentFailure =  createSelector(getComponentSelector,state=>state.getComponentError)
+export const getComponentSuccess = createSelector(getComponentSelector, state => state.getComponentResponse)
+export const getComponentFailure = createSelector(getComponentSelector, state => state.getComponentError)
 export {getComponentSelector}

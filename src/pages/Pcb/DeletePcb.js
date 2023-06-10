@@ -18,20 +18,22 @@ export function deletePcbById(id) {
     }
 }
 
-export const resetDeletePcbByIdSates= () => ({
+export const resetDeletePcbByIdSates = () => ({
     type: RESET_DELETE_PCB_BY_ID_STATES
 });
 
 //3. saga
-function* handleDeletePcbByIdRequest(action){
-    yield (apiCallHandler(action, DELETE_PCB_BY_ID_SUCCESS, DELETE_PCB_BY_ID_FAILURE, apis.PCB_APIS_BASE_URL,apiTypes.DELETE_BY_ID));
+function* handleDeletePcbByIdRequest(action) {
+    yield (apiCallHandler(action, DELETE_PCB_BY_ID_SUCCESS, DELETE_PCB_BY_ID_FAILURE, apis.PCB_APIS_BASE_URL, apiTypes.DELETE_BY_ID));
 }
+
 export function* watchDeletePcbByIdRequest() {
-    yield takeLatest(DELETE_PCB_BY_ID_REQUEST,handleDeletePcbByIdRequest)
+    yield takeLatest(DELETE_PCB_BY_ID_REQUEST, handleDeletePcbByIdRequest)
 }
 
 //4. Reducer
 export const initialState = fromJS({});
+
 export function DeletePcbByIdReducer(state = initialState, action) {
     switch (action.type) {
         case DELETE_PCB_BY_ID_SUCCESS:
@@ -53,6 +55,6 @@ export function DeletePcbByIdReducer(state = initialState, action) {
 
 //5. Selector
 const deletePcbByIdSelector = state => state.deletePCBById || initialState;
-export const deletePcbByIdSuccess = createSelector(deletePcbByIdSelector,state=>state.deletePcbByIdResponse)
-export const deletePcbByIdFailure =  createSelector(deletePcbByIdSelector,state=>state.deletePcbByIdError)
+export const deletePcbByIdSuccess = createSelector(deletePcbByIdSelector, state => state.deletePcbByIdResponse)
+export const deletePcbByIdFailure = createSelector(deletePcbByIdSelector, state => state.deletePcbByIdError)
 export {deletePcbByIdSelector}

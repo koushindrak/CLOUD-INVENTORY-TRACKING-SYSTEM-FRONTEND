@@ -17,35 +17,35 @@ import {watchUpdateComponentRequest} from "../pages/Components/UpdateComponent";
 
 
 export default function* rootSaga() {
-  yield all([
+    yield all([
 
-      //product
-      productSaga(),
+        //product
+        productSaga(),
 
-      //category
-      watchGetCategoryRequest(),
+        //category
+        watchGetCategoryRequest(),
 
-      //component
-      watchCreateComponentRequest(),
-      watchGetComponentRequest(),
-      watchGetComponentByIdRequest(),
-      watchDeleteComponentByIdRequest(),
-      watchUpdateComponentRequest(),
+        //component
+        watchCreateComponentRequest(),
+        watchGetComponentRequest(),
+        watchGetComponentByIdRequest(),
+        watchDeleteComponentByIdRequest(),
+        watchUpdateComponentRequest(),
 
-      //supplier
-      watchGetSupplierRequest(),
+        //supplier
+        watchGetSupplierRequest(),
 
-      //pcb
-      watchCreatePcbRequest(),
-      watchGetPcbRequest(),
-      watchGetPcbByIdRequest(),
-      watchDeletePcbByIdRequest(),
-      watchUpdatePcbRequest(),
+        //pcb
+        watchCreatePcbRequest(),
+        watchGetPcbRequest(),
+        watchGetPcbByIdRequest(),
+        watchDeletePcbByIdRequest(),
+        watchUpdatePcbRequest(),
 
-      //order
-      watchGetOrderRequest(),
-      watchGetOrderByIdRequest()
+        //order
+        watchGetOrderRequest(),
+        watchGetOrderByIdRequest()
 
 
-  ]);
+    ]);
 }

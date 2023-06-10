@@ -12,7 +12,7 @@ import {getComponentByIdSuccess} from "../Components/GetComponentById";
 
 const AddPcb = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
-    const { id } = useParams();
+    const {id} = useParams();
     const dispatch = useDispatch();
     const [pcb, setPcb] = useState(null);
     const createSuccess = useSelector(createPcbSuccess)
@@ -20,25 +20,24 @@ const AddPcb = () => {
     const getComponentByIdSuccessResponse = useSelector(getComponentByIdSuccess)
 
     const navigate = useNavigate();  // new
-    let { productId,componentId }  = useParams();
+    let {productId, componentId} = useParams();
 
     useEffect(() => {
-        if(createSuccess){
-             if(productId){
-                 navigate('/products/'+productId+'/pcbs/');
-             }else if(componentId){
-                 navigate('/components/'+componentId+'/pcbs/');
-             } else {
-                 navigate('/pcbs');
-             }
+        if (createSuccess) {
+            if (productId) {
+                navigate('/products/' + productId + '/pcbs/');
+            } else if (componentId) {
+                navigate('/components/' + componentId + '/pcbs/');
+            } else {
+                navigate('/pcbs');
+            }
             dispatch(resetCreatePcbSates());
         }
-    },[createSuccess])
+    }, [createSuccess])
 
     const handleFormSubmit = (values) => {
         dispatch(createPcb(values));
     };
-
 
 
     const pcbSchema = yup.object().shape({
@@ -61,19 +60,19 @@ const AddPcb = () => {
 
     return (
         <Box m="20px">
-            <Header title={getTitle()} />
+            <Header title={getTitle()}/>
             <Formik
-                    onSubmit={handleFormSubmit}
-                    initialValues={{
-                        id: '',
-                        name: '',
-                        description: '',
-                        pcbCategoryName: '',
-                        productId:productId && !isNaN(productId) ? parseInt(productId) : productId,
-                        componentId:componentId && !isNaN(componentId) ? parseInt(componentId) : componentId
-                    }}
-                    validationSchema={pcbSchema}
-                >
+                onSubmit={handleFormSubmit}
+                initialValues={{
+                    id: '',
+                    name: '',
+                    description: '',
+                    pcbCategoryName: '',
+                    productId: productId && !isNaN(productId) ? parseInt(productId) : productId,
+                    componentId: componentId && !isNaN(componentId) ? parseInt(componentId) : componentId
+                }}
+                validationSchema={pcbSchema}
+            >
                 {({
                       values,
                       errors,
@@ -88,7 +87,7 @@ const AddPcb = () => {
                             gap="30px"
                             gridTemplateColumns="repeat(2, minmax(0, 1fr))"
                             sx={{
-                                "& > div": { gridColumn: isNonMobile ? undefined : "span 2" },
+                                "& > div": {gridColumn: isNonMobile ? undefined : "span 2"},
                             }}
                         >
                             <TextField
@@ -102,7 +101,7 @@ const AddPcb = () => {
                                 name="name"
                                 error={!!touched.name && !!errors.name}
                                 helperText={touched.name && errors.name}
-                                sx={{ gridColumn: "span 2" }}
+                                sx={{gridColumn: "span 2"}}
                             />
                             <TextField
                                 fullWidth
@@ -115,7 +114,7 @@ const AddPcb = () => {
                                 name="description"
                                 error={!!touched.description && !!errors.description}
                                 helperText={touched.description && errors.description}
-                                sx={{ gridColumn: "span 2" }}
+                                sx={{gridColumn: "span 2"}}
                             />
                             <TextField
                                 fullWidth
@@ -128,7 +127,7 @@ const AddPcb = () => {
                                 name="pcbCategoryName"
                                 error={!!touched.pcbCategoryName && !!errors.pcbCategoryName}
                                 helperText={touched.pcbCategoryName && errors.pcbCategoryName}
-                                sx={{ gridColumn: "span 2" }}
+                                sx={{gridColumn: "span 2"}}
                             />
                         </Box>
                         <Box display="flex" justifyContent="end" mt="20px">

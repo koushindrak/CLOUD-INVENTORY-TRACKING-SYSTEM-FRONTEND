@@ -17,15 +17,17 @@ export function getSupplier() {
 }
 
 //3. saga
-function* handleGetSupplierRequest(action){
-    yield (apiCallHandler(action, GET_SUPPLIER_SUCCESS, GET_SUPPLIER_FAILURE, apis.SUPPLIER_APIS_BASE_URL,apiTypes.GET_ALL));
+function* handleGetSupplierRequest(action) {
+    yield (apiCallHandler(action, GET_SUPPLIER_SUCCESS, GET_SUPPLIER_FAILURE, apis.SUPPLIER_APIS_BASE_URL, apiTypes.GET_ALL));
 }
+
 export function* watchGetSupplierRequest() {
-    yield takeLatest(GET_SUPPLIER_REQUEST,handleGetSupplierRequest)
+    yield takeLatest(GET_SUPPLIER_REQUEST, handleGetSupplierRequest)
 }
 
 //4. Reducer
 export const initialState = fromJS({});
+
 export function GetSupplierReducer(state = initialState, action) {
     switch (action.type) {
         case GET_SUPPLIER_SUCCESS:
@@ -40,6 +42,6 @@ export function GetSupplierReducer(state = initialState, action) {
 
 //5. Selector
 const getSupplierSelector = state => state.supplier || initialState;
-export const getSupplierSuccess = createSelector(getSupplierSelector,state=>state.getSupplierResponse)
-export const getSupplierFailure =  createSelector(getSupplierSelector,state=>state.getSupplierError)
+export const getSupplierSuccess = createSelector(getSupplierSelector, state => state.getSupplierResponse)
+export const getSupplierFailure = createSelector(getSupplierSelector, state => state.getSupplierError)
 export {getSupplierSelector}

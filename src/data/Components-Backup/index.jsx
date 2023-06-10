@@ -47,7 +47,6 @@ const Component = () => {
     }, [dispatch]);
 
 
-
     /*Effects Section Ends here */
 
     /* Button click actions start here */
@@ -72,7 +71,7 @@ const Component = () => {
     };
 
     const handleConfirmDelete = () => {
-         // dispatch(deleteComponent(selectedComponent.id));
+        // dispatch(deleteComponent(selectedComponent.id));
         setOpen(false);
     };
 
@@ -154,22 +153,23 @@ const Component = () => {
                 return (
                     <div>
                         <Tooltip title="Edit Component" placement="top">
-                        <IconButton color="secondary" onClick={() => handleEdit(params.row)}>
-                            <EditOutlinedIcon />
-                        </IconButton>
+                            <IconButton color="secondary" onClick={() => handleEdit(params.row)}>
+                                <EditOutlinedIcon/>
+                            </IconButton>
                         </Tooltip>
 
                         <Tooltip title="Delete Component" placement="top">
-                        <IconButton color="secondary" onClick={() => handleDelete(params.row)}>
-                            <DeleteOutlinedIcon />
-                        </IconButton>
+                            <IconButton color="secondary" onClick={() => handleDelete(params.row)}>
+                                <DeleteOutlinedIcon/>
+                            </IconButton>
                         </Tooltip>
                     </div>
                 );
             },
         },
     ];
-    function Header({ title, subtitle, subtitleStyle }) {
+
+    function Header({title, subtitle, subtitleStyle}) {
         return (
             <header>
                 <h1>{title}</h1>
@@ -195,21 +195,22 @@ const Component = () => {
                         backgroundColor: '#847343'
 
                     }}
-                    startIcon={<AddIcon />}>
+                    startIcon={<AddIcon/>}>
                     Add Component
                 </Button>
 
 
                 <Header
-                    subtitleStyle={{ color: colors.grey[100] }}
-                    subtitle="Managing the Components" />
+                    subtitleStyle={{color: colors.grey[100]}}
+                    subtitle="Managing the Components"/>
 
-            <Box
-                m="40px 0 0 0"
-                height="75vh"
-                sx={componentStyles}            >
-                <DataGrid   rows={getComponentSuccessResponse ? getComponentSuccessResponse.data : []} columns={columns} />
-            </Box>
+                <Box
+                    m="40px 0 0 0"
+                    height="75vh"
+                    sx={componentStyles}>
+                    <DataGrid rows={getComponentSuccessResponse ? getComponentSuccessResponse.data : []}
+                              columns={columns}/>
+                </Box>
             </Box>
             <Dialog
                 open={open}

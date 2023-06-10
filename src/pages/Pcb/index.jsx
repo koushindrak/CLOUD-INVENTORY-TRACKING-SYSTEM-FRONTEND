@@ -47,49 +47,49 @@ const Pcb = () => {
 
 
     // params from other page
-    let { productId } = useParams();
-    let { componentId } = useParams();
+    let {productId} = useParams();
+    let {componentId} = useParams();
 
     /* Effects Start */
 
-    useEffect( () => {
-        if(deleteSuccess){
+    useEffect(() => {
+        if (deleteSuccess) {
             successToast(deleteSuccess.displayMessage)
             dispatch(getPcb());
         }
         dispatch(resetDeletePcbByIdSates())
-    },[deleteSuccess])
-
-    useEffect( () => {
-        if(deleteFailure){
-            errorToast(deleteFailure.error)
-        }
-    },[deleteFailure])
+    }, [deleteSuccess])
 
     useEffect(() => {
-        console.log("productId Params--",productId)
-        if(productId){
-            console.log("productId--",productId)
+        if (deleteFailure) {
+            errorToast(deleteFailure.error)
+        }
+    }, [deleteFailure])
+
+    useEffect(() => {
+        console.log("productId Params--", productId)
+        if (productId) {
+            console.log("productId--", productId)
             dispatch(getProductById(productId));
-        }else if (componentId){
-            console.log("fetch pcbs for componentId--",componentId);
+        } else if (componentId) {
+            console.log("fetch pcbs for componentId--", componentId);
             dispatch(getComponentById(componentId))
-        } else{
-            console.log("productId2222--",productId)
+        } else {
+            console.log("productId2222--", productId)
             dispatch(getPcb());
         }
-    }, [deleteSuccess,dispatch]);
+    }, [deleteSuccess, dispatch]);
 
-    useEffect( () => {
-        if(productId && getProductByIdSuccessResponse){
+    useEffect(() => {
+        if (productId && getProductByIdSuccessResponse) {
             setPcbs(getProductByIdSuccessResponse.data.pcbs)
-        }else if(componentId && getComponentByIdSuccessResponse){
+        } else if (componentId && getComponentByIdSuccessResponse) {
             setPcbs(getComponentByIdSuccessResponse.data.pcbs)
-        } else if(getPcbSuccessResponse){
+        } else if (getPcbSuccessResponse) {
             setPcbs(getPcbSuccessResponse.data)
         }
         dispatch(resetGetPcbByIdSates())
-    },[getProductByIdSuccessResponse,getComponentByIdSuccessResponse, getPcbSuccessResponse,productId,componentId])
+    }, [getProductByIdSuccessResponse, getComponentByIdSuccessResponse, getPcbSuccessResponse, productId, componentId])
 
     /*Effects Section Ends here */
 
@@ -97,13 +97,15 @@ const Pcb = () => {
     /* Button click actions start here */
     const handleEdit = (row) => {
         // Dispatch the edit action with the row data as payload
-        console.log("pcb row--",row)
-        if(productId){
-            {/*edit an existing pcb for a product */}
-           // <Route path="/products/:productId/pcbs/edit/:pcbId" element={<UpdateComponentPage />} />
+        console.log("pcb row--", row)
+        if (productId) {
+            {/*edit an existing pcb for a product */
+            }
+            // <Route path="/products/:productId/pcbs/edit/:pcbId" element={<UpdateComponentPage />} />
             navigate(`/products/${productId}/pcbs/edit/${row.id}`)
-        }else{
-            {/*update pcb  */}
+        } else {
+            {/*update pcb  */
+            }
             //<Route path="/pcbs/edit/:id" element={<UpdateComponentPage />} />
             navigate(`/pcbs/edit/${row.id}`);
         }
@@ -124,15 +126,15 @@ const Pcb = () => {
     };
 
     const handleConfirmDelete = () => {
-         dispatch(deletePcbById(selectedPcb.id));
+        dispatch(deletePcbById(selectedPcb.id));
         setOpen(false);
     };
 
     const handleAdd = () => {
-        if(productId){
-            navigate('/products/'+productId+'/pcbs/add')
-        }else if(componentId){
-            navigate('/components/'+componentId+'/pcbs/add')
+        if (productId) {
+            navigate('/products/' + productId + '/pcbs/add')
+        } else if (componentId) {
+            navigate('/components/' + componentId + '/pcbs/add')
         } else {
             navigate('/pcbs/add'); // Change this to the correct route
         }
@@ -177,17 +179,18 @@ const Pcb = () => {
                 return (
                     <div>
                         <IconButton color="secondary" onClick={() => handleEdit(params.row)}>
-                            <EditOutlinedIcon />
+                            <EditOutlinedIcon/>
                         </IconButton>
                         <IconButton color="secondary" onClick={() => handleDelete(params.row)}>
-                            <DeleteOutlinedIcon />
+                            <DeleteOutlinedIcon/>
                         </IconButton>
                     </div>
                 );
             },
         },
     ];
-    function Header({ title, subtitle, subtitleStyle }) {
+
+    function Header({title, subtitle, subtitleStyle}) {
         return (
             <header>
                 <h1>{title}</h1>
@@ -213,29 +216,29 @@ const Pcb = () => {
                         backgroundColor: '#4b2eae'
 
                     }}
-                    startIcon={<AddIcon />}>
+                    startIcon={<AddIcon/>}>
                     Add Pcb
                 </Button>
 
 
                 <Header
-                    subtitleStyle={{ color: colors.grey[100] }}
-                    subtitle={productId ? `Managing the Pcbs for Product - ${getProductByIdSuccessResponse ? getProductByIdSuccessResponse.data.name : getProductByIdSuccessResponse }` : "Managing the Pcbs"}
-                    />
+                    subtitleStyle={{color: colors.grey[100]}}
+                    subtitle={productId ? `Managing the Pcbs for Product - ${getProductByIdSuccessResponse ? getProductByIdSuccessResponse.data.name : getProductByIdSuccessResponse}` : "Managing the Pcbs"}
+                />
 
-            <Box
-                m="40px 0 0 0"
-                height="75vh"
-                sx={pcbStyles}>
-                <DataGrid
-                    pageSize={10}
-                    pagination
-                    components={{
-                        Toolbar: GridToolbar
+                <Box
+                    m="40px 0 0 0"
+                    height="75vh"
+                    sx={pcbStyles}>
+                    <DataGrid
+                        pageSize={10}
+                        pagination
+                        components={{
+                            Toolbar: GridToolbar
                         }}
-                    rows={pcbs}
-                    columns={columns} />
-            </Box>
+                        rows={pcbs}
+                        columns={columns}/>
+                </Box>
             </Box>
             <DeleteDialog
                 open={open}

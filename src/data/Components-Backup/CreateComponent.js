@@ -18,19 +18,22 @@ export function createComponent(payload) {
     }
 }
 
-export const resetComponentSates= () => ({
+export const resetComponentSates = () => ({
     type: RESET_COMPONENT_STATE
 });
+
 //3. saga
-function* handleCreateComponentRequest(action){
-    yield (apiCallHandler(action, CREATE_COMPONENT_SUCCESS, CREATE_COMPONENT_FAILURE, apis.COMPONENT_APIS_BASE_URL,apiTypes.CREATE));
+function* handleCreateComponentRequest(action) {
+    yield (apiCallHandler(action, CREATE_COMPONENT_SUCCESS, CREATE_COMPONENT_FAILURE, apis.COMPONENT_APIS_BASE_URL, apiTypes.CREATE));
 }
+
 export function* watchCreateComponentRequest() {
-    yield takeLatest(CREATE_COMPONENT_REQUEST,handleCreateComponentRequest)
+    yield takeLatest(CREATE_COMPONENT_REQUEST, handleCreateComponentRequest)
 }
 
 //4. Reducer
 export const initialState = fromJS({});
+
 export function CreateComponentReducer(state = initialState, action) {
     switch (action.type) {
         case CREATE_COMPONENT_SUCCESS:
@@ -42,9 +45,10 @@ export function CreateComponentReducer(state = initialState, action) {
         case RESET_COMPONENT_STATE:
             return Object.assign({}, state, {
                 getComponentError: null,
-                getComponentResponse:null,
-                createComponentError:null,
-                createComponentResponse:null})
+                getComponentResponse: null,
+                createComponentError: null,
+                createComponentResponse: null
+            })
         default:
             return state;
     }
@@ -52,6 +56,6 @@ export function CreateComponentReducer(state = initialState, action) {
 
 //5. Selector
 const createComponentSelector = state => state.createComponent || initialState;
-export const createComponentSuccess = createSelector(createComponentSelector,state=>state.createComponentResponse)
-export const createComponentFailure =  createSelector(createComponentSelector,state=>state.createComponentError)
+export const createComponentSuccess = createSelector(createComponentSelector, state => state.createComponentResponse)
+export const createComponentFailure = createSelector(createComponentSelector, state => state.createComponentError)
 export {createComponentSelector}

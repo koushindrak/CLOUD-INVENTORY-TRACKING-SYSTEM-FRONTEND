@@ -10,7 +10,7 @@ import {createComponent, createComponentSuccess, resetComponentSates} from "./Cr
 
 const AddComponent = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
-    const { id } = useParams();
+    const {id} = useParams();
     const dispatch = useDispatch();
     const [component, setComponent] = useState(null);
     const createSuccess = useSelector(createComponentSuccess)
@@ -19,11 +19,11 @@ const AddComponent = () => {
 
 
     useEffect(() => {
-        if(createSuccess){
+        if (createSuccess) {
             navigate('/components');
             dispatch(resetComponentSates());
         }
-    },[createSuccess])
+    }, [createSuccess])
 
     const handleFormSubmit = (values) => {
         dispatch(createComponent(values));
@@ -40,7 +40,7 @@ const AddComponent = () => {
 
     return (
         <Box m="20px">
-            <Header title="Add New Component"  />
+            <Header title="Add New Component"/>
             <Formik
                 onSubmit={handleFormSubmit}
                 initialValues={{
@@ -48,7 +48,7 @@ const AddComponent = () => {
                     mfrptn: '',
                     description: '',
                     componentCategoryName: '',
-                    footprint:'',
+                    footprint: '',
                     value: '',
                     isObselete: false,
                     threshold: null,
@@ -70,7 +70,7 @@ const AddComponent = () => {
                             gap="30px"
                             gridTemplateColumns="repeat(3, minmax(0, 1fr))"
                             sx={{
-                                "& > div": { gridColumn: isNonMobile ? undefined : "span 2" },
+                                "& > div": {gridColumn: isNonMobile ? undefined : "span 2"},
                             }}
                         >
                             <TextField
@@ -84,7 +84,7 @@ const AddComponent = () => {
                                 name="mfrptn"
                                 error={!!touched.mfrptn && !!errors.mfrptn}
                                 helperText={touched.mfrptn && errors.mfrptn}
-                                sx={{ gridColumn: isNonMobile ? 'span 1' : 'span 2' }}
+                                sx={{gridColumn: isNonMobile ? 'span 1' : 'span 2'}}
                             />
                             <TextField
                                 fullWidth
@@ -97,7 +97,7 @@ const AddComponent = () => {
                                 name="componentCategoryName"
                                 error={!!touched.componentCategoryName && !!errors.componentCategoryName}
                                 helperText={touched.componentCategoryName && errors.componentCategoryName}
-                                sx={{ gridColumn: isNonMobile ? 'span 2' : 'span 2' }}
+                                sx={{gridColumn: isNonMobile ? 'span 2' : 'span 2'}}
 
                             />
                             <TextField
@@ -111,7 +111,7 @@ const AddComponent = () => {
                                 name="description"
                                 error={!!touched.description && !!errors.description}
                                 helperText={touched.description && errors.description}
-                                sx={{ gridColumn: isNonMobile ? 'span 2' : 'span 2' }}
+                                sx={{gridColumn: isNonMobile ? 'span 2' : 'span 2'}}
                             />
 
                             <TextField
@@ -125,7 +125,7 @@ const AddComponent = () => {
                                 name="footprint"
                                 error={!!touched.footprint && !!errors.footprint}
                                 helperText={touched.footprint && errors.footprint}
-                                sx={{ gridColumn: isNonMobile ? 'span 1' : 'span 2' }}
+                                sx={{gridColumn: isNonMobile ? 'span 1' : 'span 2'}}
                             />
                             <TextField
                                 fullWidth
@@ -138,7 +138,7 @@ const AddComponent = () => {
                                 name="value"
                                 error={!!touched.value && !!errors.value}
                                 helperText={touched.value && errors.value}
-                                sx={{ gridColumn: isNonMobile ? 'span 1' : 'span 1' }}
+                                sx={{gridColumn: isNonMobile ? 'span 1' : 'span 1'}}
                             />
                             <TextField
                                 fullWidth
@@ -165,7 +165,8 @@ const AddComponent = () => {
                                 helperText={touched.stock && errors.stock}
                             />
                             <FormControlLabel
-                                control={<Checkbox checked={values.isObselete} onChange={handleChange} name="isObselete" />}
+                                control={<Checkbox checked={values.isObselete} onChange={handleChange}
+                                                   name="isObselete"/>}
                                 label="Obselete"
                             />
                         </Box>

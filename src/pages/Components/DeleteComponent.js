@@ -18,20 +18,22 @@ export function deleteComponentById(id) {
     }
 }
 
-export const deleteGetComponentByIdSates= () => ({
+export const deleteGetComponentByIdSates = () => ({
     type: RESET_DELETE_COMPONENT_BY_ID_STATES
 });
 
 //3. saga
-function* handleDeleteComponentByIdRequest(action){
-    yield (apiCallHandler(action, DELETE_COMPONENT_BY_ID_SUCCESS, DELETE_COMPONENT_BY_ID_FAILURE, apis.COMPONENT_APIS_BASE_URL,apiTypes.DELETE_BY_ID));
+function* handleDeleteComponentByIdRequest(action) {
+    yield (apiCallHandler(action, DELETE_COMPONENT_BY_ID_SUCCESS, DELETE_COMPONENT_BY_ID_FAILURE, apis.COMPONENT_APIS_BASE_URL, apiTypes.DELETE_BY_ID));
 }
+
 export function* watchDeleteComponentByIdRequest() {
-    yield takeLatest(DELETE_COMPONENT_BY_ID_REQUEST,handleDeleteComponentByIdRequest)
+    yield takeLatest(DELETE_COMPONENT_BY_ID_REQUEST, handleDeleteComponentByIdRequest)
 }
 
 //4. Reducer
 export const initialState = fromJS({});
+
 export function DeleteComponentByIdReducer(state = initialState, action) {
     switch (action.type) {
         case DELETE_COMPONENT_BY_ID_SUCCESS:
@@ -53,6 +55,6 @@ export function DeleteComponentByIdReducer(state = initialState, action) {
 
 //5. Selector
 const deleteComponentByIdSelector = state => state.deleteCompById || initialState;
-export const deleteComponentByIdSuccess = createSelector(deleteComponentByIdSelector,state=>state.deleteComponentByIdResponse)
-export const deleteComponentByIdFailure =  createSelector(deleteComponentByIdSelector,state=>state.deleteComponentByIdError)
+export const deleteComponentByIdSuccess = createSelector(deleteComponentByIdSelector, state => state.deleteComponentByIdResponse)
+export const deleteComponentByIdFailure = createSelector(deleteComponentByIdSelector, state => state.deleteComponentByIdError)
 export {deleteComponentByIdSelector}
