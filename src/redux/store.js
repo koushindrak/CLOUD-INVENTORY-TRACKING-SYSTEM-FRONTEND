@@ -1,6 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
-import { chatSlice } from "../components/ChatForm/chatReducers";
 import manageProductsReducer from "../../src/pages/Products/reducers";
 import saga from "./saga";
 import {GetCategoryReducer} from "../pages/Products/GetProductCategories";
@@ -28,7 +27,6 @@ const middleware = (getDefaultMiddleware) => [
 
 const store = configureStore({
   reducer: {
-    chat: chatSlice.reducer,
 
     //product
     product: manageProductsReducer,
