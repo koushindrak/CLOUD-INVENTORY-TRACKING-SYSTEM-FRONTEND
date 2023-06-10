@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logo from './ecossystem.jpeg'
+import logo from './ecossystem.jpeg';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -19,7 +19,6 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
-import { green } from '@mui/material/colors';
 
 function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
@@ -40,7 +39,7 @@ function SignIn() {
       // } else {
       //   setSignInError(true);
       // }
-      setSignInSuccess(true); 
+      setSignInSuccess(true);
       setEmailError(false);
       setPasswordError(false);
     } else {
@@ -56,7 +55,7 @@ function SignIn() {
   const theme = createTheme({
     palette: {
       primary: {
-        main: '#00695c', // Adjust primary color as needed
+        main: '#32ba91', // Adjust primary color as needed
       },
       secondary: {
         main: '#f44336', // Adjust secondary color as needed
@@ -80,17 +79,17 @@ function SignIn() {
             boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.1)',
           }}
         >
-          <Avatar sx={{ width: '100%', height: '100%' }}>
+          {/* <Avatar sx={{ width: '100%', height: '100%' }}>
             <img
-              src="file:///C:src/pages/Login/ecossystem.jpeg" 
+              src={logo}
               alt="Company Logo"
               style={{ width: '100%', height: '800%', objectFit: 'cover' }}
             />
-          </Avatar>
+          </Avatar> */}
         </Box>
         <Box
           sx={{
-            marginTop: 14,
+            marginTop: 12,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -100,25 +99,13 @@ function SignIn() {
             backgroundColor: '#f5f5f5',
           }}
         >
-          <PersonIcon sx={{ m: 0.5, fontSize: '5.5rem', bgcolor: '#f5f5f5' }}>
+          <PersonIcon sx={{ m: 0.1, fontSize: '3.5rem', bgcolor: '#f5f5f5' }}>
             <LockOutlinedIcon />
           </PersonIcon>
           <Typography component="h1" variant="h4" align="center">
             Sign in
           </Typography>
-          {signInError && (
-            <Alert severity="error" sx={{ mt: 2, mb: 2 }}>
-              <AlertTitle>Error</AlertTitle>
-              Couldn't sign in. Please check your email and password.
-            </Alert>
-          )}
-          {signInSuccess && (
-            <Alert severity="success" sx={{ mt: 2, mb: 2 }}>
-              <AlertTitle>Sign In Successful</AlertTitle>
-              You have successfully signed in.
-            </Alert>
-          )}
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 0 }}>
             <TextField
               margin="normal"
               required
@@ -150,35 +137,36 @@ function SignIn() {
                 ),
               }}
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2, backgroundColor: 'seagreen', color: 'white' }}
-            >
+            <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
+            {signInError && (
+              <Alert severity="error" sx={{ mt: 2, mb: 2 }}>
+                <AlertTitle>Error</AlertTitle>
+                Couldn't sign in. Please check your email and password.
+              </Alert>
+            )}
+            {signInSuccess && (
+              <Alert severity="success" sx={{ mt: 2, mb: 2 }}>
+                <AlertTitle>Sign In Successful</AlertTitle>
+                You have successfully signed in.
+              </Alert>
+            )}
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Sign In
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link align="center" href="/forgot-pass" variant="body2" color="text.secondary">
-                  Forgot your password?
+                <Link href="/forgot-pass" variant="body2">
+                  Forgot password?
                 </Link>
+              </Grid>
+              <Grid item>
+                {/* <Link href="/sign-up" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link> */}
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 8, mb: 4 }}>
-          {'Copyright © '}
-          <Link color="inherit" href="http://localhost:3000/">
-            Eco System Informatics Inc
-          </Link>{' '}
-          {new Date().getFullYear()}
-          {'.'}
-        </Typography>
       </Container>
     </ThemeProvider>
   );

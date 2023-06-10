@@ -9,6 +9,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
+import { useNavigate,Navigate } from 'react-router-dom';
 
 function ResetPassword() {
   const [newPassword, setNewPassword] = useState('');
@@ -17,6 +18,8 @@ function ResetPassword() {
   const [passwordError, setPasswordError] = useState(false);
   const [resetError, setResetError] = useState(false);
   const [resetSuccess, setResetSuccess] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleNewPasswordChange = (event) => {
     setNewPassword(event.target.value);
@@ -48,11 +51,16 @@ function ResetPassword() {
     }, 2000);
   };
 
+  const handleLoginNow = () => {
+    navigate('/login');
+    console.log('Login Now');
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <Box
         sx={{
-          marginTop: 14,
+          marginTop: 21,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -72,10 +80,20 @@ function ResetPassword() {
           </Alert>
         )}
         {resetSuccess ? (
-          <Alert severity="success" sx={{ mt: 2, mb: 2 }}>
-            <AlertTitle>Success</AlertTitle>
-            Your password has been successfully reset.
-          </Alert>
+          <>
+            <Alert severity="success" sx={{ mt: 2, mb: 2 }}>
+              <AlertTitle>Success</AlertTitle>
+              Your password has been successfully reset.
+            </Alert>
+            <Button
+              onClick={handleLoginNow}
+              fullWidth
+              variant="contained"
+              sx={{ mt: 2, mb: 2, backgroundColor: '#0362fc', color: 'white' }}
+            >
+              Login Now
+            </Button>
+          </>
         ) : (
           <form onSubmit={handleSubmit} noValidate>
             <TextField
@@ -117,7 +135,7 @@ function ResetPassword() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2, backgroundColor: 'seagreen', color: 'white' }}
+              sx={{ mt: 3, mb: 2, backgroundColor: '#32ba91', color: 'white' }}
             >
               Reset Password
             </Button>

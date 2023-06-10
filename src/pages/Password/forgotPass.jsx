@@ -11,7 +11,7 @@ import SendRoundedIcon from '@mui/icons-material/SendRounded';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#2E8B57', // Adjust primary color as needed
+      main: '#32ba91', // Adjust primary color as needed
     },
     secondary: {
       main: '#000000', // Adjust secondary color as needed
@@ -44,7 +44,7 @@ function ForgotPassword() {
         <CssBaseline />
         <div
           style={{
-            marginTop: theme.spacing(23),
+            marginTop: theme.spacing(15),
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
