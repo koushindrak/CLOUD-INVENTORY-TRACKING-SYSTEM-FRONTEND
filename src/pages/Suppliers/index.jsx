@@ -140,7 +140,9 @@ const Supplier = () => {
             <Box position="relative">
 
 
-                <Header subtitleStyle={{ color: 'black' }} subtitle="Managing the Suppliers" />
+                <Header
+                    subtitleStyle={{ color: colors.grey[100] }}
+                    subtitle="Managing the Suppliers" />
 
             <Box
                 m="40px 0 0 0"
