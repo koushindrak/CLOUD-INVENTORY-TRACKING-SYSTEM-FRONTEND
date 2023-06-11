@@ -8,7 +8,7 @@ import Header from "../../containers/Header";
 import IconButton from '@mui/material/IconButton';
 import 'react-toastify/dist/ReactToastify.css';
 import {getOrder, getOrderFailure, getOrderSuccess} from "./GetAllOrders";
-import {getOrderStyles} from "./css/OrderStyle";
+import {getTableStyle} from "../../common-files/CustomTableStyle";
 import {ViewList} from "@mui/icons-material";
 import {columns} from './SalesOrdersColumns';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -20,7 +20,7 @@ const Orders = () => {
     const getOrderFailureResponse = useSelector(getOrderFailure)
     //style constants
     const theme = useTheme();
-    const orderStyles = getOrderStyles(theme);
+    const orderStyles = getTableStyle(theme);
     const colors = tokens(theme.palette.mode);
 
     //state constants

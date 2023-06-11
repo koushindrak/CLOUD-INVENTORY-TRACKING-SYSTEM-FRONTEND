@@ -11,7 +11,7 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import AddIcon from '@mui/icons-material/Add';
 import 'react-toastify/dist/ReactToastify.css';
 import {getPcb, getPcbSuccess} from "./GetAllPcb";
-import {getPcbStyles} from "./css/PcbStyles";
+import {getTableStyle} from "../../common-files/CustomTableStyle";
 import {getProductById} from "../Products/actions";
 import {getProductByIdSuccess} from "../Products/selectors";
 import DeleteDialog from "../../containers/DeleteDialog";
@@ -36,7 +36,7 @@ const Pcb = () => {
 
     //styles
     const theme = useTheme();
-    const pcbStyles = getPcbStyles(theme);
+    const pcbStyles = getTableStyle(theme);
     const colors = tokens(theme.palette.mode);
 
     //states

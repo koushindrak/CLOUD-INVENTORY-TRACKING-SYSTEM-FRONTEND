@@ -16,7 +16,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import Header from "../../containers/Header";
 import 'react-toastify/dist/ReactToastify.css';
 import {getSupplier, getSupplierSuccess} from "./GetAllSupplier";
-import {getSupplierStyles} from "./css/SupplierStyles";
+import {getTableStyle} from "../../common-files/CustomTableStyle";
 
 
 const Supplier = () => {
@@ -25,7 +25,7 @@ const Supplier = () => {
 
     //style constants
     const theme = useTheme();
-    const supplierStyles = getSupplierStyles(theme);
+    const supplierStyles = getTableStyle(theme);
     const colors = tokens(theme.palette.mode);
 
     //state constants

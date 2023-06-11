@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {deleteProduct, getProducts} from './actions';
 import {deleteProductFailure, deleteProductSuccess, getProductSuccess} from './selectors';
 import Header from "../../containers/Header";
-import {getProductStyles} from "./ProductStyles";
+import {getTableStyle} from "../../common-files/CustomTableStyle";
 import IconButton from '@mui/material/IconButton';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
@@ -30,7 +30,7 @@ const Products = () => {
 
     //style constants
     const theme = useTheme();
-    const productStyles = getProductStyles(theme);
+    const productStyles = getTableStyle(theme);
     const colors = tokens(theme.palette.mode);
 
     //state constants
