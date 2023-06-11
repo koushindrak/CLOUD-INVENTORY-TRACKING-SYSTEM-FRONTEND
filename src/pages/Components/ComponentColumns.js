@@ -1,3 +1,4 @@
+import './css/styles.css'
 export const componentColumns = [
     {
         field: "id",
@@ -62,4 +63,5 @@ export const componentColumns = [
         headerAlign: "center",
         align: "center",
     }
+
 ]

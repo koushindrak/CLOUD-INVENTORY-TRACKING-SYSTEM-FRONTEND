@@ -210,7 +210,15 @@ const Component = () => {
                     m="40px 0 0 0"
                     height="75vh"
                     sx={componentStyles}>
-                    <DataGrid rows={components} columns={completeColumns}/>
+                    <DataGrid
+                        rows={components}
+                        columns={completeColumns}
+                        getRowClassName={(params) =>
+                            params.getValue(params.id, "threshold") > params.getValue(params.id, "stock")
+                                ? "red-row"
+                                : ""
+                        }
+                    />
                 </Box>
             </Box>
             <DeleteDialog
