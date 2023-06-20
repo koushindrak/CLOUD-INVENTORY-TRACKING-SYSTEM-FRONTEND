@@ -1,21 +1,15 @@
-import {Box, Button, Checkbox, FormControlLabel, TextField} from "@mui/material";
+import {Box, Button, TextField, Container, Grid, Paper, ImageList, ImageListItem} from "@mui/material";
 import {Formik} from "formik";
 import * as yup from "yup";
-import {useNavigate, useParams} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
-import Header from "../../containers/Header";
 import {useEffect, useState} from "react";
-import {errorToast, successToast} from "../../containers/react-toast-alert";
-import {getUserById, getUserByIdSuccess, resetGetUserByIdSates} from "./GetUserById";
-import {
-    resetUpdateUserSates,
-    updateUser,
-    updateUserFailure,
-    updateUserSuccess
-} from "./UpdateUser";
-import useMediaQuery from "@mui/material/useMediaQuery";
+import Header from "../../containers/Header";
+import {useDispatch, useSelector} from 'react-redux';
+import {useMediaQuery} from "@mui/material";
+import {useNavigate, useParams} from 'react-router-dom';
 import {getUserByCode, getUserByCodeSuccess} from "./GetUserByCode";
-import { Container, Grid, Paper } from '@mui/material';
+import {getUserById, getUserByIdSuccess, resetGetUserByIdSates} from "./GetUserById";
+import {resetUpdateUserSates, updateUser, updateUserFailure, updateUserSuccess} from "./UpdateUser";
+import {errorToast, successToast} from "../../containers/react-toast-alert";
 import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -23,16 +17,23 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
     paper: {
-        padding: theme.spacing(2),
+        padding: theme.spacing(4), // increased padding
         color: theme.palette.text.secondary,
         textAlign: 'center',
+        marginTop: '10px',
+        backgroundColor: '#f5f5f5' // background color
     },
     form: {
         maxWidth: '500px',
         margin: 'auto',
     },
+    image: {
+        display: 'block',
+        width: '10%',
+        height: '10%',
+        margin: '20px auto',
+    },
 }));
-
 const RegisterUserPage = () => {
     const classes = useStyles();
     const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -40,8 +41,8 @@ const RegisterUserPage = () => {
     const dispatch = useDispatch();
     const userSuccess = useSelector(getUserByCodeSuccess);
     const [user, setUser] = useState(null);
-    const updateSuccess = useSelector(updateUserSuccess)
-    const updateFailure = useSelector(updateUserFailure)
+    const updateSuccess = useSelector(updateUserSuccess);
+    const updateFailure = useSelector(updateUserFailure);
     const {code} = useParams();
     const navigate = useNavigate();
 
@@ -98,10 +99,11 @@ const RegisterUserPage = () => {
     });
 
     return (
-        <Container className={classes.root}>
-            <Box display="flex" justifyContent="center" mt={5}>
+        <Container className={classes.paper}>
+            <Box display="flex" justifyContent="center" mt={2}>
                 <Header title="Complete Your Registration"/>
             </Box>
+            <img src={'../../assets/ecossystem.jpeg'} className={classes.image} alt='header-img'/>
             {user && (
                 <Paper className={classes.paper}>
                     <Formik
@@ -117,7 +119,6 @@ const RegisterUserPage = () => {
                         }}
                         validationSchema={userSchema}
                         className={classes.form}
-                        style={{margin: 40 }}
                     >
                         {({
                               values,
@@ -152,7 +153,7 @@ const RegisterUserPage = () => {
                                             name="firstName"
                                             error={!!touched.firstName && !!errors.firstName}
                                             helperText={touched.firstName && errors.firstName}
-                                            style={{margin: 8, width: '40%'}}
+                                            style={{margin: '40px 8px 8px', width: '40%'}} // increased margin-top
                                         />
                                         <TextField
                                             variant="outlined"
