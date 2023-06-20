@@ -10,6 +10,7 @@ import DeveloperBoardIcon from '@mui/icons-material/DeveloperBoard';
 import MemoryIcon from '@mui/icons-material/Memory';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import Business from '@mui/icons-material/Business';
+import jwt_decode from "jwt-decode";
 
 import AssignmentIndRoundedIcon from '@mui/icons-material/AssignmentIndRounded';
 import HelpCenterRoundedIcon from '@mui/icons-material/HelpCenterRounded';
@@ -106,16 +107,17 @@ const Sidebar = () => {
                                     fontWeight="bold"
                                     sx={{m: "10px 0 0 0"}}
                                 >
-                                    Leslie Mills
+                                    {jwt_decode(localStorage["token"]).name.split(" ")[0]}
                                 </Typography>
                                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                                    Admin
+                                    {jwt_decode(localStorage["token"]).role}
                                 </Typography>
                             </Box>
                         </Box>
                     )}
 
                     <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+                        {jwt_decode(localStorage["token"]).role === 'ADMIN' &&
                         <Item
                             title="Manage Users"
                             to="/users"
@@ -123,7 +125,7 @@ const Sidebar = () => {
                             selected={selected}
                             setSelected={setSelected}
                         />
-
+                        }
                         {/*<Item*/}
                         {/*    title="Forgot Password"*/}
                         {/*    to="/forgot-pass"*/}

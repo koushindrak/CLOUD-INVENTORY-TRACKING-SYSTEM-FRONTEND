@@ -17,6 +17,7 @@ import {errorToast, successToast} from '../../containers/react-toast-alert';
 import 'react-toastify/dist/ReactToastify.css';
 import DeveloperBoardIcon from "@mui/icons-material/DeveloperBoard";
 import DeleteDialog from "../../containers/DeleteDialog";
+import * as COMMON_UTILS from '../../common-files/commonUtils';
 
 
 const Products = () => {
@@ -162,18 +163,22 @@ const Products = () => {
             renderCell: (params) => {
                 return (
                     <div>
+                        {(['ADMIN', 'EDITOR'].includes(COMMON_UTILS.getRole())) && (
+                            <>
+                                <Tooltip title="Edit Product" placement="top">
+                                    <IconButton color="secondary" onClick={() => handleEdit(params.row)}>
+                                        <EditOutlinedIcon/>
+                                    </IconButton>
+                                </Tooltip>
 
-                        <Tooltip title="Edit Product" placement="top">
-                            <IconButton color="secondary" onClick={() => handleEdit(params.row)}>
-                                <EditOutlinedIcon/>
-                            </IconButton>
-                        </Tooltip>
+                                <Tooltip title="Delete Product" placement="top">
+                                    <IconButton color="secondary" onClick={() => handleDelete(params.row)}>
+                                        <DeleteOutlinedIcon/>
+                                    </IconButton>
+                                </Tooltip>
+                            </>
+                        )}
 
-                        <Tooltip title="Delete Product" placement="top">
-                            <IconButton color="secondary" onClick={() => handleDelete(params.row)}>
-                                <DeleteOutlinedIcon/>
-                            </IconButton>
-                        </Tooltip>
 
                         <Tooltip title="Manage PCB's" placement="top">
                             <IconButton color="secondary" onClick={() => handleManagePCB(params.row)}>

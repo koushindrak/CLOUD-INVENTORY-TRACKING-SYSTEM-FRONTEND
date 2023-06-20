@@ -1,4 +1,5 @@
 import {put} from "redux-saga/effects";
+import jwt_decode from "jwt-decode";
 
 export function GetHeaders() {
     let headers = {
@@ -12,6 +13,9 @@ export function GetHeaders() {
     return headers
 }
 
+export function getRole() {
+    return jwt_decode(localStorage["token"]).role;
+}
 export function* ErrorCheck(action, error, errorConst) {
     if (!error.response && error.message) {
         yield put({type: errorConst, error: error.message, addOns: action});

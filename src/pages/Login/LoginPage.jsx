@@ -38,6 +38,8 @@ function SignIn() {
         if (loginFailureRes) {
             errorToast(loginFailureRes.error)
         } else if (loginSuccessRes) {
+            console.log(loginSuccessRes)
+            localStorage.token = loginSuccessRes.token;
             navigate("/products")
         }
     }, [loginFailureRes, loginSuccessRes])

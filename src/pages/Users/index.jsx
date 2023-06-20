@@ -64,6 +64,7 @@ const User = () => {
             // navigate("/users")
             successToast("Email Sent successFully!!!")
             dispatch(resetInviteUserSates());
+            setOpenInviteDialog(false)
         }
     }, [inviteUserSuccessRes])
 
