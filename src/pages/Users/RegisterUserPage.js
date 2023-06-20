@@ -99,7 +99,9 @@ const RegisterUserPage = () => {
 
     return (
         <Container className={classes.root}>
-            <Header title="Complete Your Registration"/>
+            <Box display="flex" justifyContent="center" mt={5}>
+                <Header title="Complete Your Registration"/>
+            </Box>
             {user && (
                 <Paper className={classes.paper}>
                     <Formik
@@ -115,6 +117,7 @@ const RegisterUserPage = () => {
                         }}
                         validationSchema={userSchema}
                         className={classes.form}
+                        style={{margin: 40 }}
                     >
                         {({
                               values,
@@ -125,78 +128,86 @@ const RegisterUserPage = () => {
                               handleSubmit,
                           }) => (
                             <form onSubmit={handleSubmit}>
-                                <Grid
-                                    container
-                                    spacing={3}
-                                    // direction="row"
+                                <Box
+                                    display="flex"
+                                    flexDirection="column"
                                     justifyContent="center"
                                     alignItems="center"
+                                    height="100%"
                                 >
-                                    <TextField
-                                        fullWidth
-                                        // variant="filled"
-                                        type="text"
-                                        label="First Name"
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        value={values.firstName}
-                                        name="firstName"
-                                        error={!!touched.firstName && !!errors.firstName}
-                                        helperText={touched.firstName && errors.firstName}
-                                    />
-                                    <TextField
-                                        fullWidth
-                                        // variant="filled"
-                                        type="text"
-                                        label="Last Name"
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        value={values.lastName}
-                                        name="lastName"
-                                        error={!!touched.lastName && !!errors.lastName}
-                                        helperText={touched.lastName && errors.lastName}
-                                    />
-                                    <TextField
-                                        fullWidth
-                                        // variant="filled"
-                                        type="text"
-                                        label="Username"
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        value={values.username}
-                                        name="username"
-                                        error={!!touched.username && !!errors.username}
-                                        helperText={touched.username && errors.username}
-                                    />
-                                    <TextField
-                                        fullWidth
-                                        // variant="filled"
-                                        type="password"
-                                        label="New Password"
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        value={values.newPassword}
-                                        name="newPassword"
-                                        error={!!touched.newPassword && !!errors.newPassword}
-                                        helperText={touched.newPassword && errors.newPassword}
-                                    />
-                                    <TextField
-                                        fullWidth
-                                        // variant="filled"
-                                        type="password"
-                                        label="Confirm Password"
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        value={values.password}
-                                        name="password"
-                                        error={!!touched.password && !!errors.password}
-                                        helperText={touched.password && errors.password}
-                                    />
-                                </Grid>
-                                <Box display="flex" justifyContent="center" mt="20px">
-                                    <Button type="submit" color="secondary" variant="contained">
-                                        Sign up
-                                    </Button>
+                                    <Grid
+                                        container
+                                        spacing={3}
+                                        direction="column"
+                                        justifyContent="center"
+                                        alignItems="center"
+                                    >
+                                        <TextField
+                                            variant="outlined"
+                                            type="text"
+                                            label="First Name"
+                                            onBlur={handleBlur}
+                                            onChange={handleChange}
+                                            value={values.firstName}
+                                            name="firstName"
+                                            error={!!touched.firstName && !!errors.firstName}
+                                            helperText={touched.firstName && errors.firstName}
+                                            style={{margin: 8, width: '40%'}}
+                                        />
+                                        <TextField
+                                            variant="outlined"
+                                            type="text"
+                                            label="Last Name"
+                                            onBlur={handleBlur}
+                                            onChange={handleChange}
+                                            value={values.lastName}
+                                            name="lastName"
+                                            error={!!touched.lastName && !!errors.lastName}
+                                            helperText={touched.lastName && errors.lastName}
+                                            style={{margin: 8, width: '40%'}}
+                                        />
+                                        <TextField
+                                            variant="outlined"
+                                            type="text"
+                                            label="Username"
+                                            onBlur={handleBlur}
+                                            onChange={handleChange}
+                                            value={values.username}
+                                            name="username"
+                                            error={!!touched.username && !!errors.username}
+                                            helperText={touched.username && errors.username}
+                                            style={{margin: 8, width: '40%'}}
+                                        />
+                                        <TextField
+                                            variant="outlined"
+                                            type="password"
+                                            label="New Password"
+                                            onBlur={handleBlur}
+                                            onChange={handleChange}
+                                            value={values.newPassword}
+                                            name="newPassword"
+                                            error={!!touched.newPassword && !!errors.newPassword}
+                                            helperText={touched.newPassword && errors.newPassword}
+                                            style={{margin: 8, width: '40%'}}
+                                        />
+                                        <TextField
+                                            variant="outlined"
+                                            type="password"
+                                            label="Confirm Password"
+                                            onBlur={handleBlur}
+                                            onChange={handleChange}
+                                            value={values.password}
+                                            name="password"
+                                            error={!!touched.password && !!errors.password}
+                                            helperText={touched.password && errors.password}
+                                            style={{margin: 8, width: '40%'}}
+                                        />
+                                    </Grid>
+                                    <Box display="flex" justifyContent="center" mt="20px">
+                                        <Button type="submit" color="secondary" variant="contained">
+                                            Sign up
+                                        </Button>
+                                    </Box>
                                 </Box>
                             </form>
                         )}
@@ -205,6 +216,8 @@ const RegisterUserPage = () => {
             )}
         </Container>
     );
+
+
 
 };
 

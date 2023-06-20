@@ -189,35 +189,35 @@ const User = () => {
 
     const completeColumns = [
         ...userColumns,
-        {
-            headerName: "Actions",
-            headerAlign: "center",
-            align: "center",
-            flex: 1,
-            renderCell: (params) => {
-                return (
-                    <div>
-                        <Tooltip title="Edit User" placement="top">
-                            <IconButton color="secondary" onClick={() => handleEdit(params.row)}>
-                                <EditOutlinedIcon/>
-                            </IconButton>
-                        </Tooltip>
-
-                        <Tooltip title="Delete User" placement="top">
-                            <IconButton color="secondary" onClick={() => handleDelete(params.row)}>
-                                <DeleteOutlinedIcon/>
-                            </IconButton>
-                        </Tooltip>
-
-                        <Tooltip title="Manage PCB's" placement="top">
-                            <IconButton color="secondary" onClick={() => handleManagePCB(params.row)}>
-                                <DeveloperBoardIcon/>
-                            </IconButton>
-                        </Tooltip>
-                    </div>
-                );
-            },
-        },
+        // {
+        //     headerName: "Actions",
+        //     headerAlign: "center",
+        //     align: "center",
+        //     flex: 1,
+        //     renderCell: (params) => {
+        //         return (
+        //             <div>
+        //                 <Tooltip title="Edit User" placement="top">
+        //                     <IconButton color="secondary" onClick={() => handleEdit(params.row)}>
+        //                         <EditOutlinedIcon/>
+        //                     </IconButton>
+        //                 </Tooltip>
+        //
+        //                 <Tooltip title="Delete User" placement="top">
+        //                     <IconButton color="secondary" onClick={() => handleDelete(params.row)}>
+        //                         <DeleteOutlinedIcon/>
+        //                     </IconButton>
+        //                 </Tooltip>
+        //
+        //                 <Tooltip title="Manage PCB's" placement="top">
+        //                     <IconButton color="secondary" onClick={() => handleManagePCB(params.row)}>
+        //                         <DeveloperBoardIcon/>
+        //                     </IconButton>
+        //                 </Tooltip>
+        //             </div>
+        //         );
+        //     },
+        // },
     ];
 
     function Header({title, subtitle, subtitleStyle}) {
