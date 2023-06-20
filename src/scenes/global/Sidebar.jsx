@@ -123,44 +123,6 @@ const Sidebar = () => {
                         {/*  setSelected={setSelected}*/}
                         {/*/>*/}
 
-            {/*<Typography*/}
-            {/*  variant="h6"*/}
-            {/*  color={colors.grey[300]}*/}
-            {/*  sx={{ m: "15px 0 5px 20px" }}*/}
-            {/*>*/}
-            {/*  Data*/}
-            {/*</Typography>*/}
-            <Item
-                  title="Login"
-                  to="/login"
-                  icon={<AssignmentIndRoundedIcon />}
-                  selected={selected}
-                  setSelected={setSelected}
-              />
-
-              <Item
-                  title="Forgot Password"
-                  to="/forgot-pass"
-                  icon={<HelpCenterRoundedIcon />}
-                  selected={selected}
-                  setSelected={setSelected}
-              />
-
-              <Item
-                  title="New Password"
-                  to="/new-pass"
-                  icon={<LockResetRoundedIcon />}
-                  selected={selected}
-                  setSelected={setSelected}
-              />
-
-              <Item
-                  title="Products"
-                  to="/"
-                  icon={<StorefrontIcon />}
-                  selected={selected}
-                  setSelected={setSelected}
-              />
                         {/*<Typography*/}
                         {/*  variant="h6"*/}
                         {/*  color={colors.grey[300]}*/}
@@ -169,8 +131,32 @@ const Sidebar = () => {
                         {/*  Data*/}
                         {/*</Typography>*/}
                         <Item
+                            title="Login"
+                            to="/login"
+                            icon={<AssignmentIndRoundedIcon/>}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
+
+                        <Item
+                            title="Forgot Password"
+                            to="/forgot-pass"
+                            icon={<HelpCenterRoundedIcon/>}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
+
+                        <Item
+                            title="New Password"
+                            to="/new-pass"
+                            icon={<LockResetRoundedIcon/>}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
+
+                        <Item
                             title="Products"
-                            to="/"
+                            to="/products"
                             icon={<StorefrontIcon/>}
                             selected={selected}
                             setSelected={setSelected}

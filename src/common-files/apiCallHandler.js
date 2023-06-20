@@ -42,7 +42,7 @@ export function* apiCallHandler(action, responseConst, errorConst, apiUrlConstan
 function* apiTryBlockHandler(action, responseConst, apiUrlConstant, type, isBaseUrl, isLoading) {
     // let url = window.URL + apiUrlConstant+"/";  //COMMENTED
     let url = `${API_HOST}` + apiUrlConstant;
-    console.log("url---",url)
+    console.log("url---", url)
     let method = axios.get;
     let urlAndMethod = setUrlAndMethod(type, url, action, method);
 

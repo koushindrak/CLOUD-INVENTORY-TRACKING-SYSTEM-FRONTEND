@@ -1,6 +1,4 @@
-import { styled } from '@mui/system';
-import { themeSettings, tokens } from '../theme';
-import { colors } from '@mui/material';
+import {tokens} from '../theme';
 
 export const getTableStyle = (theme) => {
     const colors = tokens(theme.palette.mode);

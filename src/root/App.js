@@ -1,4 +1,4 @@
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, useLocation} from "react-router-dom";
 import Page404 from "../pages/Page404";
 
 //NEW
@@ -24,14 +24,12 @@ import AddPcb from "../pages/Pcb/CreatePcbPage";
 import AddComponent from "../pages/Components/CreateComponentPage";
 import Supplier from "../pages/Suppliers";
 import LoginPage from "../pages/Login/LoginPage";
-import newPass from "../pages/Password/newPass";
-import ForgotPassword from "../pages/Password/forgotPass";
 import ResetPassword from "../pages/Password/newPass";
+import ForgotPassword from "../pages/Password/forgotPass";
 import UpdatePcbPage from "../pages/Pcb/UpdatePcbPage";
 import Orders from "../pages/Orders";
 import GetOrderByIdPage from "../pages/Orders/GetOrderByIdPage";
 import UpdateComponentPage from "../pages/Components/UpdateComponentPage";
-import { useLocation } from 'react-router-dom';
 
 function App() {
     const [theme, colorMode] = useMode();
@@ -54,50 +52,58 @@ function App() {
     //   </ConfigProvider>
     // );
 
-  const location = useLocation();
-  const isLoginPage = location.pathname === '/';
-  const isForgotPasswordPage = location.pathname === '/forgot-pass';
-  const isResetPasswordPage = location.pathname === '/new-pass';
+    const location = useLocation();
+    const isLoginPage = location.pathname === '/';
+    const isForgotPasswordPage = location.pathname === '/forgot-pass';
+    const isResetPasswordPage = location.pathname === '/new-pass';
 
-  return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <ToastContainer />  {/* Add this line */}
-        <div className="app">
+    return (
+        <ColorModeContext.Provider value={colorMode}>
+            <ThemeProvider theme={theme}>
+                <CssBaseline/>
+                <ToastContainer/> {/* Add this line */}
+                <div className="app">
 
-          {!isLoginPage && !isForgotPasswordPage && !isResetPasswordPage && <Sidebar isSidebar={isSidebar} />}
-          <main className="content">
-            {/*<Topbar setIsSidebar={setIsSidebar} />*/}
-            {/*<BrowserRouter>*/}
-              <Routes>
-                <Route path="/" element={<LoginPage/>} />
-                <Route path="/forgot-pass" element={<ForgotPassword/>} />
-                <Route path="/new-pass" element={<ResetPassword/>} />
-                <Route path="/orders" element={<Orders/>}/>
-                <Route path="/orders/:id/details" element={<GetOrderByIdPage/>}/>
+                    {!isLoginPage
+                        && !isForgotPasswordPage
+                        && !isResetPasswordPage
+                        && <Sidebar isSidebar={isSidebar}/>
 
-                {/*create product  */}
-                <Route path="/products/add" element={<AddProduct/>}/>
+                    }
+                    <main className="content">
+                        {!isLoginPage
+                            && !isForgotPasswordPage
+                            && !isResetPasswordPage
+                            && <Topbar setIsSidebar={setIsSidebar}/>}
+                        {/*<BrowserRouter>*/}
+                        <Routes>
+                            <Route path="/" element={<LoginPage/>}/>
+                            <Route path="/forgot-pass" element={<ForgotPassword/>}/>
+                            <Route path="/new-pass" element={<ResetPassword/>}/>
+                            <Route path="/orders" element={<Orders/>}/>
+                            <Route path="/orders/:id/details" element={<GetOrderByIdPage/>}/>
 
-                {/*update product */}
-                <Route path="/products/edit/:id" element={<EditProduct/>}/>
+                            {/*create product  */}
+                            <Route path="/products/add" element={<AddProduct/>}/>
 
-                {/*get all products */}
-                <Route path="/products" element={<Products/>}/>
+                            {/*update product */}
+                            <Route path="/products/edit/:id" element={<EditProduct/>}/>
 
-                {/*get all pcbs for a product */}
-                <Route path="/products/:productId/pcbs" element={<Pcb/>}/>
+                            {/*get all products */}
+                            <Route path="/products" element={<Products/>}/>
 
-                {/*add new pcb to a product */}
-                <Route path="/products/:productId/pcbs/add" element={<AddPcb/>}/>
+                            {/*get all pcbs for a product */}
+                            <Route path="/products/:productId/pcbs" element={<Pcb/>}/>
 
-                {/*edit an existing pcb for a product */}
-                <Route path="/products/:productId/pcbs/edit/:pcbId" element={<UpdatePcbPage/>}/>
+                            {/*add new pcb to a product */}
+                            <Route path="/products/:productId/pcbs/add" element={<AddPcb/>}/>
+
+                            {/*edit an existing pcb for a product */}
+                            <Route path="/products/:productId/pcbs/edit/:pcbId" element={<UpdatePcbPage/>}/>
 
 
-                {/*create pcb  */}
-                <Route path="/pcbs/add" element={<AddPcb/>}/>
+                            {/*create pcb  */}
+                            <Route path="/pcbs/add" element={<AddPcb/>}/>
 
                             {/*update pcb  */}
                             <Route path="/pcbs/edit/:pcbId" element={<UpdatePcbPage/>}/>
@@ -108,6 +114,7 @@ function App() {
                             <Route path="/components/edit/:componentId" element={<UpdateComponentPage/>}/>
                             <Route path="/components/add" element={<AddComponent/>}/>
                             <Route path="/components" element={<Components/>}/>
+                            <Route path="/components/alerts" element={<Components/>}/>
 
 
                             {/*get all pcbs for a component */}

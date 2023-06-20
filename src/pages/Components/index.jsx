@@ -46,7 +46,6 @@ const Component = () => {
     // params from other page
     let {productId} = useParams();
 
-
     /* Effects Start */
 
     useEffect(() => {
@@ -77,7 +76,12 @@ const Component = () => {
         if (productId && getProductByIdSuccessResponse) {
             setComponents(getProductByIdSuccessResponse.data.components)
         } else if (getComponentSuccessResponse) {
-            setComponents(getComponentSuccessResponse.data)
+            if (location.pathname === '/components/alerts') {
+                const filteredData = getComponentSuccessResponse.data.filter(obj => obj.stock < obj.threshold);
+                setComponents(filteredData)
+            } else {
+                setComponents(getComponentSuccessResponse.data)
+            }
         }
     }, [getProductByIdSuccessResponse, getComponentSuccessResponse, productId])
 

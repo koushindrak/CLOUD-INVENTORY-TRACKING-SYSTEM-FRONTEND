@@ -24,7 +24,7 @@ export const resetLoginSates = () => ({
 
 //3. saga
 function* handleLoginRequest(action) {
-    yield (apiCallHandler(action, LOGIN_SUCCESS, LOGIN_FAILURE, apis.LOGIN, apiTypes.OTHER,false));
+    yield (apiCallHandler(action, LOGIN_SUCCESS, LOGIN_FAILURE, apis.LOGIN, apiTypes.OTHER, false));
 }
 
 export function* watchLoginRequest() {
