@@ -15,7 +15,7 @@ export const apiTypes = {
 }
 export const apis = {
     /*BASE APIS*/
-    USER_APIS_BASE_URL: "/api/v1/users/kk",
+    USER_APIS_BASE_URL: "/api/v1/users",
     ROLE_APIS_BASE_URL: "/api/v1/role",
     PRODUCT_APIS_BASE_URL: "/api/v1/products",
     PCB_APIS_BASE_URL: "/api/v1/pcb",

@@ -17,6 +17,10 @@ import {GetComponentByIdReducer} from "../pages/Components/GetComponentById";
 import {DeleteComponentByIdReducer} from "../pages/Components/DeleteComponent";
 import {UpdateComponentReducer} from "../pages/Components/UpdateComponent";
 import {LoginReducer} from "../pages/Login/Login";
+import {InviteUserReducer} from "../pages/Users/InviteUser";
+import {GetUserReducer} from "../pages/Users/GetAllUser";
+import {GetUserByCodeReducer} from "../pages/Users/GetUserByCode";
+import {UpdateUserReducer} from "../pages/Users/UpdateUser";
 
 let sagaMiddleware = createSagaMiddleware();
 const middleware = (getDefaultMiddleware) => [
@@ -32,6 +36,11 @@ const store = configureStore({
 
         //login
         login: LoginReducer,
+        inviteUser: InviteUserReducer,
+        user: GetUserReducer,
+        userByCode: GetUserByCodeReducer,
+        updateUser: UpdateUserReducer,
+
 
         //product
         product: manageProductsReducer,

@@ -15,6 +15,10 @@ import {watchGetComponentByIdRequest} from "../pages/Components/GetComponentById
 import {watchDeleteComponentByIdRequest} from "../pages/Components/DeleteComponent";
 import {watchUpdateComponentRequest} from "../pages/Components/UpdateComponent";
 import {watchLoginRequest} from "../pages/Login/Login";
+import {watchInviteUserRequest} from "../pages/Users/InviteUser";
+import {watchGetUserRequest} from "../pages/Users/GetAllUser";
+import {watchGetUserByCODERequest} from "../pages/Users/GetUserByCode";
+import {watchUpdateUserRequest} from "../pages/Users/UpdateUser";
 
 
 export default function* rootSaga() {
@@ -22,6 +26,12 @@ export default function* rootSaga() {
 
         //login
         watchLoginRequest(),
+
+        //user
+        watchInviteUserRequest(),
+        watchGetUserRequest(),
+        watchGetUserByCODERequest(),
+        watchUpdateUserRequest(),
 
         //product
         productSaga(),

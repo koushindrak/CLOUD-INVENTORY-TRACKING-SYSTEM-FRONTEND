@@ -30,6 +30,11 @@ import UpdatePcbPage from "../pages/Pcb/UpdatePcbPage";
 import Orders from "../pages/Orders";
 import GetOrderByIdPage from "../pages/Orders/GetOrderByIdPage";
 import UpdateComponentPage from "../pages/Components/UpdateComponentPage";
+import Users from "../pages/Users";
+import User from "../pages/Users";
+import UpdateUserPage from "../pages/Users/UpdateUserPage";
+import AddUser from "../pages/Users/CreateUserPage";
+import RegisterUserPage from "../pages/Users/RegisterUserPage";
 
 function App() {
     const [theme, colorMode] = useMode();
@@ -56,6 +61,7 @@ function App() {
     const isLoginPage = location.pathname === '/';
     const isForgotPasswordPage = location.pathname === '/forgot-pass';
     const isResetPasswordPage = location.pathname === '/new-pass';
+    const isRegisterPage = location.pathname.startsWith('/users/register/')
 
     return (
         <ColorModeContext.Provider value={colorMode}>
@@ -67,6 +73,7 @@ function App() {
                     {!isLoginPage
                         && !isForgotPasswordPage
                         && !isResetPasswordPage
+                        && !isRegisterPage
                         && <Sidebar isSidebar={isSidebar}/>
 
                     }
@@ -74,12 +81,19 @@ function App() {
                         {!isLoginPage
                             && !isForgotPasswordPage
                             && !isResetPasswordPage
+                            && !isRegisterPage
                             && <Topbar setIsSidebar={setIsSidebar}/>}
                         {/*<BrowserRouter>*/}
                         <Routes>
                             <Route path="/" element={<LoginPage/>}/>
                             <Route path="/forgot-pass" element={<ForgotPassword/>}/>
                             <Route path="/new-pass" element={<ResetPassword/>}/>
+                            <Route path="/users/register/:code" element={<RegisterUserPage/>}/>
+
+                            <Route path="/users" element={<User/>}/>
+                            <Route path="/users/edit/:userId" element={<UpdateUserPage/>}/>
+                            <Route path="/users/add" element={<AddUser/>}/>
+
                             <Route path="/orders" element={<Orders/>}/>
                             <Route path="/orders/:id/details" element={<GetOrderByIdPage/>}/>
 
