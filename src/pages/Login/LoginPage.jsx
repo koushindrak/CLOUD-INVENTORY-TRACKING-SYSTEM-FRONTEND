@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import logo from './ecossystem.jpeg';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -19,6 +19,10 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
+import {useDispatch, useSelector} from "react-redux";
+import {login, loginFailure, loginSuccess} from "./Login";
+import {errorToast, successToast} from "../../containers/react-toast-alert";
+import {useNavigate} from "react-router-dom";
 
 function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
@@ -26,27 +30,40 @@ function SignIn() {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [signInError, setSignInError] = useState(false);
+  const loginSuccessRes = useSelector(loginSuccess);
+  const loginFailureRes = useSelector(loginFailure);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const email = data.get('email');
-    const password = data.get('password');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    if (email && password) {
-      // if (email === 'myemail@example.com' && password === 'mypassword') {
-      //   setSignInSuccess(true);
-      // } else {
-      //   setSignInError(true);
-      // }
-      setSignInSuccess(true);
-      setEmailError(false);
-      setPasswordError(false);
-    } else {
-      setEmailError(!email);
-      setPasswordError(!password);
-    }
-  };
+    useEffect(() =>{
+        if(loginFailureRes){
+            errorToast(loginFailureRes.error)
+        }else if(loginSuccessRes){
+            navigate("/products")
+        }
+    },[loginFailureRes,loginSuccessRes])
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        const username = data.get('email');
+        const password = data.get('password');
+
+        if (username && password) {
+            const payload = { username, password };
+            //disptaching login action
+            dispatch(login(payload));
+
+            // setSignInSuccess(true);
+            // setEmailError(false);
+            // setPasswordError(false);
+        } else {
+            setEmailError(!username);
+            setPasswordError(!password);
+        }
+    };
+
 
   const handleShowPassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);

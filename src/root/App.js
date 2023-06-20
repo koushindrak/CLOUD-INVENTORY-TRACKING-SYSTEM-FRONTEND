@@ -23,7 +23,7 @@ import Pcb from "../pages/Pcb";
 import AddPcb from "../pages/Pcb/CreatePcbPage";
 import AddComponent from "../pages/Components/CreateComponentPage";
 import Supplier from "../pages/Suppliers";
-import LoginPage from "../pages/Login/Login";
+import LoginPage from "../pages/Login/LoginPage";
 import newPass from "../pages/Password/newPass";
 import ForgotPassword from "../pages/Password/forgotPass";
 import ResetPassword from "../pages/Password/newPass";
@@ -55,7 +55,7 @@ function App() {
     // );
 
   const location = useLocation();
-  const isLoginPage = location.pathname === '/login';
+  const isLoginPage = location.pathname === '/';
   const isForgotPasswordPage = location.pathname === '/forgot-pass';
   const isResetPasswordPage = location.pathname === '/new-pass';
 
@@ -71,7 +71,7 @@ function App() {
             {/*<Topbar setIsSidebar={setIsSidebar} />*/}
             {/*<BrowserRouter>*/}
               <Routes>
-                <Route path="/login" element={<LoginPage/>} />
+                <Route path="/" element={<LoginPage/>} />
                 <Route path="/forgot-pass" element={<ForgotPassword/>} />
                 <Route path="/new-pass" element={<ResetPassword/>} />
                 <Route path="/orders" element={<Orders/>}/>
@@ -84,7 +84,7 @@ function App() {
                 <Route path="/products/edit/:id" element={<EditProduct/>}/>
 
                 {/*get all products */}
-                <Route path="/" element={<Products/>}/>
+                <Route path="/products" element={<Products/>}/>
 
                 {/*get all pcbs for a product */}
                 <Route path="/products/:productId/pcbs" element={<Pcb/>}/>

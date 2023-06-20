@@ -16,6 +16,7 @@ import {UpdatePcbReducer} from "../pages/Pcb/UpdatePcb";
 import {GetComponentByIdReducer} from "../pages/Components/GetComponentById";
 import {DeleteComponentByIdReducer} from "../pages/Components/DeleteComponent";
 import {UpdateComponentReducer} from "../pages/Components/UpdateComponent";
+import {LoginReducer} from "../pages/Login/Login";
 
 let sagaMiddleware = createSagaMiddleware();
 const middleware = (getDefaultMiddleware) => [
@@ -28,6 +29,9 @@ const middleware = (getDefaultMiddleware) => [
 
 const store = configureStore({
     reducer: {
+
+        //login
+        login: LoginReducer,
 
         //product
         product: manageProductsReducer,
