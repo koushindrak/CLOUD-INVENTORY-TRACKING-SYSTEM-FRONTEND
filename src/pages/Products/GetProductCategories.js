@@ -1,4 +1,4 @@
-import { call, put, takeLatest, all } from 'redux-saga/effects';
+import {takeLatest} from 'redux-saga/effects';
 
 //1. constant
 import {apiCallHandler, apis, apiTypes} from "../../common-files/apiCallHandler";
@@ -11,27 +11,26 @@ export const GET_CATEGORY_FAILURE = 'GET_CATEGORY_FAILURE';
 
 //2. action
 export function getCategories() {
-    console.log("Action---getCategories")
     return {
         type: GET_CATEGORY_REQUEST
     }
 }
 
 //3. saga
-function* handleGetCategoryRequest(action){
-    console.log("---saga--- handleGetcategoryRequest---")
-    yield (apiCallHandler(action, GET_CATEGORY_SUCCESS, GET_CATEGORY_FAILURE, apis.PRODUCT_APIS_BASE_URL+"/category",apiTypes.GET_ALL));
+function* handleGetCategoryRequest(action) {
+    yield (apiCallHandler(action, GET_CATEGORY_SUCCESS, GET_CATEGORY_FAILURE, apis.PRODUCT_APIS_BASE_URL + "/category", apiTypes.GET_ALL));
 }
+
 export function* watchGetCategoryRequest() {
-    yield takeLatest(GET_CATEGORY_REQUEST,handleGetCategoryRequest)
+    yield takeLatest(GET_CATEGORY_REQUEST, handleGetCategoryRequest)
 }
 
 //4. Reducer
 export const initialState = fromJS({});
+
 export function GetCategoryReducer(state = initialState, action) {
     switch (action.type) {
         case GET_CATEGORY_SUCCESS:
-            console.log("GET_CATEGORY_SUCCESS---",action.response)
             return Object.assign({}, state, {getCategoryResponse: action.response})
 
         case GET_CATEGORY_FAILURE:
@@ -43,6 +42,6 @@ export function GetCategoryReducer(state = initialState, action) {
 
 //5. Selector
 const getCategorySelector = state => state.category || initialState;
-export const getCategorySuccess = createSelector(getCategorySelector,state=>state.getCategoryResponse)
-export const getCategoryFailure =  createSelector(getCategorySelector,state=>state.getCategoryError)
+export const getCategorySuccess = createSelector(getCategorySelector, state => state.getCategoryResponse)
+export const getCategoryFailure = createSelector(getCategorySelector, state => state.getCategoryError)
 export {getCategorySelector}

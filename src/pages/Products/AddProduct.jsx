@@ -1,35 +1,44 @@
-import { Box, Button, TextField } from "@mui/material";
-import { Formik } from "formik";
+import {Box, Button, TextField} from "@mui/material";
+import {Formik} from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import {createProduct, getProductById, resetUpdateSuccess, updateProduct} from './actions';
-import {createProductSuccess, getProductByIdSuccess, updateProductSuccess} from './selectors';
+import {useNavigate, useParams} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {createProduct, resetUpdateSuccess} from './actions';
+import {createProductFailure, createProductSuccess} from './selectors';
 import Header from "../../containers/Header";
 import {useEffect, useState} from "react";
-import { useNavigate } from 'react-router-dom';
+import {errorToast, successToast} from "../../containers/react-toast-alert";
 
 const AddProduct = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
-    const { id } = useParams();
+    const {id} = useParams();
     const dispatch = useDispatch();
     const [product, setProduct] = useState(null);
-    const createSuccess = useSelector(createProductSuccess)
+    const createProductSuccessResponse = useSelector(createProductSuccess)
+    const createProductFailureResponse = useSelector(createProductFailure)
 
     const navigate = useNavigate();  // new
 
 
     useEffect(() => {
-        if(createSuccess){
-            console.log("createSuccess Success*******",createSuccess)
-             navigate('/');
+        if (createProductSuccessResponse) {
+            navigate('/');
             dispatch(resetUpdateSuccess());
+            successToast("New Product Created Successfully")
         }
-    },[createSuccess])
+    }, [createProductSuccessResponse])
+
+    useEffect(() => {
+        if (createProductFailureResponse) {
+            console.log("createProductFailureResponse---", createProductFailureResponse)
+            // navigate('/');
+            dispatch(resetUpdateSuccess());
+            errorToast(createProductFailureResponse.error)
+        }
+    }, [createProductFailureResponse])
 
     const handleFormSubmit = (values) => {
-        console.log("updating product---")
         dispatch(createProduct(values));
     };
 
@@ -43,18 +52,18 @@ const AddProduct = () => {
 
     return (
         <Box m="20px">
-            <Header title="Add New Product"  />
-                <Formik
-                    onSubmit={handleFormSubmit}
-                    initialValues={{
-                        id: '',
-                        name: '',
-                        description: '',
-                        serialNumber: '',
-                        productCategoryName: ''
-                    }}
-                    validationSchema={productSchema}
-                >
+            <Header title="Add New Product"/>
+            <Formik
+                onSubmit={handleFormSubmit}
+                initialValues={{
+                    id: '',
+                    name: '',
+                    description: '',
+                    serialNumber: '',
+                    productCategoryName: ''
+                }}
+                validationSchema={productSchema}
+            >
                 {({
                       values,
                       errors,
@@ -69,7 +78,7 @@ const AddProduct = () => {
                             gap="30px"
                             gridTemplateColumns="repeat(2, minmax(0, 1fr))"
                             sx={{
-                                "& > div": { gridColumn: isNonMobile ? undefined : "span 2" },
+                                "& > div": {gridColumn: isNonMobile ? undefined : "span 2"},
                             }}
                         >
                             <TextField
@@ -83,7 +92,7 @@ const AddProduct = () => {
                                 name="name"
                                 error={!!touched.name && !!errors.name}
                                 helperText={touched.name && errors.name}
-                                sx={{ gridColumn: "span 2" }}
+                                sx={{gridColumn: "span 2"}}
                             />
                             <TextField
                                 fullWidth
@@ -96,7 +105,7 @@ const AddProduct = () => {
                                 name="description"
                                 error={!!touched.description && !!errors.description}
                                 helperText={touched.description && errors.description}
-                                sx={{ gridColumn: "span 2" }}
+                                sx={{gridColumn: "span 2"}}
                             />
                             <TextField
                                 fullWidth
@@ -109,7 +118,7 @@ const AddProduct = () => {
                                 name="serialNumber"
                                 error={!!touched.serialNumber && !!errors.serialNumber}
                                 helperText={touched.serialNumber && errors.serialNumber}
-                                sx={{ gridColumn: "span 2" }}
+                                sx={{gridColumn: "span 2"}}
                             />
                             <TextField
                                 fullWidth
@@ -122,7 +131,7 @@ const AddProduct = () => {
                                 name="productCategoryName"
                                 error={!!touched.productCategoryName && !!errors.productCategoryName}
                                 helperText={touched.productCategoryName && errors.productCategoryName}
-                                sx={{ gridColumn: "span 2" }}
+                                sx={{gridColumn: "span 2"}}
                             />
                         </Box>
                         <Box display="flex" justifyContent="end" mt="20px">

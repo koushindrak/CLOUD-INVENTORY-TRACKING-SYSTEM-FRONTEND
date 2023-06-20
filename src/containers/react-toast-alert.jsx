@@ -1,14 +1,14 @@
 // common-files/toast.js
-import { toast } from 'react-toastify';
+import {toast} from 'react-toastify';
 
 const toastOptions = {
     success: {
-        autoClose: 100,
+        autoClose: 1500,
         position: toast.POSITION.TOP_RIGHT,
         type: toast.TYPE.SUCCESS,
     },
     error: {
-        autoClose: 100,
+        autoClose: 3000,
         position: toast.POSITION.TOP_RIGHT,
         type: toast.TYPE.ERROR,
     },

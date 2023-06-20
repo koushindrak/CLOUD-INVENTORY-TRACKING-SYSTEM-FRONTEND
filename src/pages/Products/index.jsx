@@ -1,23 +1,22 @@
-import { useState,useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Box, Typography, useTheme, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
-import { tokens } from "../../theme";
-import { useDispatch, useSelector } from 'react-redux';
-import { getProducts, createProduct, updateProduct, deleteProduct } from './actions';
-import { getProductSuccess, createProductSuccess, updateProductSuccess, deleteProductSuccess } from './selectors';
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
+import {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {Box, Button, Tooltip, useTheme} from "@mui/material";
+import {DataGrid, GridToolbar} from "@mui/x-data-grid";
+import {tokens} from "../../theme";
+import {useDispatch, useSelector} from 'react-redux';
+import {deleteProduct, getProducts} from './actions';
+import {deleteProductFailure, deleteProductSuccess, getProductSuccess} from './selectors';
 import Header from "../../containers/Header";
-import {getProductStyles} from "./ProductStyles";
+import {getTableStyle} from "../../common-files/CustomTableStyle";
 import IconButton from '@mui/material/IconButton';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import AddIcon from '@mui/icons-material/Add';
 import {getCategories, getCategoryFailure, getCategorySuccess} from "./GetProductCategories";
-import { successToast, errorToast } from '../../containers/react-toast-alert';
+import {errorToast, successToast} from '../../containers/react-toast-alert';
 import 'react-toastify/dist/ReactToastify.css';
+import DeveloperBoardIcon from "@mui/icons-material/DeveloperBoard";
+import DeleteDialog from "../../containers/DeleteDialog";
 
 
 const Products = () => {
@@ -25,37 +24,37 @@ const Products = () => {
     //selectors constants
     const productResponse = useSelector(getProductSuccess);
     const deleteSuccess = useSelector(deleteProductSuccess);
+    const deleteFailure = useSelector(deleteProductFailure);
     const getCategorySuccessResponse = useSelector(getCategorySuccess);
     const getCategoryFailureResponse = useSelector(getCategoryFailure);
 
     //style constants
     const theme = useTheme();
-    const productStyles = getProductStyles(theme);
+    const productStyles = getTableStyle(theme);
     const colors = tokens(theme.palette.mode);
 
     //state constants
     const [open, setOpen] = useState(false);
     const [selectedId, setSelectedId] = useState(null);
     const [selectedProduct, setSelectedProduct] = useState(null);
-    const [productCategoryList,setProductCategoryList] = useState(null);
+    const [productCategoryList, setProductCategoryList] = useState(null);
 
     //routing constants
     const navigate = useNavigate();  // new
 
     /* Effects Start */
 
-    useEffect( () => {
-       if (getCategoryFailureResponse){
+    useEffect(() => {
+        if (getCategoryFailureResponse) {
             errorToast(getCategoryFailureResponse.error)
         }
-    },[getCategoryFailureResponse,dispatch])
+    }, [getCategoryFailureResponse, dispatch])
 
-    useEffect( () => {
-        if (getCategorySuccessResponse){
+    useEffect(() => {
+        if (getCategorySuccessResponse) {
             setProductCategoryList(getCategorySuccessResponse.data)
-            console.log("categorydate---",getCategorySuccessResponse.data)
         }
-    },[getCategorySuccessResponse,dispatch])
+    }, [getCategorySuccessResponse, dispatch])
     useEffect(() => {
         dispatch(getProducts());
     }, [dispatch]);
@@ -67,10 +66,18 @@ const Products = () => {
     useEffect(() => {
         if (deleteSuccess) {
             // Refetch products when a product is successfully deleted
+            successToast(deleteSuccess.displayMessage)
             dispatch(getProducts());
         }
     }, [deleteSuccess, dispatch]);
 
+
+    useEffect(() => {
+        if (deleteFailure) {
+            successToast(deleteFailure.error)
+            // dispatch(getProducts());
+        }
+    }, [deleteFailure, dispatch]);
 
     /*Effects Section Ends here */
 
@@ -90,13 +97,19 @@ const Products = () => {
         setOpen(true);
     };
 
+    const handleManagePCB = (row) => {
+        /*get all pcbs for a product
+         <Route path="/products/:productId/pcbs" element={<Pcb />} />
+        */
+        navigate(`/products/${row.id}/pcbs/`)
+    };
 
     const handleClose = () => {
         setOpen(false);
     };
 
     const handleConfirmDelete = () => {
-         dispatch(deleteProduct(selectedProduct.id));
+        dispatch(deleteProduct(selectedProduct.id));
         setOpen(false);
     };
 
@@ -149,18 +162,31 @@ const Products = () => {
             renderCell: (params) => {
                 return (
                     <div>
-                        <IconButton color="secondary" onClick={() => handleEdit(params.row)}>
-                            <EditOutlinedIcon />
-                        </IconButton>
-                        <IconButton color="secondary" onClick={() => handleDelete(params.row)}>
-                            <DeleteOutlinedIcon />
-                        </IconButton>
+
+                        <Tooltip title="Edit Product" placement="top">
+                            <IconButton color="secondary" onClick={() => handleEdit(params.row)}>
+                                <EditOutlinedIcon/>
+                            </IconButton>
+                        </Tooltip>
+
+                        <Tooltip title="Delete Product" placement="top">
+                            <IconButton color="secondary" onClick={() => handleDelete(params.row)}>
+                                <DeleteOutlinedIcon/>
+                            </IconButton>
+                        </Tooltip>
+
+                        <Tooltip title="Manage PCB's" placement="top">
+                            <IconButton color="secondary" onClick={() => handleManagePCB(params.row)}>
+                                <DeveloperBoardIcon/>
+                            </IconButton>
+                        </Tooltip>
                     </div>
                 );
             },
         },
     ];
-    function Header({ title, subtitle, subtitleStyle }) {
+
+    function Header({title, subtitle, subtitleStyle}) {
         return (
             <header>
                 <h1>{title}</h1>
@@ -183,44 +209,41 @@ const Products = () => {
                         right: 10,
                         zIndex: 1000,
                         color: 'white',
-                        backgroundColor: 'lightseagreen'
-
+                        backgroundColor: colors.greenAccent[400],
+                        '&:hover': {
+                            backgroundColor: colors.greenAccent[300], // change this to the color you want on hover
+                            // If you want the color to remain white on hover, you can add the following line
+                            color: 'white',
+                            fontweight: 900
+                        },
                     }}
-                    startIcon={<AddIcon />}>
+                    startIcon={<AddIcon/>}>
                     Add Product
                 </Button>
 
 
-                <Header subtitleStyle={{ color: 'black' }} subtitle="Managing the Products" />
+                <Header subtitleStyle={{color: colors.grey[100]}} subtitle="Managing the Products"/>
 
-            <Box
-                m="40px 0 0 0"
-                height="75vh"
-                sx={productStyles}            >
-                <DataGrid   rows={productResponse ? productResponse.data : []} columns={columns} />
+                <Box
+                    m="40px 0 0 0"
+                    height="75vh"
+                    sx={productStyles}>
+                    <DataGrid
+                        pageSize={10}
+                        pagination
+                        components={{
+                            Toolbar: GridToolbar
+                        }}
+                        rows={productResponse ? productResponse.data : []}
+                        columns={columns}/>
+                </Box>
             </Box>
-            </Box>
-            <Dialog
+            <DeleteDialog
                 open={open}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-            >
-                <DialogTitle id="alert-dialog-title">{"Delete Product"}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        Are you sure you want to delete the product - {selectedProduct?.name}?
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                        Cancel
-                    </Button>
-                    <Button onClick={handleConfirmDelete} color="primary" autoFocus>
-                        Delete
-                    </Button>
-                </DialogActions>
-            </Dialog>
+                handleClose={handleClose}
+                handleConfirmDelete={handleConfirmDelete}
+                entityName={selectedProduct?.name}
+            />
         </Box>
     );
 };

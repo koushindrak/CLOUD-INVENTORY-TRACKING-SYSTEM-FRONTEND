@@ -1,4 +1,4 @@
-import { call, put, takeLatest, all } from 'redux-saga/effects';
+import {takeLatest} from 'redux-saga/effects';
 
 //1. constant
 import {apiCallHandler, apis, apiTypes} from "../../common-files/apiCallHandler";
@@ -11,27 +11,27 @@ export const GET_PCB_FAILURE = 'GET_PCB_FAILURE';
 
 //2. action
 export function getPcb() {
-    console.log("Action---getPcb")
+    console.log("getting pcbssss")
     return {
         type: GET_PCB_REQUEST
     }
 }
 
 //3. saga
-function* handleGetPcbRequest(action){
-    console.log("---saga--- handleGetpcbRequest---")
-    yield (apiCallHandler(action, GET_PCB_SUCCESS, GET_PCB_FAILURE, apis.PCB_APIS_BASE_URL,apiTypes.GET_ALL));
+function* handleGetPcbRequest(action) {
+    yield (apiCallHandler(action, GET_PCB_SUCCESS, GET_PCB_FAILURE, apis.PCB_APIS_BASE_URL, apiTypes.GET_ALL));
 }
+
 export function* watchGetPcbRequest() {
-    yield takeLatest(GET_PCB_REQUEST,handleGetPcbRequest)
+    yield takeLatest(GET_PCB_REQUEST, handleGetPcbRequest)
 }
 
 //4. Reducer
 export const initialState = fromJS({});
+
 export function GetPcbReducer(state = initialState, action) {
     switch (action.type) {
         case GET_PCB_SUCCESS:
-            console.log("GET_PCB_SUCCESS---",action.response)
             return Object.assign({}, state, {getPcbResponse: action.response})
 
         case GET_PCB_FAILURE:
@@ -43,6 +43,6 @@ export function GetPcbReducer(state = initialState, action) {
 
 //5. Selector
 const getPcbSelector = state => state.pcb || initialState;
-export const getPcbSuccess = createSelector(getPcbSelector,state=>state.getPcbResponse)
-export const getPcbFailure =  createSelector(getPcbSelector,state=>state.getPcbError)
+export const getPcbSuccess = createSelector(getPcbSelector, state => state.getPcbResponse)
+export const getPcbFailure = createSelector(getPcbSelector, state => state.getPcbError)
 export {getPcbSelector}

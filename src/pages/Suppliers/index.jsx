@@ -1,18 +1,22 @@
-import { useState,useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Box, Typography, useTheme, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
-import { tokens } from "../../theme";
-import { useDispatch, useSelector } from 'react-redux';
+import {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {
+    Box,
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    useTheme
+} from "@mui/material";
+import {DataGrid} from "@mui/x-data-grid";
+import {tokens} from "../../theme";
+import {useDispatch, useSelector} from 'react-redux';
 import Header from "../../containers/Header";
-import IconButton from '@mui/material/IconButton';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import AddIcon from '@mui/icons-material/Add';
-import { successToast, errorToast } from '../../containers/react-toast-alert';
 import 'react-toastify/dist/ReactToastify.css';
 import {getSupplier, getSupplierSuccess} from "./GetAllSupplier";
-import {getSupplierStyles} from "./css/SupplierStyles";
+import {getTableStyle} from "../../common-files/CustomTableStyle";
 
 
 const Supplier = () => {
@@ -21,7 +25,7 @@ const Supplier = () => {
 
     //style constants
     const theme = useTheme();
-    const supplierStyles = getSupplierStyles(theme);
+    const supplierStyles = getTableStyle(theme);
     const colors = tokens(theme.palette.mode);
 
     //state constants
@@ -38,9 +42,6 @@ const Supplier = () => {
     useEffect(() => {
         dispatch(getSupplier());
     }, [dispatch]);
-
-
-
 
 
     /*Effects Section Ends here */
@@ -67,7 +68,7 @@ const Supplier = () => {
     };
 
     const handleConfirmDelete = () => {
-         // dispatch(deleteSupplier(selectedSupplier.id));
+        // dispatch(deleteSupplier(selectedSupplier.id));
         setOpen(false);
     };
 
@@ -124,7 +125,8 @@ const Supplier = () => {
         //     },
         // },
     ];
-    function Header({ title, subtitle, subtitleStyle }) {
+
+    function Header({title, subtitle, subtitleStyle}) {
         return (
             <header>
                 <h1>{title}</h1>
@@ -140,14 +142,17 @@ const Supplier = () => {
             <Box position="relative">
 
 
-                <Header subtitleStyle={{ color: 'black' }} subtitle="Managing the Suppliers" />
+                <Header
+                    subtitleStyle={{color: colors.grey[100]}}
+                    subtitle="Managing the Suppliers"/>
 
-            <Box
-                m="40px 0 0 0"
-                height="75vh"
-                sx={supplierStyles}            >
-                <DataGrid   rows={getSupplierSuccessResponse ? getSupplierSuccessResponse.data : []} columns={columns} />
-            </Box>
+                <Box
+                    m="40px 0 0 0"
+                    height="75vh"
+                    sx={supplierStyles}>
+                    <DataGrid rows={getSupplierSuccessResponse ? getSupplierSuccessResponse.data : []}
+                              columns={columns}/>
+                </Box>
             </Box>
             <Dialog
                 open={open}
