@@ -19,6 +19,7 @@ import {deleteComponentById, deleteComponentByIdFailure, deleteComponentByIdSucc
 import {errorToast, successToast} from "../../containers/react-toast-alert";
 import DeveloperBoardIcon from "@mui/icons-material/DeveloperBoard";
 import {componentColumns} from "./ComponentColumns";
+import * as COMMON_UTILS from '../../common-files/commonUtils';
 
 
 const Component = () => {
@@ -151,6 +152,8 @@ const Component = () => {
             renderCell: (params) => {
                 return (
                     <div>
+                        {(['ADMIN', 'EDITOR'].includes(COMMON_UTILS.getRole())) && (
+                            <>
                         <Tooltip title="Edit Component" placement="top">
                             <IconButton color="secondary" onClick={() => handleEdit(params.row)}>
                                 <EditOutlinedIcon/>
@@ -162,7 +165,8 @@ const Component = () => {
                                 <DeleteOutlinedIcon/>
                             </IconButton>
                         </Tooltip>
-
+                            </>
+                        )}
                         <Tooltip title="Manage PCB's" placement="top">
                             <IconButton color="secondary" onClick={() => handleManagePCB(params.row)}>
                                 <DeveloperBoardIcon/>

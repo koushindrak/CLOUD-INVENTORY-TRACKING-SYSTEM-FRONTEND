@@ -19,6 +19,7 @@ import {deletePcbById, deletePcbByIdFailure, deletePcbByIdSuccess, resetDeletePc
 import {errorToast, successToast} from "../../containers/react-toast-alert";
 import {resetGetPcbByIdSates} from "./GetPCBById";
 import {getComponentById, getComponentByIdSuccess} from "../Components/GetComponentById";
+import * as COMMON_UTILS from '../../common-files/commonUtils';
 
 
 const Pcb = () => {
@@ -169,8 +170,11 @@ const Pcb = () => {
             flex: 1,
             headerAlign: "center",
             align: "center",
-        },
-        {
+        }
+    ];
+
+    if (['ADMIN', 'EDITOR'].includes(COMMON_UTILS.getRole())) {
+        columns.push({
             headerName: "Actions",
             headerAlign: "center",
             align: "center",
@@ -187,9 +191,8 @@ const Pcb = () => {
                     </div>
                 );
             },
-        },
-    ];
-
+        });
+    }
     function Header({title, subtitle, subtitleStyle}) {
         return (
             <header>
