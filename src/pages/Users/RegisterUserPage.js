@@ -6,7 +6,7 @@ import Header from "../../containers/Header";
 import {useDispatch, useSelector} from 'react-redux';
 import {useMediaQuery} from "@mui/material";
 import {useNavigate, useParams} from 'react-router-dom';
-import {getUserByCode, getUserByCodeSuccess} from "./GetUserByCode";
+import {getUserByCode, getUserByCodeFailure, getUserByCodeSuccess} from "./GetUserByCode";
 import {getUserById, getUserByIdSuccess, resetGetUserByIdSates} from "./GetUserById";
 import {resetUpdateUserSates, updateUser, updateUserFailure, updateUserSuccess} from "./UpdateUser";
 import {errorToast, successToast} from "../../containers/react-toast-alert";
@@ -40,6 +40,8 @@ const RegisterUserPage = () => {
     const {productId, userId} = useParams();
     const dispatch = useDispatch();
     const userSuccess = useSelector(getUserByCodeSuccess);
+    const userFailure = useSelector(getUserByCodeFailure);
+
     const [user, setUser] = useState(null);
     const updateSuccess = useSelector(updateUserSuccess);
     const updateFailure = useSelector(updateUserFailure);
@@ -56,9 +58,29 @@ const RegisterUserPage = () => {
         if (!userSuccess) {
             dispatch(getUserByCode(code));
         } else {
-            setUser(userSuccess.data);
+            // setUser(userSuccess.data);
+            //temp changes
+            // console.log(userSuccess.data)
+
+
         }
+
     }, [dispatch, userSuccess]);
+
+    useEffect(()=>{
+        if(userFailure){
+            setUser({
+                "id": 6,
+                "firstName": "koushindra",
+                "lastName": "kumar",
+                "email": "mail.koushindra@gmail.com",
+                "password": "$2a$10$VEf.wBbfOOrKDbSu5zhlWOtZ9hJ0dTWgHjaEAHnu7CyzB1TU.V7p.",
+                "phoneNumber": null,
+                "role": "EDITOR",
+                "username": "koushindra1"
+            })
+        }
+    },[userFailure])
 
     useEffect(() => {
         if (updateSuccess) {

@@ -32,6 +32,7 @@ const Topbar = () => {
         // Here you would typically have a function to handle the logout operation...
         // But for now, we just navigate to the "/" page
         dispatch(resetLoginSates())
+        localStorage.token = '';
         navigate("/")
     };
 

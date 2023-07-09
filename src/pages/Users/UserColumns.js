@@ -24,6 +24,13 @@ export const userColumns = [
         align: "center",
     },
     {
+        field: "username",
+        headerName: "Username",
+        flex: 1,
+        headerAlign: "center",
+        align: "center",
+    },
+    {
         field: "role",
         headerName: "Role",
         flex: 1,
