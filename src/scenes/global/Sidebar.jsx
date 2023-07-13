@@ -11,6 +11,9 @@ import MemoryIcon from '@mui/icons-material/Memory';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import Business from '@mui/icons-material/Business';
 import jwt_decode from "jwt-decode";
+import SyncAltIcon from '@mui/icons-material/SyncAlt';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
+import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 
 import AssignmentIndRoundedIcon from '@mui/icons-material/AssignmentIndRounded';
 import HelpCenterRoundedIcon from '@mui/icons-material/HelpCenterRounded';
@@ -181,6 +184,13 @@ const Sidebar = () => {
                             setSelected={setSelected}
                         />
 
+                        <Item
+                            title="Component Sourcing"
+                            to="/sourcing"
+                            icon={<SwapHorizIcon/>}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
                     </Box>
                 </Menu>
             </ProSidebar>
