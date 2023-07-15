@@ -14,10 +14,24 @@ import {watchUpdatePcbRequest} from "../pages/Pcb/UpdatePcb";
 import {watchGetComponentByIdRequest} from "../pages/Components/GetComponentById";
 import {watchDeleteComponentByIdRequest} from "../pages/Components/DeleteComponent";
 import {watchUpdateComponentRequest} from "../pages/Components/UpdateComponent";
+import {watchLoginRequest} from "../pages/Login/Login";
+import {watchInviteUserRequest} from "../pages/Users/InviteUser";
+import {watchGetUserRequest} from "../pages/Users/GetAllUser";
+import {watchGetUserByCODERequest} from "../pages/Users/GetUserByCode";
+import {watchUpdateUserRequest} from "../pages/Users/UpdateUser";
 
 
 export default function* rootSaga() {
     yield all([
+
+        //login
+        watchLoginRequest(),
+
+        //user
+        watchInviteUserRequest(),
+        watchGetUserRequest(),
+        watchGetUserByCODERequest(),
+        watchUpdateUserRequest(),
 
         //product
         productSaga(),
@@ -45,7 +59,6 @@ export default function* rootSaga() {
         //order
         watchGetOrderRequest(),
         watchGetOrderByIdRequest()
-
 
     ]);
 }

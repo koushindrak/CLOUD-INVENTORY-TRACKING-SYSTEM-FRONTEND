@@ -15,7 +15,7 @@ export const apiTypes = {
 }
 export const apis = {
     /*BASE APIS*/
-    USER_APIS_BASE_URL: "/api/v1/users/kk",
+    USER_APIS_BASE_URL: "/api/v1/users",
     ROLE_APIS_BASE_URL: "/api/v1/role",
     PRODUCT_APIS_BASE_URL: "/api/v1/products",
     PCB_APIS_BASE_URL: "/api/v1/pcb",
@@ -42,7 +42,7 @@ export function* apiCallHandler(action, responseConst, errorConst, apiUrlConstan
 function* apiTryBlockHandler(action, responseConst, apiUrlConstant, type, isBaseUrl, isLoading) {
     // let url = window.URL + apiUrlConstant+"/";  //COMMENTED
     let url = `${API_HOST}` + apiUrlConstant;
-
+    console.log("url---", url)
     let method = axios.get;
     let urlAndMethod = setUrlAndMethod(type, url, action, method);
 
@@ -59,20 +59,14 @@ function* apiTryBlockHandler(action, responseConst, apiUrlConstant, type, isBase
 
         switch (apiName) {
             case "LOGIN": {
-                const response = yield call(axios.post, window.URL + apis.LOGIN, action.payload);
+                const response = yield call(axios.post, `${API_HOST}` + apis.LOGIN, action.payload);
                 yield put({type: responseConst, response: response.data.data})
                 break;
             }
             case "SIGNUP": {
-                const response = yield call(axios.post, window.URL + apis.SIGNUP, action.payload);
+                const response = yield call(axios.post, `${API_HOST}` + apis.SIGNUP, action.payload);
                 yield put({type: responseConst, response: response.data})
                 break;
-            }
-            case "GET_PARKING_AREA_STATS":
-            case "GET_SLOTS_BY_PARKING_AREA_ID": {
-                url = url.replace("{id}", action.id)
-                const response = yield call(axios.get, url, COMMON_UTILS.GetHeaders());
-                yield put({type: responseConst, response: response.data})
             }
             default:
                 break;

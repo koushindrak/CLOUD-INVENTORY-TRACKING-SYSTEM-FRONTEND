@@ -10,7 +10,15 @@ import DeveloperBoardIcon from '@mui/icons-material/DeveloperBoard';
 import MemoryIcon from '@mui/icons-material/Memory';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import Business from '@mui/icons-material/Business';
+import jwt_decode from "jwt-decode";
+import SyncAltIcon from '@mui/icons-material/SyncAlt';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
+import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 
+import AssignmentIndRoundedIcon from '@mui/icons-material/AssignmentIndRounded';
+import HelpCenterRoundedIcon from '@mui/icons-material/HelpCenterRounded';
+import LockResetRoundedIcon from '@mui/icons-material/LockResetRounded';
+import {UserOutlined} from "@ant-design/icons";
 
 const Item = ({title, to, icon, selected, setSelected}) => {
     const theme = useTheme();
@@ -102,34 +110,44 @@ const Sidebar = () => {
                                     fontWeight="bold"
                                     sx={{m: "10px 0 0 0"}}
                                 >
-                                    Leslie Mills
+                                    {jwt_decode(localStorage["token"]).name.split(" ")[0]}
                                 </Typography>
                                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                                    Admin
+                                    {jwt_decode(localStorage["token"]).role}
                                 </Typography>
                             </Box>
                         </Box>
                     )}
 
                     <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+                        {jwt_decode(localStorage["token"]).role === 'ADMIN' &&
+                        <Item
+                            title="Manage Users"
+                            to="/users"
+                            icon={<UserOutlined/>}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
+                        }
                         {/*<Item*/}
-                        {/*  title="Dashboard"*/}
-                        {/*  to="/"*/}
-                        {/*  icon={<HomeOutlinedIcon />}*/}
-                        {/*  selected={selected}*/}
-                        {/*  setSelected={setSelected}*/}
+                        {/*    title="Forgot Password"*/}
+                        {/*    to="/forgot-pass"*/}
+                        {/*    icon={<HelpCenterRoundedIcon/>}*/}
+                        {/*    selected={selected}*/}
+                        {/*    setSelected={setSelected}*/}
                         {/*/>*/}
 
-                        {/*<Typography*/}
-                        {/*  variant="h6"*/}
-                        {/*  color={colors.grey[300]}*/}
-                        {/*  sx={{ m: "15px 0 5px 20px" }}*/}
-                        {/*>*/}
-                        {/*  Data*/}
-                        {/*</Typography>*/}
+                        {/*<Item*/}
+                        {/*    title="New Password"*/}
+                        {/*    to="/new-pass"*/}
+                        {/*    icon={<LockResetRoundedIcon/>}*/}
+                        {/*    selected={selected}*/}
+                        {/*    setSelected={setSelected}*/}
+                        {/*/>*/}
+
                         <Item
                             title="Products"
-                            to="/"
+                            to="/products"
                             icon={<StorefrontIcon/>}
                             selected={selected}
                             setSelected={setSelected}
@@ -165,92 +183,14 @@ const Sidebar = () => {
                             selected={selected}
                             setSelected={setSelected}
                         />
-                        {/*<Item*/}
-                        {/*  title="Contacts Information"*/}
-                        {/*  to="/contacts"*/}
-                        {/*  icon={<ContactsOutlinedIcon />}*/}
-                        {/*  selected={selected}*/}
-                        {/*  setSelected={setSelected}*/}
-                        {/*/>*/}
-                        {/*<Item*/}
-                        {/*  title="Invoices Balances"*/}
-                        {/*  to="/invoices"*/}
-                        {/*  icon={<ReceiptOutlinedIcon />}*/}
-                        {/*  selected={selected}*/}
-                        {/*  setSelected={setSelected}*/}
-                        {/*/>*/}
 
-                        {/*<Typography*/}
-                        {/*  variant="h6"*/}
-                        {/*  color={colors.grey[300]}*/}
-                        {/*  sx={{ m: "15px 0 5px 20px" }}*/}
-                        {/*>*/}
-                        {/*  Pages*/}
-                        {/*</Typography>*/}
-                        {/*<Item*/}
-                        {/*  title="Profile Form"*/}
-                        {/*  to="/form"*/}
-                        {/*  icon={<PersonOutlinedIcon />}*/}
-                        {/*  selected={selected}*/}
-                        {/*  setSelected={setSelected}*/}
-                        {/*/>*/}
-                        {/*<Item*/}
-                        {/*  title="Calendar"*/}
-                        {/*  to="/calendar"*/}
-                        {/*  icon={<CalendarTodayOutlinedIcon />}*/}
-                        {/*  selected={selected}*/}
-                        {/*  setSelected={setSelected}*/}
-                        {/*/>*/}
-                        {/*<Item*/}
-                        {/*  title="FAQ Page"*/}
-                        {/*  to="/faq"*/}
-                        {/*  icon={<HelpOutlineOutlinedIcon />}*/}
-                        {/*  selected={selected}*/}
-                        {/*  setSelected={setSelected}*/}
-                        {/*/>*/}
-
-                        {/*<Typography*/}
-                        {/*  variant="h6"*/}
-                        {/*  color={colors.grey[300]}*/}
-                        {/*  sx={{ m: "15px 0 5px 20px" }}*/}
-                        {/*>*/}
-                        {/*  Charts*/}
-                        {/*</Typography>*/}
-                        {/*<Item*/}
-                        {/*  title="Bar Chart"*/}
-                        {/*  to="/bar"*/}
-                        {/*  icon={<BarChartOutlinedIcon />}*/}
-                        {/*  selected={selected}*/}
-                        {/*  setSelected={setSelected}*/}
-                        {/*/>*/}
-                        {/*<Item*/}
-                        {/*  title="Pie Chart"*/}
-                        {/*  to="/pie"*/}
-                        {/*  icon={<PieChartOutlineOutlinedIcon />}*/}
-                        {/*  selected={selected}*/}
-                        {/*  setSelected={setSelected}*/}
-                        {/*/>*/}
-                        {/*<Item*/}
-                        {/*  title="Line Chart"*/}
-                        {/*  to="/line"*/}
-                        {/*  icon={<TimelineOutlinedIcon />}*/}
-                        {/*  selected={selected}*/}
-                        {/*  setSelected={setSelected}*/}
-                        {/*/>*/}
-                        {/*<Item*/}
-                        {/*  title="Geography Chart"*/}
-                        {/*  to="/geography"*/}
-                        {/*  icon={<MapOutlinedIcon />}*/}
-                        {/*  selected={selected}*/}
-                        {/*  setSelected={setSelected}*/}
-                        {/*/>*/}
-                        {/*<Item*/}
-                        {/*    title="Date And time Picker"*/}
-                        {/*    to="/datetimepicker"*/}
-                        {/*    icon={<MapOutlinedIcon />}*/}
-                        {/*    selected={selected}*/}
-                        {/*    setSelected={setSelected}*/}
-                        {/*/>*/}
+                        <Item
+                            title="Component Sourcing"
+                            to="/sourcing"
+                            icon={<SwapHorizIcon/>}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
                     </Box>
                 </Menu>
             </ProSidebar>
