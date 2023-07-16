@@ -1,0 +1,13 @@
+/* style.css */
+.scrollable-container {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+
+.scrollable-container::-webkit-scrollbar { /* WebKit */
+    width: 0;
+    height: 0;
+}

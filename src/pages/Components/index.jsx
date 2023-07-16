@@ -189,7 +189,7 @@ const Component = () => {
 
 
     return (
-        <Box m="20px">
+        <Box marginLeft="275px">
 
             <Box position="relative">
                 <Button

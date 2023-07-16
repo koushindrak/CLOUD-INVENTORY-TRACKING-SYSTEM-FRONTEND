@@ -1,11 +1,12 @@
-import {useEffect, useState} from 'react';
-import {Box, useTheme} from "@mui/material";
+import {useEffect, useState,useRef} from 'react';
+import {Box, useTheme, Avatar, Button, Grid} from "@mui/material";
 import {tokens} from "../../theme";
 import {useDispatch, useSelector} from 'react-redux';
 import 'react-toastify/dist/ReactToastify.css';
 import {getSuggestedComponent, getSuggestedComponentSuccess} from "./GetAllSuggestedComponent";
 import {getSuggestedComponentById, getSuggestedComponentByIdSuccess} from "./GetSuggestedComponentById";
-import { Card, CardContent, Grid, Typography, CardMedia, Link } from '@mui/material';
+import { Card, CardContent, Typography, CardHeader, CardActions } from '@mui/material';
+import './CardsStyle.css'; // import the new CSS file
 
 const SuggestedComponent = () => {
     const getByPartNumberSuccessRes = useSelector(getSuggestedComponentByIdSuccess);
@@ -16,7 +17,7 @@ const SuggestedComponent = () => {
     const colors = tokens(theme.palette.mode);
 
     useEffect(() => {
-        dispatch(getSuggestedComponentById("TC-35064-000-ND"));
+        dispatch(getSuggestedComponentById("2056-GRILLEFR87-ND"));
     }, [dispatch]);
 
     useEffect(() => {
@@ -27,52 +28,75 @@ const SuggestedComponent = () => {
     },[getByPartNumberSuccessRes])
 
     return (
-        <Box m="20px">
-            <Grid container spacing={3}>
-                { suggestedComp &&
-                    <Grid item xs={12}>
-                        <Typography variant="h4">Product Information</Typography>
+        <Box marginLeft="275px">
+            <Typography variant="h4">Product Information</Typography>
 
-                        <Card>
-                            <CardMedia
-                                component="img"
-                                height="140"
-                                image={suggestedComp.Product.PrimaryPhoto}
-                                alt={suggestedComp.Product.ProductDescription}
+            { suggestedComp &&
+                <Card>
+                    <CardHeader
+                        avatar={
+                            <Avatar
+                                aria-label="product"
+                                src={suggestedComp.Product.PrimaryPhoto}
                             />
-                            <CardContent>
-                                <Typography variant="h5">{suggestedComp.Product.ProductDescription}</Typography>
-                                <Typography variant="subtitle1">Manufacturer: {suggestedComp.Product.Manufacturer.Value}</Typography>
-                                <Typography variant="subtitle1">Unit Price: {suggestedComp.Product.UnitPrice}</Typography>
-                                <Typography variant="subtitle1">Available Quantity: {suggestedComp.Product.QuantityAvailable}</Typography>
-                                <Typography variant="subtitle1">Packaging: {suggestedComp.Product.Packaging.Value}</Typography>
-                                <Link href={suggestedComp.Product.PrimaryDatasheet}>Datasheet</Link>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                }
-                {suggestedComp && suggestedComp.SuggestedProducts && suggestedComp.SuggestedProducts.map((product, index) => (
-                    <Grid item xs={12} sm={6} md={4} key={index}>
-                        <Typography variant="h4">Suggested Product</Typography>
-                        <Card>
-                            <CardMedia
-                                component="img"
-                                height="140"
-                                image={product.PrimaryPhoto}
-                                alt={product.ProductDescription}
-                            />
-                            <CardContent>
-                                <Typography variant="h5">{product.ProductDescription}</Typography>
-                                <Typography variant="subtitle1">Manufacturer: {product.Manufacturer.Value}</Typography>
-                                <Typography variant="subtitle1">Unit Price: {product.UnitPrice}</Typography>
-                                <Typography variant="subtitle1">Available Quantity: {product.QuantityAvailable}</Typography>
-                                <Typography variant="subtitle1">Packaging: {product.Packaging.Value}</Typography>
-                                <Link href={product.PrimaryDatasheet}>Datasheet</Link>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                ))}
-            </Grid>
+                        }
+                        title={suggestedComp.Product.ProductDescription}
+                        subheader={`Manufacturer: ${suggestedComp.Product.Manufacturer.Value}`}
+                    />
+                    <CardContent>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            Unit Price: {suggestedComp.Product.UnitPrice} <br/>
+                            Available Quantity: {suggestedComp.Product.QuantityAvailable} <br/>
+                            Packaging: {suggestedComp.Product.Packaging.Value} <br/>
+                            Series: {suggestedComp.Product.Series.Value} <br/>
+                            Manufacturer Lead Weeks: {suggestedComp.Product.ManufacturerLeadWeeks} <br/>
+                            Category: {suggestedComp.Product.Category.Value} <br/>
+                            // continue adding more fields here...
+                        </Typography>
+                        <CardActions disableSpacing>
+                            <Button size="small" color="primary" href={suggestedComp.Product.PrimaryDatasheet}>
+                                View Datasheet
+                            </Button>
+                        </CardActions>
+                    </CardContent>
+                </Card>
+            }
+            {suggestedComp && suggestedComp.SuggestedProducts &&
+                <Grid container spacing={3}>
+                    { suggestedComp.SuggestedProducts.map((product, index) => (
+                        <Grid item xs={12} key={index}>
+                            <Card>
+                                <CardHeader
+                                    avatar={
+                                        <Avatar
+                                            aria-label="product"
+                                            src={product.PrimaryPhoto}
+                                        />
+                                    }
+                                    title={product.ProductDescription}
+                                    subheader={`Manufacturer: ${product.Manufacturer.Value}`}
+                                />
+                                <CardContent>
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        Unit Price: {product.UnitPrice} <br/>
+                                        Available Quantity: {product.QuantityAvailable} <br/>
+                                        Packaging: {product.Packaging.Value} <br/>
+                                        Series: {product.Series.Value} <br/>
+                                        Manufacturer Lead Weeks: {product.ManufacturerLeadWeeks} <br/>
+                                        Category: {product.Category.Value} <br/>
+                                        // continue adding more fields here...
+                                    </Typography>
+                                    <CardActions disableSpacing>
+                                        <Button size="small" color="primary" href={product.PrimaryDatasheet}>
+                                            View Datasheet
+                                        </Button>
+                                    </CardActions>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                    ))}
+                </Grid>
+            }
         </Box>
     );
 };

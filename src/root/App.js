@@ -39,6 +39,7 @@ import ComponentsSourcing from "../pages/ComponentsSourcing";
 
 function App() {
     const [theme, colorMode] = useMode();
+
     const [isSidebar, setIsSidebar] = useState(true);
 
     // return (
@@ -69,7 +70,7 @@ function App() {
             <ThemeProvider theme={theme}>
                 <CssBaseline/>
                 <ToastContainer/> {/* Add this line */}
-                <div className="app">
+                <div className="app" style={{ overflowX: 'hidden' }}>
 
                     {!isLoginPage
                         && !isForgotPasswordPage
