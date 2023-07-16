@@ -25,7 +25,7 @@ body {
 .card-header {
     background: linear-gradient(135deg, #6c5ce7 0%, #0984e3 100%);
     color: white;
-    font-size: 1.40rem;
+    font-size: 1.20rem;
     font-weight: 900;
     padding: 15px;
     border-radius: 5px;
@@ -34,7 +34,7 @@ body {
 
 .header {
     font-family: 'Roboto Slab', serif;
-    font-size: 2rem;
+    font-size: 1.1rem;
     color: #6c5ce7;
     text-align: center;
     margin-bottom: 30px;
