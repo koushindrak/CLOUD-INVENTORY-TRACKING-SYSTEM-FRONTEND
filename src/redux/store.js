@@ -21,6 +21,8 @@ import {InviteUserReducer} from "../pages/Users/InviteUser";
 import {GetUserReducer} from "../pages/Users/GetAllUser";
 import {GetUserByCodeReducer} from "../pages/Users/GetUserByCode";
 import {UpdateUserReducer} from "../pages/Users/UpdateUser";
+import {GetSuggestedComponentReducer} from "../pages/ComponentsSourcing/GetAllSuggestedComponent";
+import {GetSuggestedComponentByIdReducer} from "../pages/ComponentsSourcing/GetSuggestedComponentById";
 
 let sagaMiddleware = createSagaMiddleware();
 const middleware = (getDefaultMiddleware) => [
@@ -67,8 +69,11 @@ const store = configureStore({
 
         //orders
         orders: GetOrderReducer,
-        orderById: GetOrderByIdReducer
+        orderById: GetOrderByIdReducer,
 
+        //suggested products
+        suggestedComponent: GetSuggestedComponentReducer,
+        suggestedComponentById: GetSuggestedComponentByIdReducer
     },
     middleware,
 });

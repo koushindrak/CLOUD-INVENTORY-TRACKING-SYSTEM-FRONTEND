@@ -35,6 +35,7 @@ import User from "../pages/Users";
 import UpdateUserPage from "../pages/Users/UpdateUserPage";
 import AddUser from "../pages/Users/CreateUserPage";
 import RegisterUserPage from "../pages/Users/RegisterUserPage";
+import ComponentsSourcing from "../pages/ComponentsSourcing";
 
 function App() {
     const [theme, colorMode] = useMode();
@@ -139,6 +140,7 @@ function App() {
 
                             <Route path="/suppliers" element={<Supplier/>}/>
 
+                            <Route path="/sourcing" element={<ComponentsSourcing/>}/>
                             <Route path="/contacts" element={<Contacts/>}/>
                             <Route path="/invoices" element={<Invoices/>}/>
                             <Route path="/form" element={<Form/>}/>

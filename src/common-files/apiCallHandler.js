@@ -22,6 +22,8 @@ export const apis = {
     COMPONENT_APIS_BASE_URL: "/api/v1/component",
     SUPPLIER_APIS_BASE_URL: "/api/v1/supplier",
     ORDER_APIS_BASE_URL: "/api/v1/dk/get-order-history",
+    SUGGESTED_COMPONENT_APIS_BASE_URL: "/api/v1/dk/product/suggested",
+
 
 
     /*OTHER APIS*/

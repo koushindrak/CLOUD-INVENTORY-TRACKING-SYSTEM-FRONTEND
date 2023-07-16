@@ -19,6 +19,8 @@ import {watchInviteUserRequest} from "../pages/Users/InviteUser";
 import {watchGetUserRequest} from "../pages/Users/GetAllUser";
 import {watchGetUserByCODERequest} from "../pages/Users/GetUserByCode";
 import {watchUpdateUserRequest} from "../pages/Users/UpdateUser";
+import {watchGetSuggestedComponentRequest} from "../pages/ComponentsSourcing/GetAllSuggestedComponent";
+import {watchGetSuggestedComponentByIdRequest} from "../pages/ComponentsSourcing/GetSuggestedComponentById";
 
 
 export default function* rootSaga() {
@@ -58,7 +60,10 @@ export default function* rootSaga() {
 
         //order
         watchGetOrderRequest(),
-        watchGetOrderByIdRequest()
+        watchGetOrderByIdRequest(),
 
+        //suggested component
+        watchGetSuggestedComponentRequest(),
+        watchGetSuggestedComponentByIdRequest()
     ]);
 }
