@@ -1,1 +1,1 @@
-export const API_HOST = "http://localhost:2612";
+export const API_HOST = "http://backend-service.default.svc.cluster.local";
