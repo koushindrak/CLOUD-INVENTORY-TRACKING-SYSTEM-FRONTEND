@@ -23,7 +23,7 @@ const SuggestedComponent = () => {
     },[getByPartNumberSuccessRes])
 
     return (
-        <Box marginLeft="275px">
+        <Box marginLeft="275px" marginBottom="100px">
             <Typography variant="h4" className="header">Product Information</Typography>
             { suggestedComp &&
                 <Paper className="card" elevation={3}>

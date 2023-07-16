@@ -5,6 +5,7 @@
     transition: transform 0.2s ease-in-out;
     background-color: #FFFFFF; /* Pure white background */
     border: 1px solid #E0E0E0; /* Light gray border */
+    font-family: 'Roboto', sans-serif; /* Commonly used, clean-looking font */
 }
 
 .card:hover {
@@ -16,6 +17,8 @@
     background: linear-gradient(45deg, #4DB6AC 30%, #00897B 90%); /* Gradient from teal to dark teal */
     color: white;
     padding: 15px;
+    font-size: 1.25rem; /* Larger font size for card header */
+    font-weight: 500; /* Semi-bold font weight */
 }
 
 .header {
@@ -27,7 +30,10 @@
     border-bottom: 2px solid #4DB6AC; /* Border in the same color as the text */
     position: relative;
     font-weight: 500;
-    letter-spacing: 1px;
+    font-family: 'Roboto Slab', serif; /* More formal, serif font for headers */
+    font-size: 2rem; /* Larger font size for headers */
+    text-transform: uppercase; /* Uppercase text for a more "headline" look */
+    letter-spacing: 2px; /* Additional letter spacing */
 }
 
 .header::after {
@@ -49,4 +55,10 @@
 
 .avatar:hover {
     border-color: #00897B; /* Border color changes to dark teal on hover */
+}
+
+.card-content {
+    font-family: 'Roboto', sans-serif; /* Same font as the card for consistency */
+    font-size: 1rem; /* Standard font size for body text */
+    color: #616161; /* Dark gray for readability */
 }
