@@ -14,7 +14,6 @@ const SuggestedComponent = () => {
     const dispatch = useDispatch();
 
     const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
 
     useEffect(() => {
         dispatch(getSuggestedComponentById("2056-GRILLEFR87-ND"));
@@ -22,72 +21,71 @@ const SuggestedComponent = () => {
 
     useEffect(() => {
         if(getByPartNumberSuccessRes){
-            console.log("getSuggestedComponentSuccessResponse-----",getByPartNumberSuccessRes)
             setSuggestedComp(getByPartNumberSuccessRes.data)
         }
     },[getByPartNumberSuccessRes])
 
     return (
         <Box marginLeft="275px">
-            <Typography variant="h4">Product Information</Typography>
-
+            <Typography variant="h4" style={{color: theme.palette.primary.main}}>Product Information</Typography>
             { suggestedComp &&
-                <Card>
+                <Card className="card">
                     <CardHeader
                         avatar={
                             <Avatar
+                                className="avatar"
                                 aria-label="product"
                                 src={suggestedComp.Product.PrimaryPhoto}
                             />
                         }
-                        title={suggestedComp.Product.ProductDescription}
-                        subheader={`Manufacturer: ${suggestedComp.Product.Manufacturer.Value}`}
+                        title={<Typography variant="h6" className="title">{suggestedComp.Product.ProductDescription}</Typography>}
+                        subheader={<Typography variant="subtitle1" className="subheader">Manufacturer: {suggestedComp.Product.Manufacturer.Value}</Typography>}
                     />
                     <CardContent>
-                        <Typography variant="body2" color="textSecondary" component="p">
+                        <Typography variant="body2" className="body-text" component="p">
                             Unit Price: {suggestedComp.Product.UnitPrice} <br/>
                             Available Quantity: {suggestedComp.Product.QuantityAvailable} <br/>
                             Packaging: {suggestedComp.Product.Packaging.Value} <br/>
                             Series: {suggestedComp.Product.Series.Value} <br/>
                             Manufacturer Lead Weeks: {suggestedComp.Product.ManufacturerLeadWeeks} <br/>
                             Category: {suggestedComp.Product.Category.Value} <br/>
-                            // continue adding more fields here...
                         </Typography>
                         <CardActions disableSpacing>
-                            <Button size="small" color="primary" href={suggestedComp.Product.PrimaryDatasheet}>
+                            <Button size="small" style={{color: theme.palette.secondary.main}} href={suggestedComp.Product.PrimaryDatasheet}>
                                 View Datasheet
                             </Button>
                         </CardActions>
                     </CardContent>
                 </Card>
             }
+            <Typography variant="h4" style={{color: theme.palette.primary.main, marginTop: '30px'}}>Suggested Products</Typography>
             {suggestedComp && suggestedComp.SuggestedProducts &&
                 <Grid container spacing={3}>
                     { suggestedComp.SuggestedProducts.map((product, index) => (
-                        <Grid item xs={12} key={index}>
-                            <Card>
+                        <Grid item xs={12} sm={6} key={index}>
+                            <Card className="card">
                                 <CardHeader
                                     avatar={
                                         <Avatar
+                                            className="avatar"
                                             aria-label="product"
                                             src={product.PrimaryPhoto}
                                         />
                                     }
-                                    title={product.ProductDescription}
-                                    subheader={`Manufacturer: ${product.Manufacturer.Value}`}
+                                    title={<Typography variant="h6" className="title">{product.ProductDescription}</Typography>}
+                                    subheader={<Typography variant="subtitle1" className="subheader">Manufacturer: {product.Manufacturer.Value}</Typography>}
                                 />
                                 <CardContent>
-                                    <Typography variant="body2" color="textSecondary" component="p">
+                                    <Typography variant="body2" className="body-text" component="p">
                                         Unit Price: {product.UnitPrice} <br/>
                                         Available Quantity: {product.QuantityAvailable} <br/>
                                         Packaging: {product.Packaging.Value} <br/>
                                         Series: {product.Series.Value} <br/>
                                         Manufacturer Lead Weeks: {product.ManufacturerLeadWeeks} <br/>
                                         Category: {product.Category.Value} <br/>
-                                        // continue adding more fields here...
                                     </Typography>
                                     <CardActions disableSpacing>
-                                        <Button size="small" color="primary" href={product.PrimaryDatasheet}>
+                                        <Button size="small" style={{color: theme.palette.secondary.main}} href={product.PrimaryDatasheet}>
                                             View Datasheet
                                         </Button>
                                     </CardActions>

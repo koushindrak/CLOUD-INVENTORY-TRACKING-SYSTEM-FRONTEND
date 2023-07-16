@@ -11,3 +11,37 @@
     width: 0;
     height: 0;
 }
+
+.card {
+    border-radius: 15px !important;
+    box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+    transition: all .3s ease-out;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    position: relative;
+    margin-top: -50px;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.15);
+}
+
+.title {
+    color: #2b2b2b;
+    letter-spacing: .5px;
+    text-transform: capitalize;
+}
+
+.subheader {
+    color: #fe4081;
+    font-weight: 500;
+    letter-spacing: .7px;
+    text-transform: capitalize;
+}
+
+.body-text {
+    color: #747d88;
+}
