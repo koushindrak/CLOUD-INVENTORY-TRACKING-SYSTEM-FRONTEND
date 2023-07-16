@@ -1,47 +1,52 @@
-/* style.css */
-.scrollable-container {
-    display: flex;
-    flex-direction: row;
-    overflow-x: auto;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none;  /* Internet Explorer 10+ */
-}
-
-.scrollable-container::-webkit-scrollbar { /* WebKit */
-    width: 0;
-    height: 0;
-}
-
 .card {
-    border-radius: 15px !important;
-    box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
-    transition: all .3s ease-out;
-    cursor: pointer;
-    overflow: hidden;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease-in-out;
+    background-color: #FFFFFF; /* Pure white background */
+    border: 1px solid #E0E0E0; /* Light gray border */
+}
+
+.card:hover {
+    transform: scale(1.03);
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background: linear-gradient(45deg, #4DB6AC 30%, #00897B 90%); /* Gradient from teal to dark teal */
+    color: white;
+    padding: 15px;
+}
+
+.header {
+    color: #4DB6AC; /* Teal color */
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 20px;
+    padding: 10px;
+    border-bottom: 2px solid #4DB6AC; /* Border in the same color as the text */
+    position: relative;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.header::after {
+    content: '';
+    position: absolute;
+    width: 70px;
+    height: 4px;
+    background: #4DB6AC; /* The same teal color */
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .avatar {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    position: relative;
-    margin-top: -50px;
-    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.15);
+    background: white;
+    border: 2px solid #4DB6AC; /* Teal border */
+    transition: border-color 0.2s ease-in-out;
 }
 
-.title {
-    color: #2b2b2b;
-    letter-spacing: .5px;
-    text-transform: capitalize;
-}
-
-.subheader {
-    color: #fe4081;
-    font-weight: 500;
-    letter-spacing: .7px;
-    text-transform: capitalize;
-}
-
-.body-text {
-    color: #747d88;
+.avatar:hover {
+    border-color: #00897B; /* Border color changes to dark teal on hover */
 }
