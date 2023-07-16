@@ -1,39 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Slab:wght@400;500;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    transition: all 0.3s ease-in-out;
+}
+
+body {
+    background-color: #f4f4f4;
+}
+
 .card {
     padding: 20px;
     border-radius: 15px;
-    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s ease-in-out;
-    background-color: #FFFFFF; /* Pure white background */
-    border: 1px solid #E0E0E0; /* Light gray border */
-    font-family: 'Roboto', sans-serif; /* Commonly used, clean-looking font */
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+    background: white;
+    font-family: 'Roboto', sans-serif;
+    transition: transform 0.3s;
 }
 
 .card:hover {
-    transform: scale(1.03);
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+    transform: translateY(-10px);
 }
 
 .card-header {
-    background: linear-gradient(45deg, #4DB6AC 30%, #00897B 90%); /* Gradient from teal to dark teal */
+    background: linear-gradient(135deg, #6c5ce7 0%, #0984e3 100%);
     color: white;
+    font-size: 1.40rem;
+    font-weight: 900;
     padding: 15px;
-    font-size: 1.25rem; /* Larger font size for card header */
-    font-weight: 500; /* Semi-bold font weight */
+    border-radius: 5px;
+    letter-spacing: 1px;
 }
 
 .header {
-    color: #4DB6AC; /* Teal color */
+    font-family: 'Roboto Slab', serif;
+    font-size: 2rem;
+    color: #6c5ce7;
     text-align: center;
     margin-bottom: 30px;
     margin-top: 20px;
     padding: 10px;
-    border-bottom: 2px solid #4DB6AC; /* Border in the same color as the text */
+    border-bottom: 2px solid #3f51b5;
     position: relative;
     font-weight: 500;
-    font-family: 'Roboto Slab', serif; /* More formal, serif font for headers */
-    font-size: 2rem; /* Larger font size for headers */
-    text-transform: uppercase; /* Uppercase text for a more "headline" look */
-    letter-spacing: 2px; /* Additional letter spacing */
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 .header::after {
@@ -41,7 +52,7 @@
     position: absolute;
     width: 70px;
     height: 4px;
-    background: #4DB6AC; /* The same teal color */
+    background: #6c5ce7;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
@@ -49,16 +60,32 @@
 
 .avatar {
     background: white;
-    border: 2px solid #4DB6AC; /* Teal border */
-    transition: border-color 0.2s ease-in-out;
-}
-
-.avatar:hover {
-    border-color: #00897B; /* Border color changes to dark teal on hover */
+    border: 3px solid #6c5ce7;
 }
 
 .card-content {
-    font-family: 'Roboto', sans-serif; /* Same font as the card for consistency */
-    font-size: 1rem; /* Standard font size for body text */
-    color: #616161; /* Dark gray for readability */
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    color: #616161;
+    line-height: 1.6;
+}
+
+.card-actions {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 15px;
+}
+
+.card-actions button {
+    background: #6c5ce7;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.card-actions button:hover {
+    background: #0984e3;
 }

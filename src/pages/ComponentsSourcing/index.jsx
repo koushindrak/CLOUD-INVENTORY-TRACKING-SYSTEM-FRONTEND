@@ -7,6 +7,7 @@ import {getSuggestedComponent, getSuggestedComponentSuccess} from "./GetAllSugge
 import {getSuggestedComponentById, getSuggestedComponentByIdSuccess} from "./GetSuggestedComponentById";
 import { Card, CardContent, Typography, CardHeader, CardActions,Paper } from '@mui/material';
 import './CardsStyle.css'; // import the new CSS file
+
 const SuggestedComponent = () => {
     const getByPartNumberSuccessRes = useSelector(getSuggestedComponentByIdSuccess);
     const [suggestedComp, setSuggestedComp] = useState(null);
@@ -23,7 +24,7 @@ const SuggestedComponent = () => {
     },[getByPartNumberSuccessRes])
 
     return (
-        <Box marginLeft="275px" marginBottom="100px">
+        <Box style={{ marginLeft: "275px", marginBottom: "100px" }}>
             <Typography variant="h4" className="header">Product Information</Typography>
             { suggestedComp &&
                 <Paper className="card" elevation={3}>
@@ -39,7 +40,7 @@ const SuggestedComponent = () => {
                         title={suggestedComp.Product.ProductDescription}
                         subheader={`Manufacturer: ${suggestedComp.Product.Manufacturer.Value}`}
                     />
-                    <CardContent>
+                    <CardContent className="card-content">
                         <Typography variant="body2" component="p">
                             Unit Price: {suggestedComp.Product.UnitPrice} <br/>
                             Available Quantity: {suggestedComp.Product.QuantityAvailable} <br/>
@@ -48,7 +49,7 @@ const SuggestedComponent = () => {
                             Manufacturer Lead Weeks: {suggestedComp.Product.ManufacturerLeadWeeks} <br/>
                             Category: {suggestedComp.Product.Category.Value} <br/>
                         </Typography>
-                        <CardActions disableSpacing>
+                        <CardActions disableSpacing className="card-actions">
                             <Button size="small" color="primary" href={suggestedComp.Product.PrimaryDatasheet}>
                                 View Datasheet
                             </Button>
@@ -74,7 +75,7 @@ const SuggestedComponent = () => {
                                     title={product.ProductDescription}
                                     subheader={`Manufacturer: ${product.Manufacturer.Value}`}
                                 />
-                                <CardContent>
+                                <CardContent className="card-content">
                                     <Typography variant="body2" component="p">
                                         Unit Price: {product.UnitPrice} <br/>
                                         Available Quantity: {product.QuantityAvailable} <br/>
@@ -83,7 +84,7 @@ const SuggestedComponent = () => {
                                         Manufacturer Lead Weeks: {product.ManufacturerLeadWeeks} <br/>
                                         Category: {product.Category.Value} <br/>
                                     </Typography>
-                                    <CardActions disableSpacing>
+                                    <CardActions disableSpacing className="card-actions">
                                         <Button size="small" color="primary" href={product.PrimaryDatasheet}>
                                             View Datasheet
                                         </Button>
