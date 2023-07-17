@@ -88,28 +88,28 @@ function SignIn() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-        <Container component="main" maxWidth="xs" >
+      <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
             marginTop: 18,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            padding: '30px',
-            border: '2px solid #111',
-            borderRadius: '30px',
-            backgroundColor: '#ffffff',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            padding: "30px",
+            border: "2px solid #111",
+            borderRadius: "30px",
+            backgroundColor: "#ffffff",
           }}
         >
           <Box
             sx={{
-              marginBottom: '10px',
-              width: '100px',
-              height: '100px',
-              overflow: 'hidden',
-              border: '4px solid seagreen',
-              padding: '8px',
+              marginBottom: "10px",
+              width: "100px",
+              height: "100px",
+              overflow: "hidden",
+              border: "4px solid seagreen",
+              padding: "8px",
             }}
           >
             <a href="/">
@@ -118,7 +118,7 @@ function SignIn() {
                 width="100%"
                 height="100%"
                 src={ecosystemImage}
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: "pointer" }}
               />
             </a>
           </Box>
@@ -128,13 +128,13 @@ function SignIn() {
             variant="h7"
             align="center"
             sx={{
-              backgroundColor: '#111',
-              color: '#fff',
-              padding: '4px 10px',
-              borderRadius: '10px',
-              fontSize: '16px',
-              marginBottom: '5px',
-              marginTop: '9px'
+              backgroundColor: "#111",
+              color: "#fff",
+              padding: "4px 10px",
+              borderRadius: "10px",
+              fontSize: "16px",
+              marginBottom: "5px",
+              marginTop: "9px",
             }}
           >
             Welcome, Please Login!
@@ -145,12 +145,7 @@ function SignIn() {
               Invalid username or password
             </Alert>
           )}
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1.5 }}
-          >
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1.5 }}>
             <TextField
               margin="normal"
               required
@@ -162,18 +157,21 @@ function SignIn() {
               autoFocus
               error={emailError}
               onChange={() => setEmailError(false)}
+              helperText={emailError ? "Please enter your email address" : ""}
             />
+
             <TextField
               margin="normal"
               required
               fullWidth
               name="password"
               label="Password"
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               id="password"
               autoComplete="current-password"
               error={passwordError}
               onChange={() => setPasswordError(false)}
+              helperText={passwordError ? "Please enter your password" : ""}
               InputProps={{
                 endAdornment: (
                   <IconButton
@@ -190,22 +188,19 @@ function SignIn() {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 1, mb: 1 }}
-            >
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 1, mb: 1 }}>
               Login
             </Button>
             <Grid container>
               <Grid item xs>
-              <Grid container justifyContent="center" sx={{ mt: 1 }}>
-            <Grid item xs={12} align="center"> {/* Container for the link */}
-                <Link href="/forgot-pass" variant="body1">
-                Forgot password?
-                </Link>
-            </Grid>
+                <Grid container justifyContent="center" sx={{ mt: 1 }}>
+                  <Grid item xs={12} align="center">
+                    {" "}
+                    {/* Container for the link */}
+                    <Link href="/forgot-pass" variant="body1">
+                      Forgot password?
+                    </Link>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>

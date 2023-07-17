@@ -20,6 +20,8 @@ const ResetPassword = () => {
   const [passwordError, setPasswordError] = useState(false);
   const [resetError, setResetError] = useState(false);
   const [resetSuccess, setResetSuccess] = useState(false);
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
+  const [passwordComplexityError, setPasswordComplexityError] = useState(false);
 
   const navigate = useNavigate();
 
@@ -31,11 +33,31 @@ const ResetPassword = () => {
     }
   `;
 
+  const validatePassword = (password) => {
+    var lowerCase = /[a-z]/g;
+    var upperCase = /[A-Z]/g;
+    var numbers = /[0-9]/g;
+    if (!password.match(lowerCase)) {
+      return "Password should contain at least 1 lowercase letter!";
+    } else if (!password.match(upperCase)) {
+      return "Password should contain at least 1 uppercase letter!";
+    } else if (!password.match(numbers)) {
+      return "Password should contain at least 1 number!";
+    } else if (password.length < 8) {
+      return "Password length should be at least 8 characters.";
+    } else {
+      return "";
+    }
+  };
+
   const handleNewPasswordChange = (event) => {
-    setNewPassword(event.target.value);
+    const newPassword = event.target.value;
+    const errorMessage = validatePassword(newPassword);
     setPasswordError(false);
     setResetError(false);
     setResetSuccess(false);
+    setPasswordErrorMessage(errorMessage);
+    setNewPassword(newPassword);
   };
 
   const handleConfirmPasswordChange = (event) => {
@@ -48,9 +70,14 @@ const ResetPassword = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (newPassword !== confirmPassword) {
-      setPasswordError(true);
-      setResetError(true);
+    const errorMessage = validatePassword(newPassword);
+    const passwordsMatch = newPassword === confirmPassword;
+
+    setPasswordError(!passwordsMatch && !!errorMessage);
+    setPasswordComplexityError(passwordsMatch && !!errorMessage);
+    setResetError(!passwordsMatch || !!errorMessage);
+
+    if (!passwordsMatch || !!errorMessage) {
       return;
     }
 
@@ -79,11 +106,11 @@ const ResetPassword = () => {
 
   return (
     <ThemeProvider theme={theme}>
-        <GlobalStyle />
-          <Container component="main" maxWidth="xs">
-      <Box
+      <GlobalStyle />
+      <Container component="main" maxWidth="xs">
+        <Box
           sx={{
-            marginTop: 28,
+            marginTop: 13,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -104,80 +131,68 @@ const ResetPassword = () => {
               borderRadius: '10px',
               fontSize: '16px',
               marginBottom: '5px',
-              marginTop: '9px'
+              marginTop: '9px',
             }}
           >
             Reset Password
           </Typography>
-          {resetError && (
+          {resetError && !passwordComplexityError && (
             <Alert severity="error" sx={{ mt: 2, mb: 2 }}>
               <AlertTitle>Error</AlertTitle>
-              The passwords entered do not match. Please try again.
+              {passwordError ? "Passwords don't match." : passwordErrorMessage}
             </Alert>
           )}
-          {resetSuccess ? (
-            <>
-              <Alert severity="success" sx={{ mt: 2, mb: 2 }}>
-                <AlertTitle>Success</AlertTitle>
-                Your password has been successfully reset.
+          <form onSubmit={handleSubmit} noValidate>
+            {passwordComplexityError && (
+              <Alert severity="error" sx={{ mt: 2, mb: 2 }}>
+                <AlertTitle>Error</AlertTitle>
+                {passwordErrorMessage}
               </Alert>
-              <Button
-              type="submit"
-              onClick={handleLoginNow}
+            )}
+
+            <TextField
+              margin="normal"
+              required
               fullWidth
-              variant="contained"
-              sx={{ mt: 1, mb: 1 }}
-            >
-              Login Now
-            </Button>
-            </>
-          ) : (
-            <form onSubmit={handleSubmit} noValidate>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="newPassword"
-                label="New Password"
-                type="password"
-                id="newPassword"
-                autoComplete="new-password"
-                value={newPassword}
-                onChange={handleNewPasswordChange}
-                error={passwordError}
-                helperText={passwordError ? "Passwords don't match" : ''}
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="confirmPassword"
-                label="Confirm Password"
-                type={showConfirmPassword ? 'text' : 'password'}
-                id="confirmPassword"
-                autoComplete="new-password"
-                value={confirmPassword}
-                onChange={handleConfirmPasswordChange}
-                error={passwordError}
-                helperText={passwordError ? "Passwords don't match" : ''}
-                InputProps={{
-                  endAdornment: (
-                    <IconButton
-                      onClick={() =>
-                        setShowConfirmPassword((prevShow) => !prevShow)
-                      }
-                      edge="end"
-                    >
-                      {showConfirmPassword ? (
-                        <VisibilityOff />
-                      ) : (
-                        <Visibility />
-                      )}
-                    </IconButton>
-                  ),
-                }}
-              />
-              <Button
+              name="newPassword"
+              label="New Password"
+              type="password"
+              id="newPassword"
+              autoComplete="new-password"
+              value={newPassword}
+              onChange={handleNewPasswordChange}
+              error={passwordError}
+              helperText={passwordError ? "Passwords don't match" : ""}
+            />
+
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="confirmPassword"
+              label="Confirm Password"
+              type={showConfirmPassword ? 'text' : 'password'}
+              id="confirmPassword"
+              autoComplete="new-password"
+              value={confirmPassword}
+              onChange={handleConfirmPasswordChange}
+              error={passwordError}
+              helperText={passwordError ? "Passwords don't match" : ""}
+              InputProps={{
+                endAdornment: (
+                  <IconButton
+                    onClick={() =>
+                      setShowConfirmPassword((prevShow) => !prevShow)
+                    }
+                    edge="end"
+                  >
+                    {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                ),
+              }}
+            />
+
+            <Button
               type="submit"
               fullWidth
               variant="contained"
@@ -185,12 +200,28 @@ const ResetPassword = () => {
             >
               Reset Password
             </Button>
-            </form>
+          </form>
+          {resetSuccess && (
+            <>
+              <Alert severity="success" sx={{ mt: 2, mb: 2 }}>
+                <AlertTitle>Success</AlertTitle>
+                Your password has been successfully reset.
+              </Alert>
+              <Button
+                type="submit"
+                onClick={handleLoginNow}
+                fullWidth
+                variant="contained"
+                sx={{ mt: 1, mb: 1 }}
+              >
+                Login Now
+              </Button>
+            </>
           )}
         </Box>
       </Container>
     </ThemeProvider>
   );
-}
+};
 
 export default ResetPassword;

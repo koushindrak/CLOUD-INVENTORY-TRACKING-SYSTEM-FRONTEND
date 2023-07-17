@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Container, Grid, Paper, TextField, Typography } from '@mui/material';
+import { Box, Button, Container, Grid, TextField, Typography } from '@mui/material';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import Header from '../../containers/Header';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import {getUserByCode, getUserByCodeFailure, getUserByCodeSuccess,} from './GetUserByCode';
-import {getUserById, getUserByIdSuccess, resetGetUserByIdSates,} from './GetUserById';
-import {resetUpdateUserSates, updateUser, updateUserFailure, updateUserSuccess,} from './UpdateUser';
+import { getUserByCode, getUserByCodeFailure, getUserByCodeSuccess } from './GetUserByCode';
+import { getUserById, getUserByIdSuccess, resetGetUserByIdSates } from './GetUserById';
+import { resetUpdateUserSates, updateUser, updateUserFailure, updateUserSuccess } from './UpdateUser';
 import { errorToast, successToast } from '../../containers/react-toast-alert';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { createGlobalStyle } from 'styled-components';
@@ -38,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
     height: '80%',
     margin: '6px auto',
     border: '4px solid seagreen',
-
   },
 }));
 
@@ -127,7 +125,13 @@ const RegisterUserPage = () => {
   });
 
   const userSchema = yup.object().shape({
-    newPassword: yup.string().required('Required'),
+    newPassword: yup
+      .string()
+      .required('Required')
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/,
+        'Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number, and be 8 characters long'
+      ),
     password: yup
       .string()
       .oneOf([yup.ref('newPassword'), null], 'Passwords must match'),
@@ -137,142 +141,140 @@ const RegisterUserPage = () => {
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Container maxWidth="sm" className={classes.paper}>
-      <Box display="flex" flexDirection="column" alignItems="center">
-    <Box mb={0.8}>
-      <img src={ecosystemImage} className={classes.image} alt="header-img" />
-    </Box>
-    <Typography
-      component="h2"
-      variant="h7"
-      align="center"
-      sx={{
-        backgroundColor: '#111',
-        color: '#fff',
-        padding: '4px 10px',
-        borderRadius: '10px',
-        fontSize: '29px',
-        marginBottom: '4px',
-        marginTop: '8px'
-      }}
-    >
-      Complete Your Registration
-    </Typography>
-  </Box>
+        <Box display="flex" flexDirection="column" alignItems="center">
+          <Box mb={0.8}>
+            <img src={ecosystemImage} className={classes.image} alt="header-img" />
+          </Box>
+          <Typography
+            component="h2"
+            variant="h7"
+            align="center"
+            sx={{
+              backgroundColor: '#111',
+              color: '#fff',
+              padding: '4px 10px',
+              borderRadius: '10px',
+              fontSize: '29px',
+              marginBottom: '4px',
+              marginTop: '8px',
+            }}
+          >
+            Complete Your Registration
+          </Typography>
+        </Box>
         {user && (
-        //   <Paper className={classes.paper}>
-            <Formik
-              onSubmit={handleFormSubmit}
-              initialValues={{
-                id: user.id,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                username: user.username,
-                email: user.email,
-                newPassword: '',
-                password: '',
-              }}
-              validationSchema={userSchema}
-              className={classes.form}
-            >
-              {({
-                values,
-                errors,
-                touched,
-                handleBlur,
-                handleChange,
-                handleSubmit,
-              }) => (
-                <form onSubmit={handleSubmit}>
-                  <Box
-                    display="flex"
-                    flexDirection="column"
+          <Formik
+            onSubmit={handleFormSubmit}
+            initialValues={{
+              id: user.id,
+              firstName: user.firstName,
+              lastName: user.lastName,
+              username: user.username,
+              email: user.email,
+              newPassword: '',
+              password: '',
+            }}
+            validationSchema={userSchema}
+            className={classes.form}
+          >
+            {({
+              values,
+              errors,
+              touched,
+              handleBlur,
+              handleChange,
+              handleSubmit,
+            }) => (
+              <form onSubmit={handleSubmit}>
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  justifyContent="center"
+                  alignItems="center"
+                  height="100%"
+                >
+                  <Grid
+                    container
+                    spacing={1}
+                    direction="column"
                     justifyContent="center"
                     alignItems="center"
-                    height="100%"
                   >
-                    <Grid
-                      container
-                      spacing={1}
-                      direction="column"
-                      justifyContent="center"
-                      alignItems="center"
-                    >
-                      <TextField
-                        variant="outlined"
-                        type="text"
-                        label="First Name"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        value={values.firstName}
-                        name="firstName"
-                        error={!!touched.firstName && !!errors.firstName}
-                        helperText={touched.firstName && errors.firstName}
-                        style={{ margin: '40px 8px 8px', width: '60%' }}
-                      />
-                      <TextField
-                        variant="outlined"
-                        type="text"
-                        label="Last Name"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        value={values.lastName}
-                        name="lastName"
-                        error={!!touched.lastName && !!errors.lastName}
-                        helperText={touched.lastName && errors.lastName}
-                        style={{ margin: 8, width: '60%' }}
-                      />
-                      <TextField
-                        variant="outlined"
-                        type="text"
-                        label="Username"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        value={values.username}
-                        name="username"
-                        error={!!touched.username && !!errors.username}
-                        helperText={touched.username && errors.username}
-                        style={{ margin: 8, width: '60%' }}
-                      />
-                      <TextField
-                        variant="outlined"
-                        type="password"
-                        label="New Password"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        value={values.newPassword}
-                        name="newPassword"
-                        error={!!touched.newPassword && !!errors.newPassword}
-                        helperText={touched.newPassword && errors.newPassword}
-                        style={{ margin: 8, width: '60%' }}
-                      />
-                      <TextField
-                        variant="outlined"
-                        type="password"
-                        label="Confirm Password"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        value={values.password}
-                        name="password"
-                        error={!!touched.password && !!errors.password}
-                        helperText={touched.password && errors.password}
-                        style={{ margin: 8, width: '60%' }}
-                      />
-                    </Grid>
-                    <Box display="flex" justifyContent="center">
+                    <TextField
+                      variant="outlined"
+                      type="text"
+                      label="First Name"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.firstName}
+                      name="firstName"
+                      error={!!touched.firstName && !!errors.firstName}
+                      helperText={touched.firstName && errors.firstName}
+                      style={{ margin: '40px 8px 8px', width: '60%' }}
+                    />
+                    <TextField
+                      variant="outlined"
+                      type="text"
+                      label="Last Name"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.lastName}
+                      name="lastName"
+                      error={!!touched.lastName && !!errors.lastName}
+                      helperText={touched.lastName && errors.lastName}
+                      style={{ margin: 8, width: '60%' }}
+                    />
+                    <TextField
+                      variant="outlined"
+                      type="text"
+                      label="Username"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.username}
+                      name="username"
+                      error={!!touched.username && !!errors.username}
+                      helperText={touched.username && errors.username}
+                      style={{ margin: 8, width: '60%' }}
+                    />
+                    <TextField
+                      variant="outlined"
+                      type="password"
+                      label="New Password"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.newPassword}
+                      name="newPassword"
+                      error={!!touched.newPassword && !!errors.newPassword}
+                      helperText={touched.newPassword && errors.newPassword}
+                      style={{ margin: 8, width: '60%' }}
+                    />
+                    <TextField
+                      variant="outlined"
+                      type="password"
+                      label="Confirm Password"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.password}
+                      name="password"
+                      error={!!touched.password && !!errors.password}
+                      helperText={touched.password && errors.password}
+                      style={{ margin: 8, width: '60%' }}
+                    />
+                  </Grid>
+                  <Box display="flex" justifyContent="center">
                     <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        sx={{ mt: 1.5, mb: 0.3 }}
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      sx={{ mt: 1.5, mb: 0.3 }}
                     >
-                        Sign Up
+                      Sign Up
                     </Button>
-                    </Box>
                   </Box>
-                </form>
-              )}
-            </Formik>
-        //   </Paper>
+                </Box>
+              </form>
+            )}
+          </Formik>
         )}
       </Container>
     </ThemeProvider>
