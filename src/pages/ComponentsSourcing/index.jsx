@@ -53,7 +53,7 @@ const SuggestedComponent = () => {
     };
 
     useEffect(() => {
-        dispatch(getSuggestedComponentById("BF-1860-000"));
+        dispatch(getSuggestedComponentById("SPU0410LR5H-QB"));
     },[])
 
 

@@ -202,7 +202,7 @@ const Products = () => {
 
 
     return (
-        <Box marginLeft="275px">
+        <Box marginLeft="275px" marginRight="10px" marginBottom="10px">
 
             <Box position="relative">
                 <Button

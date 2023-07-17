@@ -11,7 +11,7 @@ const Form = () => {
     };
 
     return (
-        <Box m="20px">
+        <Box marginLeft="275px" marginRight="10px" marginBottom="10px">
             <Header title="CREATE USER" subtitle="Create a New User Profile"/>
 
             <Formik

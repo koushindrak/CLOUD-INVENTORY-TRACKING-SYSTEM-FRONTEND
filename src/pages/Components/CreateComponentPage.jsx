@@ -61,7 +61,7 @@ const AddComponent = () => {
     });
 
     return (
-        <Box m="20px">
+        <Box marginLeft="275px" marginRight="10px" marginBottom="10px">
             <Header title="Add New Component"/>
             <Formik
                 onSubmit={handleFormSubmit}
