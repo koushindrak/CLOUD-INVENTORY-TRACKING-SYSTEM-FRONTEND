@@ -66,13 +66,15 @@ function SignIn() {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
-  const GlobalStyle = createGlobalStyle`
-    body {
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(to right, #8BC839, #F8B376, #34BEB7);
-    }
-  `;
+    const GlobalStyle = createGlobalStyle`
+      body {
+        margin: 0;
+        padding: 0;
+        background: #1a1a1a;
+        font-family: Arial, sans-serif;
+        color: #f5f5f5;
+      }
+    `
 
   const theme = createTheme({
     palette: {
@@ -88,20 +90,19 @@ function SignIn() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 18,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            padding: "30px",
-            border: "2px solid #111",
-            borderRadius: "30px",
-            backgroundColor: "#ffffff",
-          }}
-        >
+        <Container component="main" maxWidth="xs" sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100vh' }}>
+            <CssBaseline />
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    padding: "30px",
+                    border: "2px solid #111",
+                    borderRadius: "30px",
+                    backgroundColor: "#ffffff",
+                }}
+            >
           <Box
             sx={{
               marginBottom: "10px",
