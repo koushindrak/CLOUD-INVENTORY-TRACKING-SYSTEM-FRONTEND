@@ -142,6 +142,7 @@ function App() {
                             <Route path="/suppliers" element={<Supplier/>}/>
 
                             <Route path="/sourcing" element={<ComponentsSourcing/>}/>
+                            <Route path="/sourcing/:mfrptn" element={<ComponentsSourcing/>}/>
                             <Route path="/contacts" element={<Contacts/>}/>
                             <Route path="/invoices" element={<Invoices/>}/>
                             <Route path="/form" element={<Form/>}/>

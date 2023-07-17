@@ -73,8 +73,8 @@ const AddComponent = () => {
                     footprint: '',
                     value: '',
                     isObselete: false,
-                    threshold: null,
-                    stock: null,
+                    threshold: 0,
+                    stock: 0,
                 }}
                 validationSchema={componentSchema}
             >

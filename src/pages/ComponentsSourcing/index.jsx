@@ -28,18 +28,54 @@ import './CardsStyle.css'; // import the new CSS file
 import SearchOffIcon from '@mui/icons-material/SearchOff';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { indigo } from "@mui/material/colors";
+import {createComponent} from "../Components/CreateComponent";
+import {useNavigate, useParams} from "react-router-dom";
 
 const SuggestedComponent = () => {
     const getByPartNumberSuccessRes = useSelector(getSuggestedComponentByIdSuccess);
     const [suggestedComp, setSuggestedComp] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [searchId, setSearchId] = useState("");
+    const [searchId, setSearchId] = useState("SPU0410LR5H-QB");
     const [firstLoad, setFirstLoad] = useState(true);
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
     const [openImage, setOpenImage] = useState("");
+    const navigate = useNavigate();  // new
+    const {mfrptn} = useParams();
+
+    useEffect(() => {
+        if (mfrptn) {  // If mfrptn is not null or empty
+            setSearchId(mfrptn);  // Set searchId to mfrptn
+            dispatch(getSuggestedComponentById(mfrptn));
+        }else{
+            dispatch(getSuggestedComponentById(searchId));
+        }
+    }, [mfrptn]);
 
 
+
+    useEffect(() => {
+        if(getByPartNumberSuccessRes){
+            setLoading(false);
+            setSuggestedComp(getByPartNumberSuccessRes.data)
+        }
+    },[getByPartNumberSuccessRes])
+
+    const handleAddToComponent = (product) => {
+        let payload = {
+            mfrptn: product.ManufacturerPartNumber,
+            description: product.ProductDescription,
+            componentCategoryName: product.Category.Value,
+            footprint: "N/A",  // make sure this property exists in your product object
+            value: "N/A",  // use appropriate property
+            isObselete: product.Obsolete,
+            threshold: 0,  // make sure this property exists in your product object
+            stock: 0,
+        };
+        console.log("Button clicked",product);  // replace this with your actual function
+        dispatch(createComponent(payload))
+        navigate("/components")
+    }
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -52,17 +88,7 @@ const SuggestedComponent = () => {
         dispatch(getSuggestedComponentById(id));
     };
 
-    useEffect(() => {
-        dispatch(getSuggestedComponentById("SPU0410LR5H-QB"));
-    },[])
 
-
-    useEffect(() => {
-        if(getByPartNumberSuccessRes){
-            setLoading(false);
-            setSuggestedComp(getByPartNumberSuccessRes.data)
-        }
-    },[getByPartNumberSuccessRes])
 
     return (
         <Box sx={{ width: '100%', height: '100vh', position: 'relative' }}>
@@ -122,14 +148,26 @@ const SuggestedComponent = () => {
                                         </Typography>
                                     </a>
                                 }
+                                action={
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        style={{ margin: '10px', padding: '10px' }}
+                                        onClick={() => handleAddToComponent(suggestedComp.Product)}
+                                    >
+                                        Add To Component
+                                    </Button>
+                                }
                             />
 
                             <CardContent>
                                 <Grid container spacing={2}>
                                     <Grid item xs={6}>
                                         <List className="styled-list">
-                                            <ListItem className="styled-list-item"><strong>Obsolete:</strong> {suggestedComp.Product.Obsolete?.toString() ?? 'N/A'}</ListItem>
-                                            <ListItem className="styled-list-item"><strong>Unit Price:</strong> {suggestedComp.Product.UnitPrice}</ListItem>
+                                            <ListItem className="styled-list-item">
+                                                <strong>Obsolete:</strong>
+                                                {(suggestedComp.Product.Obsolete == null ? false : suggestedComp.Product.Obsolete).toString()}
+                                            </ListItem>                                            <ListItem className="styled-list-item"><strong>Unit Price:</strong> {suggestedComp.Product.UnitPrice}</ListItem>
                                             <ListItem className="styled-list-item"><strong>Available Quantity:</strong> {suggestedComp.Product.QuantityAvailable}</ListItem>
                                             <ListItem className="styled-list-item"><strong>Product URL:</strong> <a href={suggestedComp.Product.ProductUrl} target="_blank" rel="noopener noreferrer">Link to Product</a></ListItem>
                                             <ListItem className="styled-list-item"><strong>Primary Photo:</strong> <a href={suggestedComp.Product.PrimaryPhoto} target="_blank" rel="noopener noreferrer">View Primary Photo</a></ListItem>
@@ -177,6 +215,16 @@ const SuggestedComponent = () => {
                                                     </Typography>
                                                 </a>
                                             }
+                                            action={
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    style={{ margin: '10px', padding: '10px' }}
+                                                    onClick={() => handleAddToComponent(product)}
+                                                >
+                                                    Add To Component
+                                                </Button>
+                                            }
                                         />
                                         <CardContent>
                                             <Grid container spacing={2}>
@@ -185,8 +233,10 @@ const SuggestedComponent = () => {
                                                         Product Details
                                                     </Typography>
                                                     <List>
-                                                        <ListItem><Typography color="textSecondary"><strong>Obsolete:</strong> {product.Obsolete?.toString() ?? 'N/A'}</Typography></ListItem>
-                                                        <ListItem><Typography color="textSecondary"><strong>Unit Price:</strong> {product.UnitPrice}</Typography></ListItem>
+                                                        <ListItem className="styled-list-item">
+                                                            <strong>Obsolete:</strong>
+                                                            {(product.Obsolete == null ? false : product.Obsolete).toString()}
+                                                        </ListItem>                                                        <ListItem><Typography color="textSecondary"><strong>Unit Price:</strong> {product.UnitPrice}</Typography></ListItem>
                                                         <ListItem><Typography color="textSecondary"><strong>Available Quantity:</strong> {product.QuantityAvailable}</Typography></ListItem>
                                                         <ListItem><Typography color="textSecondary"><strong>Product URL:</strong> <a href={product.ProductUrl} target="_blank" rel="noopener noreferrer">Link to Product</a></Typography></ListItem>
                                                         <ListItem><Typography color="textSecondary"><strong>Manufacturer Page URL:</strong> <a href={product.ManufacturerPageUrl} target="_blank" rel="noopener noreferrer">Visit Manufacturer Page</a></Typography></ListItem>

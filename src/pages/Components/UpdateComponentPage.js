@@ -82,7 +82,7 @@ const UpdateComponentPage = () => {
                         componentCategoryName: component.componentCategoryName,
                         footprint: component.footprint,
                         value: component.value,
-                        isObselete: component.isObselete,
+                        isObselete: component.isObselete || false, // Set it to false if it's not defined
                         threshold: component.threshold,
                         stock: component.stock,
                     }}
@@ -95,6 +95,7 @@ const UpdateComponentPage = () => {
                           handleBlur,
                           handleChange,
                           handleSubmit,
+                          setFieldValue,
                       }) => (
                         <form onSubmit={handleSubmit}>
                             <Box
@@ -197,8 +198,15 @@ const UpdateComponentPage = () => {
                                     helperText={touched.stock && errors.stock}
                                 />
                                 <FormControlLabel
-                                    control={<Checkbox checked={values.isObselete} onChange={handleChange}
-                                                       name="isObselete"/>}
+                                    control={
+                                        <Checkbox
+                                            checked={values.isObselete}
+                                            onChange={(event) => {
+                                                setFieldValue('isObselete', event.target.checked);
+                                            }}
+                                            name="isObselete"
+                                        />
+                                    }
                                     label="Obselete"
                                 />
                             </Box>
