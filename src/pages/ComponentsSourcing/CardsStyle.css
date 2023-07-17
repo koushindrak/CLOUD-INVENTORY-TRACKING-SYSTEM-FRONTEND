@@ -60,7 +60,7 @@ body {
 
 .avatar {
     background: white;
-    border: 3px solid #6c5ce7;
+    border: 3px solid #6C757D; /* Gray */
 }
 
 .card-content {
@@ -88,4 +88,76 @@ body {
 
 .card-actions button:hover {
     background: #0984e3;
+}
+
+.styled-card {
+    background-color: #f3f4f6; /* Light gray */
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.styled-card-header {
+    background-color: rgba(177, 208, 156, 0.73); /* Light gray */
+    /*color: #ee0b38; !* Dark gray *!*/
+    border-radius: 5px;
+    padding: 15px;
+}
+.suggested-styled-card-header {
+    background-color: rgba(155, 243, 222, 0.31); /* Light gray */
+    /*color: #ee0b38; !* Dark gray *!*/
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.styled-title {
+    color: #0505b0; /* Dark gray */
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.styled-title:hover {
+    text-decoration: underline;
+    color: #007BFF; /* Blue */
+}
+
+.styled-subheader {
+    color: #0404f5; /* Dark gray */
+    font-weight: 400;
+    text-decoration: none;
+}
+
+.styled-subheader:hover {
+    text-decoration: underline;
+    color: #007BFF; /* Blue */
+}
+
+.styled-text {
+    color: #4b5563; /* Dark gray */
+    line-height: 1.5;
+}
+
+.styled-card-actions {
+    justify-content: center;
+}
+
+.styled-header {
+    margin-bottom: 20px;
+    color: #1f2937; /* Dark navy */
+    font-weight: 700;
+}
+
+.styled-list {
+    padding: 0;
+}
+
+.styled-list-item {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+}
+
+.styled-list-item strong {
+    font-weight: 600;
+    color: #555;
 }

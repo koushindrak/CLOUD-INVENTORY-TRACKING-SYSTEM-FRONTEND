@@ -1,11 +1,33 @@
 import { useEffect, useState } from 'react';
-import { Box, Avatar, Button, Grid, TextField, CircularProgress, Typography, CardHeader, CardContent, CardActions, Paper } from "@mui/material";
+import {
+    Box,
+    Avatar,
+    Button,
+    Grid,
+    TextField,
+    CircularProgress,
+    Typography,
+    CardHeader,
+    CardContent,
+    CardActions,
+    Paper,
+    List,
+    ListItem,
+    ListItemText,
+    ListItemAvatar,
+    AvatarGroup,
+    ImageList,
+    ImageListItem,
+    Fade,
+    Dialog
+} from "@mui/material";
 import { useDispatch, useSelector } from 'react-redux';
 import 'react-toastify/dist/ReactToastify.css';
 import { getSuggestedComponentById, getSuggestedComponentByIdSuccess } from "./GetSuggestedComponentById";
 import './CardsStyle.css'; // import the new CSS file
 import SearchOffIcon from '@mui/icons-material/SearchOff';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import { indigo } from "@mui/material/colors";
 
 const SuggestedComponent = () => {
     const getByPartNumberSuccessRes = useSelector(getSuggestedComponentByIdSuccess);
@@ -14,12 +36,26 @@ const SuggestedComponent = () => {
     const [searchId, setSearchId] = useState("");
     const [firstLoad, setFirstLoad] = useState(true);
     const dispatch = useDispatch();
+    const [open, setOpen] = useState(false);
+    const [openImage, setOpenImage] = useState("");
 
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
     const handleSearch = (id) => {
         setFirstLoad(false);
         setLoading(true);
         dispatch(getSuggestedComponentById(id));
     };
+
+    useEffect(() => {
+        dispatch(getSuggestedComponentById("BF-1860-000"));
+    },[])
+
 
     useEffect(() => {
         if(getByPartNumberSuccessRes){
@@ -61,88 +97,114 @@ const SuggestedComponent = () => {
                 {!loading && suggestedComp ? (
                     <>
                         <Typography variant="h4" className="header">Product Information</Typography>
-                        <Paper className="card" elevation={3}>
+                        <Paper className="styled-card" elevation={3}>
                             <CardHeader
-                                className="card-header"
+                                className="styled-card-header"
                                 avatar={
                                     <Avatar
                                         className="avatar"
                                         aria-label="product"
                                         src={suggestedComp.Product.PrimaryPhoto}
+                                        onClick={() => {handleClickOpen(); setOpenImage(suggestedComp.Product.PrimaryPhoto);}}
                                     />
                                 }
-                                title={suggestedComp.Product.ProductDescription}
-                                subheader={`Manufacturer: ${suggestedComp.Product.Manufacturer.Value}`}
+                                title={
+                                    <a href={suggestedComp.Product.ProductUrl} className="styled-title" target="_blank" rel="noopener noreferrer">
+                                        <Typography variant="h5">
+                                            {suggestedComp.Product.ProductDescription}
+                                        </Typography>
+                                    </a>
+                                }
+                                subheader={
+                                    <a href={suggestedComp.Product.ManufacturerPageUrl} className="styled-subheader" target="_blank" rel="noopener noreferrer">
+                                        <Typography variant="subtitle1">
+                                            {`Manufacturer: ${suggestedComp.Product.Manufacturer.Value}`}
+                                        </Typography>
+                                    </a>
+                                }
                             />
+
                             <CardContent>
-                                <Typography variant="body2" component="p">
-                                    Obsolete: {suggestedComp.Product.Obsolete?.toString() ?? 'N/A'} <br />
-                                    Unit Price: {suggestedComp.Product.UnitPrice} <br />
-                                    Available Quantity: {suggestedComp.Product.QuantityAvailable} <br />
-                                    Product URL: <a href={suggestedComp.Product.ProductUrl}>{suggestedComp.Product.ProductUrl}</a> <br />
-                                    Primary Photo: <a href={suggestedComp.Product.PrimaryPhoto}>{suggestedComp.Product.PrimaryPhoto}</a> <br />
-                                    Manufacturer Page URL: <a href={suggestedComp.Product.ManufacturerPageUrl}>{suggestedComp.Product.ManufacturerPageUrl}</a> <br />
-                                    Category: {suggestedComp.Product.Category.Value} <br />
-                                    Manufacturer Part Number: {suggestedComp.Product.ManufacturerPartNumber} <br />
-                                    Minimum Order Quantity: {suggestedComp.Product.MinimumOrderQuantity} <br />
-                                    NonStock: {suggestedComp.Product.NonStock?.toString() ?? 'N/A'} <br />
-                                    Quantity Available: {suggestedComp.Product.QuantityAvailable} <br />
-                                    DigiKey Part Number: {suggestedComp.Product.DigiKeyPartNumber} <br />
-                                    Product Description: {suggestedComp.Product.ProductDescription} <br />
-                                    Unit Price: {suggestedComp.Product.UnitPrice} <br />
-                                    Manufacturer: {suggestedComp.Product.Manufacturer.Value} <br />
-                                    Manufacturer Public Quantity: {suggestedComp.Product.ManufacturerPublicQuantity} <br />
-                                    Supplier: {suggestedComp.Product.Supplier} <br />
-                                </Typography>
-                                <CardActions disableSpacing>
-                                    <Button size="small" color="primary" href={suggestedComp.Product.PrimaryDatasheet}>
-                                        View Datasheet
-                                    </Button>
-                                </CardActions>
+                                <Grid container spacing={2}>
+                                    <Grid item xs={6}>
+                                        <List className="styled-list">
+                                            <ListItem className="styled-list-item"><strong>Obsolete:</strong> {suggestedComp.Product.Obsolete?.toString() ?? 'N/A'}</ListItem>
+                                            <ListItem className="styled-list-item"><strong>Unit Price:</strong> {suggestedComp.Product.UnitPrice}</ListItem>
+                                            <ListItem className="styled-list-item"><strong>Available Quantity:</strong> {suggestedComp.Product.QuantityAvailable}</ListItem>
+                                            <ListItem className="styled-list-item"><strong>Product URL:</strong> <a href={suggestedComp.Product.ProductUrl} target="_blank" rel="noopener noreferrer">Link to Product</a></ListItem>
+                                            <ListItem className="styled-list-item"><strong>Primary Photo:</strong> <a href={suggestedComp.Product.PrimaryPhoto} target="_blank" rel="noopener noreferrer">View Primary Photo</a></ListItem>
+                                            <ListItem className="styled-list-item"><strong>Manufacturer Page URL:</strong> <a href={suggestedComp.Product.ManufacturerPageUrl} target="_blank" rel="noopener noreferrer">Visit Manufacturer Page</a></ListItem>
+                                        </List>
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        <List className="styled-list">
+                                            <ListItem className="styled-list-item"><strong>Category:</strong> {suggestedComp.Product.Category.Value}</ListItem>
+                                            <ListItem className="styled-list-item"><strong>Manufacturer Part Number:</strong> {suggestedComp.Product.ManufacturerPartNumber}</ListItem>
+                                            <ListItem className="styled-list-item"><strong>Minimum Order Quantity:</strong> {suggestedComp.Product.MinimumOrderQuantity}</ListItem>
+                                            <ListItem className="styled-list-item"><strong>NonStock:</strong> {suggestedComp.Product.NonStock?.toString() ?? 'N/A'}</ListItem>
+                                            <ListItem className="styled-list-item"><strong>DigiKey Part Number:</strong> {suggestedComp.Product.DigiKeyPartNumber}</ListItem>
+                                        </List>
+                                    </Grid>
+                                </Grid>
                             </CardContent>
                         </Paper>
                         <Typography variant="h4" className="header" style={{ marginTop: '30px' }}>Suggested Products</Typography>
                         <Grid container spacing={3}>
                             {suggestedComp.SuggestedProducts.map((product, index) => (
-                                <Grid item xs={12} sm={6} key={index}>
+                                <Grid item xs={12} sm={12} key={index}>
                                     <Paper className="card" elevation={3}>
                                         <CardHeader
-                                            className="card-header"
+                                            className="suggested-styled-card-header"
                                             avatar={
                                                 <Avatar
                                                     className="avatar"
                                                     aria-label="product"
                                                     src={product.PrimaryPhoto}
+                                                    onClick={() => {handleClickOpen(); setOpenImage(product.PrimaryPhoto);}}
                                                 />
                                             }
-                                            title={product.ProductDescription}
-                                            subheader={`Manufacturer: ${product.Manufacturer.Value}`}
+                                            title={
+                                                <a href={product.ProductUrl} className="styled-title" target="_blank" rel="noopener noreferrer">
+                                                    <Typography variant="h5">
+                                                        {product.ProductDescription}
+                                                    </Typography>
+                                                </a>
+                                            }
+                                            subheader={
+                                                <a href={product.ManufacturerPageUrl} className="styled-subheader" target="_blank" rel="noopener noreferrer">
+                                                    <Typography variant="subtitle1">
+                                                        {`Manufacturer: ${product.Manufacturer.Value}`}
+                                                    </Typography>
+                                                </a>
+                                            }
                                         />
                                         <CardContent>
-                                            <Typography variant="body2" component="p">
-                                                Obsolete: {product.Obsolete?.toString() ?? 'N/A'} <br />
-                                                Unit Price: {product.UnitPrice} <br />
-                                                Available Quantity: {product.QuantityAvailable} <br />
-                                                Product URL: <a href={product.ProductUrl}>{product.ProductUrl}</a> <br />
-                                                Primary Photo: <a href={product.PrimaryPhoto}>{product.PrimaryPhoto}</a> <br />
-                                                Manufacturer Page URL: <a href={product.ManufacturerPageUrl}>{product.ManufacturerPageUrl}</a> <br />
-                                                Category: {product.Category.Value} <br />
-                                                Manufacturer Part Number: {product.ManufacturerPartNumber} <br />
-                                                Minimum Order Quantity: {product.MinimumOrderQuantity} <br />
-                                                NonStock: {product.NonStock?.toString() ?? 'N/A'} <br />
-                                                Quantity Available: {product.QuantityAvailable} <br />
-                                                DigiKey Part Number: {product.DigiKeyPartNumber} <br />
-                                                Product Description: {product.ProductDescription} <br />
-                                                Unit Price: {product.UnitPrice} <br />
-                                                Manufacturer: {product.Manufacturer.Value} <br />
-                                                Manufacturer Public Quantity: {product.ManufacturerPublicQuantity} <br />
-                                                Supplier: {product.Supplier} <br />
-                                            </Typography>
-                                            <CardActions disableSpacing>
-                                                <Button size="small" color="primary" href={product.PrimaryDatasheet}>
-                                                    View Datasheet
-                                                </Button>
-                                            </CardActions>
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={12} sm={6}>
+                                                    <Typography variant="h6" component="div" color="primary" sx={{ textDecoration: 'underline', marginBottom: '10px',marginLeft: '15px', fontSize: '1.2em', fontWeight: 'bold' }}>
+                                                        Product Details
+                                                    </Typography>
+                                                    <List>
+                                                        <ListItem><Typography color="textSecondary"><strong>Obsolete:</strong> {product.Obsolete?.toString() ?? 'N/A'}</Typography></ListItem>
+                                                        <ListItem><Typography color="textSecondary"><strong>Unit Price:</strong> {product.UnitPrice}</Typography></ListItem>
+                                                        <ListItem><Typography color="textSecondary"><strong>Available Quantity:</strong> {product.QuantityAvailable}</Typography></ListItem>
+                                                        <ListItem><Typography color="textSecondary"><strong>Product URL:</strong> <a href={product.ProductUrl} target="_blank" rel="noopener noreferrer">Link to Product</a></Typography></ListItem>
+                                                        <ListItem><Typography color="textSecondary"><strong>Manufacturer Page URL:</strong> <a href={product.ManufacturerPageUrl} target="_blank" rel="noopener noreferrer">Visit Manufacturer Page</a></Typography></ListItem>
+                                                    </List>
+                                                </Grid>
+                                                <Grid item xs={12} sm={6}>
+                                                    <Typography variant="h6" component="div" color="primary" sx={{ textDecoration: 'underline', marginBottom: '10px', marginLeft: '15px',fontSize: '1.2em', fontWeight: 'bold' }}>
+                                                        Product Specifications
+                                                    </Typography>
+                                                    <List>
+                                                        <ListItem><Typography color="textSecondary"><strong>Category:</strong> {product.Category.Value}</Typography></ListItem>
+                                                        <ListItem><Typography color="textSecondary"><strong>Manufacturer Part Number:</strong> {product.ManufacturerPartNumber}</Typography></ListItem>
+                                                        <ListItem><Typography color="textSecondary"><strong>Minimum Order Quantity:</strong> {product.MinimumOrderQuantity}</Typography></ListItem>
+                                                        <ListItem><Typography color="textSecondary"><strong>NonStock:</strong> {product.NonStock?.toString() ?? 'N/A'}</Typography></ListItem>
+                                                        <ListItem><Typography color="textSecondary"><strong>DigiKey Part Number:</strong> {product.DigiKeyPartNumber}</Typography></ListItem>
+                                                    </List>
+                                                </Grid>
+                                            </Grid>
                                         </CardContent>
                                     </Paper>
                                 </Grid>
@@ -175,6 +237,9 @@ const SuggestedComponent = () => {
                     </Box>
                 ) : null)}
             </Box>
+            <Dialog open={open} onClose={handleClose} >
+                <img src={openImage} alt="Primary Photo" style={{width: '80vh', height: '80vh'}}/>
+            </Dialog>
         </Box>
     );
 };
