@@ -60,9 +60,9 @@ const RegisterUserPage = () => {
     if (!userSuccess) {
       dispatch(getUserByCode(code));
     } else {
-      // setUser(userSuccess.data);
-      //temp changes
-      // console.log(userSuccess.data)
+      setUser(userSuccess.data);
+      // temp changes
+      console.log(userSuccess.data)
     }
   }, [dispatch, userSuccess]);
 
@@ -89,7 +89,7 @@ const RegisterUserPage = () => {
       } else {
         navigate('/');
       }
-      dispatch(resetGetUserByIdStates());
+      dispatch(resetGetUserByIdSates());
       dispatch(resetUpdateUserSates());
     }
   }, [updateSuccess, dispatch, navigate, productId]);

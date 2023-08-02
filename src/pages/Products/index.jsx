@@ -205,26 +205,28 @@ const Products = () => {
         <Box marginLeft="275px" marginRight="10px" marginBottom="10px">
 
             <Box position="relative">
-                <Button
-                    onClick={handleAdd}
-                    variant="outlined"
-                    sx={{
-                        position: 'absolute',
-                        top: 0,
-                        right: 10,
-                        zIndex: 1000,
-                        color: 'white',
-                        backgroundColor: colors.greenAccent[400],
-                        '&:hover': {
-                            backgroundColor: colors.greenAccent[300], // change this to the color you want on hover
-                            // If you want the color to remain white on hover, you can add the following line
+                {(['ADMIN', 'EDITOR'].includes(COMMON_UTILS.getRole())) && (
+                    <Button
+                        onClick={handleAdd}
+                        variant="outlined"
+                        sx={{
+                            position: 'absolute',
+                            top: 0,
+                            right: 10,
+                            zIndex: 1000,
                             color: 'white',
-                            fontweight: 900
-                        },
-                    }}
-                    startIcon={<AddIcon/>}>
-                    Add Product
-                </Button>
+                            backgroundColor: colors.greenAccent[400],
+                            '&:hover': {
+                                backgroundColor: colors.greenAccent[300], // change this to the color you want on hover
+                                // If you want the color to remain white on hover, you can add the following line
+                                color: 'white',
+                                fontweight: 900
+                            },
+                        }}
+                        startIcon={<AddIcon/>}>
+                        Add Product
+                    </Button>
+                )}
 
 
                 <Header subtitleStyle={{color: colors.grey[100]}} subtitle="Managing the Products"/>

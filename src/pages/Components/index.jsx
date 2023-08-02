@@ -208,6 +208,7 @@ const Component = () => {
         <Box marginLeft="275px" marginRight="10px" marginBottom="10px">
 
             <Box position="relative">
+                {(['ADMIN', 'EDITOR'].includes(COMMON_UTILS.getRole())) && (
                 <Button
                     onClick={handleAdd}
                     variant="outlined"
@@ -223,7 +224,7 @@ const Component = () => {
                     startIcon={<AddIcon/>}>
                     Add Component
                 </Button>
-
+                )}
 
                 <Header
                     subtitleStyle={{color: colors.grey[100]}}
