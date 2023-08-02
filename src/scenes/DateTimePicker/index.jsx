@@ -7,7 +7,7 @@ const StaticDateTimePickerLandscape1 = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     return (
-        <Box m="20px">
+        <Box marginLeft="275px" marginRight="10px" marginBottom="10px">
             <Header title="Date Time Picker" subtitle="Simple Date Time Picker "/>
 
             <Box height="75vh" border={`1px solid ${colors.grey[100]}`} borderRadius="4px">

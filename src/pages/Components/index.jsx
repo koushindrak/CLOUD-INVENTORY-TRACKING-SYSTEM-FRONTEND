@@ -20,6 +20,7 @@ import {errorToast, successToast} from "../../containers/react-toast-alert";
 import DeveloperBoardIcon from "@mui/icons-material/DeveloperBoard";
 import {componentColumns} from "./ComponentColumns";
 import * as COMMON_UTILS from '../../common-files/commonUtils';
+import {createComponentFailure, createComponentSuccess} from "./CreateComponent";
 
 
 const Component = () => {
@@ -28,6 +29,8 @@ const Component = () => {
     const getProductByIdSuccessResponse = useSelector(getProductByIdSuccess)
     const deleteSuccess = useSelector(deleteComponentByIdSuccess);
     const deleteFailure = useSelector(deleteComponentByIdFailure);
+    const addComponentSuccess = useSelector(createComponentSuccess)
+    const addComponentFailure = useSelector(createComponentFailure)
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -61,6 +64,19 @@ const Component = () => {
             errorToast(deleteFailure.error)
         }
     }, [deleteFailure])
+
+    useEffect(()=>{
+        if(addComponentSuccess){
+            successToast("Component added Successfully")
+            dispatch(getComponent());
+        }
+    },[addComponentSuccess])
+
+    useEffect(()=>{
+        if(addComponentFailure){
+            errorToast(addComponentFailure.error)
+        }
+    },[addComponentFailure])
 
     useEffect(() => {
         console.log("productId Params--", productId)
@@ -143,7 +159,7 @@ const Component = () => {
 
 
     const completeColumns = [
-        ...componentColumns,
+        ...componentColumns(dispatch, navigate),
         {
             headerName: "Actions",
             headerAlign: "center",
@@ -189,9 +205,10 @@ const Component = () => {
 
 
     return (
-        <Box m="20px">
+        <Box marginLeft="275px" marginRight="10px" marginBottom="10px">
 
             <Box position="relative">
+                {(['ADMIN', 'EDITOR'].includes(COMMON_UTILS.getRole())) && (
                 <Button
                     onClick={handleAdd}
                     variant="outlined"
@@ -207,7 +224,7 @@ const Component = () => {
                     startIcon={<AddIcon/>}>
                     Add Component
                 </Button>
-
+                )}
 
                 <Header
                     subtitleStyle={{color: colors.grey[100]}}

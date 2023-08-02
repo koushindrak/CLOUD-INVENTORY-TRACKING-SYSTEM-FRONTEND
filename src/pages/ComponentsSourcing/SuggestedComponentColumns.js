@@ -1,14 +1,11 @@
 import './css/styles.css'
-import {getSuggestedComponentById} from "../ComponentsSourcing/GetSuggestedComponentById";
-import { Link } from 'react-router-dom';
 
-export const componentColumns = (dispatch, navigate) => [
+export const suggestedComponentColumns = [
     {
         field: "id",
         headerName: "ID",
         headerAlign: "center",
         align: "center",
-        hide: true,
         cellClassName: "id-column--cell",  // Add the className here
     },
     {
@@ -16,24 +13,17 @@ export const componentColumns = (dispatch, navigate) => [
         headerName: "MFRPTN",
         headerAlign: "center",
         align: "center",
-        width: 150,
-        renderCell: (params) => (
-            <Link to={`/sourcing/${params.row.mfrptn}`}>
-                {params.row.mfrptn}
-            </Link>
-        ),
-        // flex: 1,
+        flex: 1,
     },
     {
         field: "description",
         headerName: "Description",
         headerAlign: "center",
         align: "center",
-        width: 200,
-        // flex: 1,
+        flex: 1,
     },
     {
-        field: "componentCategoryName",
+        field: "suggestedComponentCategoryName",
         headerName: "Category",
         flex: 1,
         headerAlign: "center",
@@ -55,7 +45,7 @@ export const componentColumns = (dispatch, navigate) => [
     },
     {
         field: "isObselete",
-        headerName: "Obsolete",
+        headerName: "Obselete",
         flex: 1,
         headerAlign: "center",
         align: "center",

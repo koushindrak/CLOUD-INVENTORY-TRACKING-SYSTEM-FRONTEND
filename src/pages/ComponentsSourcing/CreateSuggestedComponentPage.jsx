@@ -7,21 +7,21 @@ import {useDispatch, useSelector} from 'react-redux';
 import Header from "../../containers/Header";
 import {useEffect, useState} from "react";
 import {
-    createComponent,
-    createComponentFailure,
-    createComponentSuccess,
-    resetCreateComponentSates
-} from "./CreateComponent";
+    createSuggestedComponent,
+    createSuggestedComponentFailure,
+    createSuggestedComponentSuccess,
+    resetCreateSuggestedComponentSates
+} from "./CreateSuggestedComponent";
 import {getProductByIdSuccess} from "../Products/selectors";
 import {errorToast, successToast} from "../../containers/react-toast-alert";
 
-const AddComponent = () => {
+const AddSuggestedComponent = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const {id} = useParams();
     const dispatch = useDispatch();
-    const [component, setComponent] = useState(null);
-    const createSuccess = useSelector(createComponentSuccess);
-    const createFailure = useSelector(createComponentFailure);
+    const [suggestedComponent, setSuggestedComponent] = useState(null);
+    const createSuccess = useSelector(createSuggestedComponentSuccess);
+    const createFailure = useSelector(createSuggestedComponentFailure);
 
     const getProductByIdSuccessResponse = useSelector(getProductByIdSuccess)
 
@@ -32,11 +32,11 @@ const AddComponent = () => {
         if (createSuccess) {
             if (productId) {
                 successToast(createSuccess.displayMessage)
-                navigate('/products/' + productId + '/components/');
+                navigate('/products/' + productId + '/suggestedComponents/');
             } else {
-                navigate('/components');
+                navigate('/suggestedComponents');
             }
-            dispatch(resetCreateComponentSates());
+            dispatch(resetCreateSuggestedComponentSates());
         }
     }, [createSuccess])
 
@@ -48,13 +48,13 @@ const AddComponent = () => {
 
     const handleFormSubmit = (values) => {
         console.log("values--", values)
-        dispatch(createComponent(values));
+        dispatch(createSuggestedComponent(values));
     };
 
 
-    const componentSchema = yup.object().shape({
+    const suggestedComponentSchema = yup.object().shape({
         // name: yup.string().required("required"),
-        // componentCategoryName: yup.string().required("required"),
+        // suggestedComponentCategoryName: yup.string().required("required"),
         // threshold: yup.number().integer().required("required"),
         // stock: yup.number().integer().required("required"),
         // isObselete: yup.boolean().required("required"),
@@ -62,21 +62,21 @@ const AddComponent = () => {
 
     return (
         <Box marginLeft="275px" marginRight="10px" marginBottom="10px">
-            <Header title="Add New Component"/>
+            <Header title="Add New SuggestedComponent"/>
             <Formik
                 onSubmit={handleFormSubmit}
                 initialValues={{
                     id: '',
                     mfrptn: '',
                     description: '',
-                    componentCategoryName: '',
+                    suggestedComponentCategoryName: '',
                     footprint: '',
                     value: '',
                     isObselete: false,
-                    threshold: 0,
-                    stock: 0,
+                    threshold: null,
+                    stock: null,
                 }}
-                validationSchema={componentSchema}
+                validationSchema={suggestedComponentSchema}
             >
                 {({
                       values,
@@ -115,10 +115,10 @@ const AddComponent = () => {
                                 label="Category"
                                 onBlur={handleBlur}
                                 onChange={handleChange}
-                                value={values.componentCategoryName}
-                                name="componentCategoryName"
-                                error={!!touched.componentCategoryName && !!errors.componentCategoryName}
-                                helperText={touched.componentCategoryName && errors.componentCategoryName}
+                                value={values.suggestedComponentCategoryName}
+                                name="suggestedComponentCategoryName"
+                                error={!!touched.suggestedComponentCategoryName && !!errors.suggestedComponentCategoryName}
+                                helperText={touched.suggestedComponentCategoryName && errors.suggestedComponentCategoryName}
                                 sx={{gridColumn: isNonMobile ? 'span 2' : 'span 2'}}
 
                             />
@@ -194,7 +194,7 @@ const AddComponent = () => {
                         </Box>
                         <Box display="flex" justifyContent="end" mt="20px">
                             <Button type="submit" color="secondary" variant="contained">
-                                Save Component
+                                Save SuggestedComponent
                             </Button>
                         </Box>
                     </form>
@@ -206,5 +206,5 @@ const AddComponent = () => {
     );
 };
 
-export default AddComponent;
+export default AddSuggestedComponent;
 

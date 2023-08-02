@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -10,183 +10,206 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import {createTheme, ThemeProvider} from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import PersonIcon from '@mui/icons-material/Person';
 import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
-import {useDispatch, useSelector} from "react-redux";
-import {login, loginFailure, loginSuccess} from "./Login";
-import {errorToast} from "../../containers/react-toast-alert";
-import {useNavigate} from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { login, loginFailure, loginSuccess } from './Login';
+import { errorToast } from '../../containers/react-toast-alert';
+import { useNavigate } from 'react-router-dom';
+import ecosystemImage from './ecossystem.jpeg';
+import { createGlobalStyle } from 'styled-components';
 
 function SignIn() {
-    const [showPassword, setShowPassword] = useState(false);
-    const [signInSuccess, setSignInSuccess] = useState(false);
-    const [emailError, setEmailError] = useState(false);
-    const [passwordError, setPasswordError] = useState(false);
-    const [signInError, setSignInError] = useState(false);
-    const loginSuccessRes = useSelector(loginSuccess);
-    const loginFailureRes = useSelector(loginFailure);
+  const [showPassword, setShowPassword] = useState(false);
+  const [signInSuccess, setSignInSuccess] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [signInError, setSignInError] = useState(false);
+  const loginSuccessRes = useSelector(loginSuccess);
+  const loginFailureRes = useSelector(loginFailure);
 
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        if (loginFailureRes) {
-            errorToast(loginFailureRes.error)
-        } else if (loginSuccessRes) {
-            console.log(loginSuccessRes)
-            localStorage.token = loginSuccessRes.token;
-            navigate("/products")
-        }
-    }, [loginFailureRes, loginSuccessRes])
+  useEffect(() => {
+    if (loginFailureRes) {
+      errorToast(loginFailureRes.error);
+    } else if (loginSuccessRes) {
+      console.log(loginSuccessRes);
+      localStorage.token = loginSuccessRes.token;
+      navigate('/products');
+    }
+  }, [loginFailureRes, loginSuccessRes]);
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        const username = data.get('email');
-        const password = data.get('password');
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const username = data.get('email');
+    const password = data.get('password');
 
-        if (username && password) {
-            const payload = {username, password};
-            //disptaching login action
-            dispatch(login(payload));
+    if (username && password) {
+      const payload = { username, password };
+      //disptaching login action
+      dispatch(login(payload));
+    } else {
+      setEmailError(!username);
+      setPasswordError(!password);
+    }
+  };
 
-            // setSignInSuccess(true);
-            // setEmailError(false);
-            // setPasswordError(false);
-        } else {
-            setEmailError(!username);
-            setPasswordError(!password);
-        }
-    };
+  const handleShowPassword = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
 
+    const GlobalStyle = createGlobalStyle`
+      body {
+        margin: 0;
+        padding: 0;
+        background: #1a1a1a;
+        font-family: Arial, sans-serif;
+        color: #f5f5f5;
+      }
+    `
 
-    const handleShowPassword = () => {
-        setShowPassword((prevShowPassword) => !prevShowPassword);
-    };
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: '#005EFF', // Adjust primary color as needed
+      },
+      secondary: {
+        main: '#111111', // Adjust secondary color as needed
+      },
+    },
+  });
 
-    const theme = createTheme({
-        palette: {
-            primary: {
-                main: '#32ba91', // Adjust primary color as needed
-            },
-            secondary: {
-                main: '#f44336', // Adjust secondary color as needed
-            },
-        },
-    });
+  return (
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+        <Container component="main" maxWidth="xs" sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100vh' }}>
+            <CssBaseline />
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    padding: "30px",
+                    border: "2px solid #111",
+                    borderRadius: "30px",
+                    backgroundColor: "#ffffff",
+                }}
+            >
+          <Box
+            sx={{
+              marginBottom: "10px",
+              width: "100px",
+              height: "100px",
+              overflow: "hidden",
+              border: "4px solid seagreen",
+              padding: "8px",
+            }}
+          >
+            <a href="/">
+              <img
+                alt="ecosystem"
+                width="100%"
+                height="100%"
+                src={ecosystemImage}
+                style={{ cursor: "pointer" }}
+              />
+            </a>
+          </Box>
 
-    return (
-        <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="xs">
-                <CssBaseline/>
-                <Box
-                    sx={{
-                        position: 'absolute',
-                        top: '20px',
-                        left: '20px',
-                        width: '50px',
-                        height: '50px',
-                        borderRadius: '50%',
-                        overflow: 'hidden',
-                        boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.1)',
-                    }}
-                >
-                    {/* <Avatar sx={{ width: '100%', height: '100%' }}>
-            <img
-              src={logo}
-              alt="Company Logo"
-              style={{ width: '100%', height: '800%', objectFit: 'cover' }}
+          <Typography
+            component="h2"
+            variant="h7"
+            align="center"
+            sx={{
+              backgroundColor: "#111",
+              color: "#fff",
+              padding: "4px 10px",
+              borderRadius: "10px",
+              fontSize: "16px",
+              marginBottom: "5px",
+              marginTop: "9px",
+            }}
+          >
+            Welcome, Please Login!
+          </Typography>
+          {signInError && (
+            <Alert severity="error">
+              <AlertTitle>Error</AlertTitle>
+              Invalid username or password
+            </Alert>
+          )}
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1.5 }}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              error={emailError}
+              onChange={() => setEmailError(false)}
+              helperText={emailError ? "Please enter your email address" : ""}
             />
-          </Avatar> */}
-                </Box>
-                <Box
-                    sx={{
-                        marginTop: 12,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        padding: '30px',
-                        border: '6px solid #ddd',
-                        borderRadius: '20px',
-                        backgroundColor: '#f5f5f5',
-                    }}
-                >
-                    <PersonIcon sx={{m: 0.1, fontSize: '3.5rem', bgcolor: '#f5f5f5'}}>
-                        <LockOutlinedIcon/>
-                    </PersonIcon>
-                    <Typography component="h1" variant="h4" align="center">
-                        Sign in
-                    </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{mt: 0}}>
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
-                            error={emailError}
-                            helperText={emailError ? 'Email is required' : ''}
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type={showPassword ? 'text' : 'password'}
-                            id="password"
-                            autoComplete="current-password"
-                            error={passwordError}
-                            helperText={passwordError ? 'Password is required' : ''}
-                            InputProps={{
-                                endAdornment: (
-                                    <IconButton onClick={handleShowPassword} edge="end">
-                                        {showPassword ? <VisibilityOff/> : <Visibility/>}
-                                    </IconButton>
-                                ),
-                            }}
-                        />
-                        <FormControlLabel control={<Checkbox value="remember" color="primary"/>} label="Remember me"/>
-                        {signInError && (
-                            <Alert severity="error" sx={{mt: 2, mb: 2}}>
-                                <AlertTitle>Error</AlertTitle>
-                                Couldn't sign in. Please check your email and password.
-                            </Alert>
-                        )}
-                        {signInSuccess && (
-                            <Alert severity="success" sx={{mt: 2, mb: 2}}>
-                                <AlertTitle>Sign In Successful</AlertTitle>
-                                You have successfully signed in.
-                            </Alert>
-                        )}
-                        <Button type="submit" fullWidth variant="contained" sx={{mt: 3, mb: 2}}>
-                            Sign In
-                        </Button>
-                        <Grid container>
-                            <Grid item xs>
-                                <Link href="/forgot-pass" variant="body2">
-                                    Forgot password?
-                                </Link>
-                            </Grid>
-                            <Grid item>
-                                {/* <Link href="/sign-up" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link> */}
-                            </Grid>
-                        </Grid>
-                    </Box>
-                </Box>
-            </Container>
-        </ThemeProvider>
-    );
+
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type={showPassword ? "text" : "password"}
+              id="password"
+              autoComplete="current-password"
+              error={passwordError}
+              onChange={() => setPasswordError(false)}
+              helperText={passwordError ? "Please enter your password" : ""}
+              InputProps={{
+                endAdornment: (
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleShowPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                ),
+              }}
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 1, mb: 1 }}>
+              Login
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Grid container justifyContent="center" sx={{ mt: 1 }}>
+                  <Grid item xs={12} align="center">
+                    {" "}
+                    {/* Container for the link */}
+                    <Link href="/forgot-pass" variant="body1">
+                      Forgot password?
+                    </Link>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
+  );
 }
 
 export default SignIn;

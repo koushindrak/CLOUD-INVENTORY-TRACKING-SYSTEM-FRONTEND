@@ -204,9 +204,10 @@ const Pcb = () => {
 
 
     return (
-        <Box m="20px">
+        <Box marginLeft="275px" marginRight="10px" marginBottom="10px">
 
             <Box position="relative">
+                {(['ADMIN', 'EDITOR'].includes(COMMON_UTILS.getRole())) && (
                 <Button
                     onClick={handleAdd}
                     variant="outlined"
@@ -222,7 +223,7 @@ const Pcb = () => {
                     startIcon={<AddIcon/>}>
                     Add Pcb
                 </Button>
-
+                )}
 
                 <Header
                     subtitleStyle={{color: colors.grey[100]}}

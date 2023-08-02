@@ -65,7 +65,7 @@ const OrderById = () => {
     const order = orderSuccess && orderSuccess.data;
 
     return (
-        <ColorfulBox m="20px" p="20px" style={{maxWidth: '80vw', overflowX: 'hidden'}}>
+        <ColorfulBox marginLeft="275px" p="20px" style={{maxWidth: '80vw', overflowX: 'hidden'}}>
             <Box position="relative">
                 {loading ? (
                     <CircularProgress/>

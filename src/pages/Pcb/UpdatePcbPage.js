@@ -63,7 +63,7 @@ const UpdatePcbPage = () => {
     });
 
     return (
-        <Box m="20px">
+        <Box marginLeft="275px" marginRight="10px" marginBottom="10px">
             <Header title="Edit PCB" subtitle="Edit an Existing PCB"/>
             {pcb && (  // Conditional rendering
                 <Formik

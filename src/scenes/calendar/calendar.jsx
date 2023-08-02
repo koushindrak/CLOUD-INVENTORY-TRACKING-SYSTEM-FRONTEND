@@ -40,7 +40,7 @@ const Calendar = () => {
     };
 
     return (
-        <Box m="20px">
+        <Box marginLeft="275px" marginRight="10px" marginBottom="10px">
             <Header title="Calendar" subtitle="Full Calendar Interactive Page"/>
 
             <Box display="flex" justifyContent="space-between">
