@@ -201,6 +201,9 @@ function SignIn() {
                     <Link href="/forgot-pass" variant="body1">
                       Forgot password?
                     </Link>
+                      <Link href ="https://api.digikey.com/v1/oauth2/authorize?response_type=code&client_id=Szt0YCjZphcUuOSO6BeA8BC68MEiGmIE&redirect_uri=https%3A%2F%2Flocalhost">
+                      OAuth Login
+                      </Link>
                   </Grid>
                 </Grid>
               </Grid>
