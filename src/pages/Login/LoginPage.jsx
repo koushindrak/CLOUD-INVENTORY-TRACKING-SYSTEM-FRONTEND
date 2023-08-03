@@ -70,7 +70,7 @@ function SignIn() {
       body {
         margin: 0;
         padding: 0;
-        background: #1a1a1a;
+        background: #ffffff;
         font-family: Arial, sans-serif;
         color: #f5f5f5;
       }
@@ -186,7 +186,7 @@ function SignIn() {
               }}
             />
             <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
+              control={<Checkbox value="remember" color="secondary" />}
               label="Remember me"
             />
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 1, mb: 1 }}>
