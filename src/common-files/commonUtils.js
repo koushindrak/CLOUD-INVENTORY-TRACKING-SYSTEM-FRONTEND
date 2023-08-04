@@ -22,6 +22,9 @@ export function* ErrorCheck(action, error, errorConst) {
     } else if (error.response.status === 400 || error.response.status === 403 || error.response.status === 500) {
         yield put({type: errorConst, error: error.response.data.displayError, addOns: action});
     } else if (error.response.status === 401) {
+        if(error.response.errorCode==="DIGIKEY_CODE_EXPIRED"){
+
+        }
         localStorage.clear();
         yield put({type: errorConst, error: error.response.data.displayError, addOns: action});
     }
