@@ -20,7 +20,7 @@ import {errorToast, successToast} from "../../containers/react-toast-alert";
 import DeveloperBoardIcon from "@mui/icons-material/DeveloperBoard";
 import {componentColumns} from "./ComponentColumns";
 import * as COMMON_UTILS from '../../common-files/commonUtils';
-import {createComponentFailure, createComponentSuccess} from "./CreateComponent";
+import {createComponentFailure, createComponentSuccess, resetCreateComponentSates} from "./CreateComponent";
 
 
 const Component = () => {
@@ -75,6 +75,7 @@ const Component = () => {
     useEffect(()=>{
         if(addComponentFailure){
             errorToast(addComponentFailure.error)
+            dispatch(resetCreateComponentSates())
         }
     },[addComponentFailure])
 
@@ -83,9 +84,11 @@ const Component = () => {
         if (productId) {
             console.log("productId--", productId)
             dispatch(getProductById(productId));
+            dispatch(resetCreateComponentSates())
         } else {
             console.log("productId2222--", productId)
             dispatch(getComponent());
+            dispatch(resetCreateComponentSates())
         }
     }, [dispatch]);
 

@@ -13,7 +13,12 @@ export function GetHeaders() {
     return headers
 }
 
+export function getFirstName(){
+    console.log("getting first name----------",jwt_decode(localStorage["token"]))
+    return jwt_decode(localStorage["token"]).name.split(" ")[0]
+}
 export function getRole() {
+    console.log("getting role-----",jwt_decode(localStorage["token"]))
     return jwt_decode(localStorage["token"]).role;
 }
 export function* ErrorCheck(action, error, errorConst) {
@@ -25,7 +30,7 @@ export function* ErrorCheck(action, error, errorConst) {
         if(error.response.errorCode==="DIGIKEY_CODE_EXPIRED"){
 
         }
-        localStorage.clear();
+        // localStorage.clear();
         yield put({type: errorConst, error: error.response.data.displayError, addOns: action});
     }
 }

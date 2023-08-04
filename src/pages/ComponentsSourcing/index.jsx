@@ -28,7 +28,7 @@ import './CardsStyle.css'; // import the new CSS file
 import SearchOffIcon from '@mui/icons-material/SearchOff';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { indigo } from "@mui/material/colors";
-import {createComponent} from "../Components/CreateComponent";
+import {createComponent, resetCreateComponentSates} from "../Components/CreateComponent";
 import {useNavigate, useParams} from "react-router-dom";
 
 const SuggestedComponent = () => {
@@ -74,6 +74,7 @@ const SuggestedComponent = () => {
         };
         console.log("Button clicked",product);  // replace this with your actual function
         dispatch(createComponent(payload))
+        dispatch(resetCreateComponentSates());
         navigate("/components")
     }
     const handleClickOpen = () => {

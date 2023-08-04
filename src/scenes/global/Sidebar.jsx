@@ -19,6 +19,8 @@ import AssignmentIndRoundedIcon from '@mui/icons-material/AssignmentIndRounded';
 import HelpCenterRoundedIcon from '@mui/icons-material/HelpCenterRounded';
 import LockResetRoundedIcon from '@mui/icons-material/LockResetRounded';
 import {UserOutlined} from "@ant-design/icons";
+import * as COMMON_UTILS from '../../common-files/commonUtils';
+import {getFirstName} from "../../common-files/commonUtils";
 
 const Item = ({title, to, icon, selected, setSelected}) => {
     const theme = useTheme();
@@ -119,17 +121,17 @@ const Sidebar = () => {
                                     fontWeight="bold"
                                     sx={{m: "10px 0 0 0"}}
                                 >
-                                    {jwt_decode(localStorage["token"]).name.split(" ")[0]}
+                                    {COMMON_UTILS.getFirstName()}
                                 </Typography>
                                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                                    {jwt_decode(localStorage["token"]).role}
+                                    {COMMON_UTILS.getRole()}
                                 </Typography>
                             </Box>
                         </Box>
                     )}
 
                     <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-                        {jwt_decode(localStorage["token"]).role === 'ADMIN' &&
+                        {COMMON_UTILS.getRole() === 'ADMIN' &&
                         <Item
                             title="Manage Users"
                             to="/users"
