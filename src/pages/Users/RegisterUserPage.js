@@ -14,6 +14,13 @@ import ecosystemImage from '../Login/ecossystem.jpeg';
 import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles((theme) => ({
+  mainContainer: {
+    backgroundColor: '#f0f0f0',
+    minHeight: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   root: {
     flexGrow: 1,
   },
@@ -36,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     width: '80%',
     height: '80%',
     margin: '6px auto',
-    border: '4px solid seagreen',
+    border: '2px solid black',
   },
 }));
 
@@ -125,6 +132,22 @@ const RegisterUserPage = () => {
   });
 
   const userSchema = yup.object().shape({
+    firstName: yup.string().required('First Name is required'),
+    lastName: yup.string().required('Last Name is required'),
+    username: yup.string().required('Username is required'),
+    newPassword: yup
+        .string()
+        .required('New Password is required')
+        .matches(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/,
+            'Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number, and be 8 characters long'
+        ),
+    password: yup
+        .string()
+        .required('Confirm Password is required')
+        .oneOf([yup.ref('newPassword')], 'Passwords must match'),
+  });
+  const userSchema_old = yup.object().shape({
     newPassword: yup
       .string()
       .required('Required')
@@ -140,6 +163,8 @@ const RegisterUserPage = () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
+      <Box className={classes.mainContainer}>
+
       <Container maxWidth="sm" className={classes.paper}>
         <Box display="flex" flexDirection="column" alignItems="center">
           <Box mb={0.8}>
@@ -150,11 +175,11 @@ const RegisterUserPage = () => {
             variant="h7"
             align="center"
             sx={{
-              backgroundColor: '#111',
-              color: '#fff',
+              // backgroundColor: '#111',
+              color: '#111',
               padding: '4px 10px',
               borderRadius: '10px',
-              fontSize: '29px',
+              fontSize: '22px',
               marginBottom: '4px',
               marginTop: '8px',
             }}
@@ -277,6 +302,8 @@ const RegisterUserPage = () => {
           </Formik>
         )}
       </Container>
+      </Box>
+
     </ThemeProvider>
   );
 };

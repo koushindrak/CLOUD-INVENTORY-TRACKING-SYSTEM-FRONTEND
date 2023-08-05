@@ -23,7 +23,20 @@ import { errorToast } from '../../containers/react-toast-alert';
 import { useNavigate } from 'react-router-dom';
 import ecosystemImage from './ecossystem.jpeg';
 import { createGlobalStyle } from 'styled-components';
+import {makeStyles} from "@mui/styles";
 
+const useStyles = makeStyles((theme) => ({
+    remember: {
+        '& .MuiSvgIcon-root': {
+            width: '1.2em', // Adjust the size of the checkbox icon
+            height: '1.2em',
+        },
+        '& .MuiFormControlLabel-label': {
+            fontSize: '14px', // Adjust the label font size
+            color: '#000', // Use black color for the label
+        },
+    },
+}));
 function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
   const [signInSuccess, setSignInSuccess] = useState(false);
@@ -35,6 +48,7 @@ function SignIn() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const classes = useStyles();
 
   useEffect(() => {
     if (loginFailureRes) {
@@ -70,7 +84,7 @@ function SignIn() {
       body {
         margin: 0;
         padding: 0;
-        background: #ffffff;
+        background: rgba(245, 241, 241, 0.98);
         font-family: Arial, sans-serif;
         color: #f5f5f5;
       }
@@ -109,7 +123,7 @@ function SignIn() {
               width: "100px",
               height: "100px",
               overflow: "hidden",
-              border: "4px solid seagreen",
+              border: "2px solid black",
               padding: "8px",
             }}
           >
@@ -185,10 +199,11 @@ function SignIn() {
                 ),
               }}
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="secondary" />}
-              label="Remember me"
-            />
+              <FormControlLabel
+                  className={classes.remember}
+                  control={<Checkbox color="primary" />} // Use color="primary" for the default MUI primary color
+                  label="Remember me"
+              />
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 1, mb: 1 }}>
               Login
             </Button>

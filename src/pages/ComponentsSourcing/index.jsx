@@ -35,7 +35,7 @@ const SuggestedComponent = () => {
     const getByPartNumberSuccessRes = useSelector(getSuggestedComponentByIdSuccess);
     const [suggestedComp, setSuggestedComp] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [searchId, setSearchId] = useState("SPU0410LR5H-QB");
+    const [searchId, setSearchId] = useState("SPQ1410HR5H-B");
     const [firstLoad, setFirstLoad] = useState(true);
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
