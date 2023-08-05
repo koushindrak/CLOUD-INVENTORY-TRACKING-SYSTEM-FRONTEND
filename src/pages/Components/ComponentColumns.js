@@ -3,14 +3,14 @@ import {getSuggestedComponentById} from "../ComponentsSourcing/GetSuggestedCompo
 import { Link } from 'react-router-dom';
 
 export const componentColumns = (dispatch, navigate) => [
-    {
-        field: "id",
-        headerName: "ID",
-        headerAlign: "center",
-        align: "center",
-        hide: true,
-        cellClassName: "id-column--cell",  // Add the className here
-    },
+    // {
+    //     field: "id",
+    //     headerName: "ID",
+    //     headerAlign: "center",
+    //     align: "center",
+    //     hide: true,
+    //     cellClassName: "id-column--cell",  // Add the className here
+    // },
     {
         field: "mfrptn",
         headerName: "MFRPTN",

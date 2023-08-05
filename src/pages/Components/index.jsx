@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {Box, Button, Tooltip, useTheme} from "@mui/material";
-import {DataGrid} from "@mui/x-data-grid";
+import {DataGrid, GridToolbar} from "@mui/x-data-grid";
 import {tokens} from "../../theme";
 import {useDispatch, useSelector} from 'react-redux';
 import Header from "../../containers/Header";
@@ -241,6 +241,11 @@ const Component = () => {
                     <DataGrid
                         rows={components}
                         columns={completeColumns}
+                        pageSize={10}
+                        pagination
+                        components={{
+                            Toolbar: GridToolbar
+                        }}
                         getRowClassName={(params) =>
                             params.getValue(params.id, "threshold") > params.getValue(params.id, "stock")
                                 ? "red-row"

@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {Box, useTheme} from "@mui/material";
-import {DataGrid} from "@mui/x-data-grid";
+import {DataGrid, GridToolbar} from "@mui/x-data-grid";
 import {tokens} from "../../theme";
 import {useDispatch, useSelector} from 'react-redux';
 import Header from "../../containers/Header";
@@ -101,6 +101,11 @@ const Orders = () => {
                             getRowId={(row) => row.SalesorderId}
                             rows={getOrderSuccessResponse.data}
                             columns={completeColumns}
+                            pageSize={10}
+                            pagination
+                            components={{
+                                Toolbar: GridToolbar
+                            }}
                         />
                     ) : (
                         <Box

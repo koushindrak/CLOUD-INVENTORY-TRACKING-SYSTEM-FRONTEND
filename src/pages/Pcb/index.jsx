@@ -143,12 +143,12 @@ const Pcb = () => {
     /* Button click actions ends here */
 
     const columns = [
-        {
-            field: "id",
-            headerName: "ID",
-            headerAlign: "center",
-            align: "center",
-        },
+        // {
+        //     field: "id",
+        //     headerName: "ID",
+        //     headerAlign: "center",
+        //     align: "center",
+        // },
         {
             field: "name",
             headerName: "Name",

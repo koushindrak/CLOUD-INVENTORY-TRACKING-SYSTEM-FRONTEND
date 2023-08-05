@@ -1,13 +1,13 @@
 import './css/styles.css'
 
 export const userColumns = [
-    {
-        field: "id",
-        headerName: "ID",
-        headerAlign: "center",
-        align: "center",
-        cellClassName: "id-column--cell",  // Add the className here
-    },
+    // {
+    //     field: "id",
+    //     headerName: "ID",
+    //     headerAlign: "center",
+    //     align: "center",
+    //     cellClassName: "id-column--cell",  // Add the className here
+    // },
     {
         field: "name",
         headerName: "Name",
