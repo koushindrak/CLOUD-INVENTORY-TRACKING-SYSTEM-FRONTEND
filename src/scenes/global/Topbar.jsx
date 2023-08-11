@@ -40,6 +40,7 @@ const Topbar = () => {
         navigate("/components/alerts")
         window.location.reload()
 
+
     }
     return (
         <Box display="flex" justifyContent="space-between" p={2}>
