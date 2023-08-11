@@ -38,6 +38,7 @@ const Topbar = () => {
 
     const handleNotificationIconClick = () => {
         navigate("/components/alerts")
+        window.location.reload()
     }
     return (
         <Box display="flex" justifyContent="space-between" p={2}>
@@ -55,7 +56,7 @@ const Topbar = () => {
                 </Tooltip>
 
                 <Tooltip title="Low Stock Alerts" placement="top">
-                <IconButton onClick={handleNotificationIconClick}>
+                <IconButton style={{color:"red"}} onClick={handleNotificationIconClick}>
                     <NotificationsOutlinedIcon/>
                 </IconButton>
                 </Tooltip>

@@ -10,12 +10,12 @@ import SendRoundedIcon from '@mui/icons-material/SendRounded';
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
-    body {
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(to right, #8BC839, #F8B376, #34BEB7);
-    }
-  `;
+  body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #f3f5f0, #f8f7f6, #f5f7f8);
+  }
+`;
 
 const theme = createTheme({
   palette: {

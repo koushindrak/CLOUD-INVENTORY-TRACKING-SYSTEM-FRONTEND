@@ -37,9 +37,11 @@ export const initialState = fromJS({});
 export function LoginReducer(state = initialState, action) {
     switch (action.type) {
         case LOGIN_SUCCESS:
+            console.log("LOGIN SUCCESS----",action.response)
             return Object.assign({}, state, {loginResponse: action.response})
 
         case LOGIN_FAILURE:
+            console.log("LOGIN ERROR----",action.error)
             return Object.assign({}, state, {loginError: {error: action.error, errorTime: new Date()}})
 
         case RESET_LOGIN_STATES:

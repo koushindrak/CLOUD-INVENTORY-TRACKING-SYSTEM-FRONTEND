@@ -79,7 +79,8 @@ const Sidebar = () => {
                 <Menu iconShape="square">
                     {/* LOGO AND MENU ICON */}
                     <MenuItem
-                        onClick={() => setIsCollapsed(!isCollapsed)}
+                        // onClick={() => setIsCollapsed(!isCollapsed)}
+                        onClick={() => setIsCollapsed(isCollapsed)}
                         icon={isCollapsed ? <MenuOutlinedIcon/> : undefined}
                         style={{
                             margin: "10px 0 20px 0",
@@ -96,7 +97,8 @@ const Sidebar = () => {
                                 <Typography variant="h5" color={colors.grey[100]}>
                                     Ecosystem informatics
                                 </Typography>
-                                <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
+                                <IconButton onClick={() => setIsCollapsed(isCollapsed)}>
+                                    {/*<IconButton onClick={() => setIsCollapsed(!isCollapsed)}>*/}
                                     <MenuOutlinedIcon/>
                                 </IconButton>
                             </Box>

@@ -18,7 +18,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import { useDispatch, useSelector } from 'react-redux';
-import { login, loginFailure, loginSuccess } from './Login';
+import {login, loginFailure, loginSuccess, resetLoginSates} from './Login';
 import { errorToast } from '../../containers/react-toast-alert';
 import { useNavigate } from 'react-router-dom';
 import ecosystemImage from './ecossystem.jpeg';
@@ -53,6 +53,7 @@ function SignIn() {
   useEffect(() => {
     if (loginFailureRes) {
       errorToast(loginFailureRes.error);
+      dispatch(resetLoginSates())
     } else if (loginSuccessRes) {
       console.log(loginSuccessRes);
       localStorage.token = loginSuccessRes.token;
