@@ -37,7 +37,6 @@ const Topbar = () => {
     };
 
     const handleNotificationIconClick = () => {
-
         navigate("/components/alerts")
         window.location.reload()
     }
